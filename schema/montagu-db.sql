@@ -30,15 +30,13 @@ PRIMARY KEY ("id")
 );
 
 CREATE TABLE "model" (
-"id"  SERIAL ,
-"modelling_group" INTEGER NOT NULL ,
-"code" TEXT NOT NULL ,
+"id" TEXT NOT NULL ,
+"modelling_group" TEXT NOT NULL DEFAULT 'NULL' ,
 "name" VARCHAR(64) NOT NULL ,
 "citation" TEXT NOT NULL ,
 "description" TEXT NOT NULL ,
-"current" INTEGER NOT NULL ,
-PRIMARY KEY ("id"),
-UNIQUE ("code")
+"current" TEXT NOT NULL ,
+PRIMARY KEY ("id")
 );
 
 CREATE TABLE "outcome" (
@@ -74,39 +72,9 @@ CREATE TABLE "disease" (
 PRIMARY KEY ("id")
 );
 
-CREATE TABLE "demographics_set" (
-"id"  SERIAL ,
-"touchstone" TEXT NOT NULL DEFAULT 'NULL' ,
-"name" VARCHAR NOT NULL ,
-"version" VARCHAR NOT NULL ,
-PRIMARY KEY ("id")
-);
-
-CREATE TABLE "demographics" (
-"id"  SERIAL ,
-"demographics_set" INTEGER NOT NULL ,
-"year" INTEGER NOT NULL ,
-"country" TEXT NOT NULL ,
-"age_group" INTEGER ,
-"no_males" INTEGER NOT NULL ,
-"no_females" INTEGER ,
-"mort_rate_male" DOUBLE PRECISION ,
-"mort_rate_female" DOUBLE PRECISION NOT NULL ,
-"fertility_rate_male" DOUBLE PRECISION NOT NULL ,
-"fertlity_rate_female" DOUBLE PRECISION NOT NULL ,
-PRIMARY KEY ("id")
-);
-
-CREATE TABLE "age_group" (
-"id"  SERIAL ,
-"from" INTEGER NOT NULL ,
-"to" INTEGER NOT NULL ,
-PRIMARY KEY ("id")
-);
-
 CREATE TABLE "model_version" (
 "id"  SERIAL ,
-"model" INTEGER NOT NULL ,
+"model" TEXT NOT NULL ,
 "version" TEXT NOT NULL ,
 "note" TEXT ,
 "fingerprint" TEXT ,
@@ -148,19 +116,19 @@ UNIQUE ("touchstone", "scenario_description")
 
 CREATE TABLE "coverage_set" (
 "id"  SERIAL NOT NULL ,
-"campaign" BOOLEAN NOT NULL ,
 "name" TEXT NOT NULL ,
 "touchstone" TEXT NOT NULL ,
+"vaccine" TEXT NOT NULL ,
+"vaccination_level" TEXT NOT NULL ,
+"scenario_type" TEXT NOT NULL ,
 PRIMARY KEY ("id")
 );
 
 CREATE TABLE "modelling_group" (
-"id"  SERIAL NOT NULL ,
-"code" TEXT NOT NULL ,
+"id" TEXT NOT NULL ,
 "description" TEXT NOT NULL ,
-"current" INTEGER NOT NULL ,
-PRIMARY KEY ("id"),
-UNIQUE ("code")
+"current" TEXT NOT NULL ,
+PRIMARY KEY ("id")
 );
 
 CREATE TABLE "responsibility" (
@@ -183,7 +151,7 @@ PRIMARY KEY ("id")
 
 CREATE TABLE "responsibility_set" (
 "id"  SERIAL NOT NULL ,
-"modelling_group" INTEGER NOT NULL ,
+"modelling_group" TEXT NOT NULL ,
 "touchstone" TEXT NOT NULL ,
 "status" TEXT NOT NULL ,
 PRIMARY KEY ("id"),
@@ -230,15 +198,14 @@ ALTER TABLE "model" ADD FOREIGN KEY ("modelling_group") REFERENCES "modelling_gr
 ALTER TABLE "model" ADD FOREIGN KEY ("current") REFERENCES "model" ("id");
 ALTER TABLE "coverage" ADD FOREIGN KEY ("coverage_set") REFERENCES "coverage_set" ("id");
 ALTER TABLE "coverage" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
-ALTER TABLE "demographics_set" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
-ALTER TABLE "demographics" ADD FOREIGN KEY ("demographics_set") REFERENCES "demographics_set" ("id");
-ALTER TABLE "demographics" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
-ALTER TABLE "demographics" ADD FOREIGN KEY ("age_group") REFERENCES "age_group" ("id");
 ALTER TABLE "model_version" ADD FOREIGN KEY ("model") REFERENCES "model" ("id");
 ALTER TABLE "touchstone" ADD FOREIGN KEY ("status") REFERENCES "touchstone_status" ("id");
 ALTER TABLE "scenario" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "scenario" ADD FOREIGN KEY ("scenario_description") REFERENCES "scenario_description" ("id");
 ALTER TABLE "coverage_set" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
+ALTER TABLE "coverage_set" ADD FOREIGN KEY ("vaccine") REFERENCES "vaccine" ("id");
+ALTER TABLE "coverage_set" ADD FOREIGN KEY ("vaccination_level") REFERENCES "vaccination_level" ("id");
+ALTER TABLE "coverage_set" ADD FOREIGN KEY ("scenario_type") REFERENCES "scenario_type" ("id");
 ALTER TABLE "modelling_group" ADD FOREIGN KEY ("current") REFERENCES "modelling_group" ("id");
 ALTER TABLE "responsibility" ADD FOREIGN KEY ("responsibility_set") REFERENCES "responsibility_set" ("id");
 ALTER TABLE "responsibility" ADD FOREIGN KEY ("coverage_scenario") REFERENCES "scenario" ("id");

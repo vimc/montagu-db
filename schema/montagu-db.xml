@@ -41,7 +41,7 @@
             <type label="Inet CIDR Addr" length="0" sql="CIDR" quote="'"/>
             <type label="Geometry" length="0" sql="GEOMETRY" quote="'"/>
         </group>
-        </datatypes><table x="797" y="16" name="burden_estimate_set">
+        </datatypes><table x="837" y="166" name="burden_estimate_set">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -78,7 +78,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1113" y="17" name="burden_estimate">
+<table x="1153" y="167" name="burden_estimate">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -107,7 +107,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="53" y="716" name="vaccine">
+<table x="93" y="866" name="vaccine">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>'NULL'</default></row>
@@ -118,16 +118,13 @@
 <part>id</part>
 </key>
 </table>
-<table x="802" y="288" name="model">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="modelling_group" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="modelling_group" row="id" />
-</row>
-<row name="code" null="0" autoincrement="0">
+<table x="624" y="30" name="model">
+<row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
+</row>
+<row name="modelling_group" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>'NULL'</default><relation table="modelling_group" row="id" />
 </row>
 <row name="name" null="0" autoincrement="0">
 <datatype>VARCHAR(64)</datatype>
@@ -139,17 +136,14 @@
 <datatype>TEXT</datatype>
 </row>
 <row name="current" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
+<datatype>TEXT</datatype>
 <relation table="model" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
-<key type="UNIQUE" name="">
-<part>code</part>
-</key>
 </table>
-<table x="1333" y="112" name="outcome">
+<table x="1373" y="262" name="outcome">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -166,7 +160,7 @@
 <part>code</part>
 </key>
 </table>
-<table x="1598" y="485" name="country">
+<table x="1377" y="449" name="country">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -177,7 +171,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="956" y="538" name="coverage">
+<table x="1129" y="569" name="coverage">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -211,7 +205,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="53" y="833" name="disease">
+<table x="93" y="983" name="disease">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -222,85 +216,12 @@
 <part>id</part>
 </key>
 </table>
-<table x="457" y="693" name="demographics_set">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="touchstone" null="0" autoincrement="0">
-<datatype>TEXT</datatype>
-<default>'NULL'</default><relation table="touchstone" row="id" />
-</row>
-<row name="name" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
-</row>
-<row name="version" null="0" autoincrement="0">
-<datatype>VARCHAR</datatype>
-</row>
-<key type="PRIMARY" name="">
-<part>id</part>
-</key>
-</table>
-<table x="695" y="754" name="demographics">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="demographics_set" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
-<relation table="demographics_set" row="id" />
-</row>
-<row name="year" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
-</row>
-<row name="country" null="0" autoincrement="0">
-<datatype>TEXT</datatype>
-<relation table="country" row="id" />
-</row>
-<row name="age_group" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="age_group" row="id" />
-</row>
-<row name="no_males" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
-</row>
-<row name="no_females" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="mort_rate_male" null="1" autoincrement="0">
-<datatype>DOUBLE PRECISION</datatype>
-<default>NULL</default></row>
-<row name="mort_rate_female" null="0" autoincrement="0">
-<datatype>DOUBLE PRECISION</datatype>
-</row>
-<row name="fertility_rate_male" null="0" autoincrement="0">
-<datatype>DOUBLE PRECISION</datatype>
-</row>
-<row name="fertlity_rate_female" null="0" autoincrement="0">
-<datatype>DOUBLE PRECISION</datatype>
-</row>
-<key type="PRIMARY" name="">
-<part>id</part>
-</key>
-</table>
-<table x="1008" y="915" name="age_group">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="from" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
-</row>
-<row name="to" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
-</row>
-<key type="PRIMARY" name="">
-<part>id</part>
-</key>
-</table>
-<table x="1277" y="300" name="model_version">
+<table x="1147" y="9" name="model_version">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="model" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
+<datatype>TEXT</datatype>
 <relation table="model" row="id" />
 </row>
 <row name="version" null="0" autoincrement="0">
@@ -320,7 +241,7 @@
 <part>version</part>
 </key>
 </table>
-<table x="21" y="218" name="touchstone">
+<table x="61" y="368" name="touchstone">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -342,7 +263,7 @@
 </key>
 <comment>This is the top-level categorization. It refers to an Operational Forecast from GAVI, a WUENIC July update, or some other data set against which impact estimates are going to be done </comment>
 </table>
-<table x="201" y="715" name="scenario_type">
+<table x="241" y="865" name="scenario_type">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>'NULL'</default></row>
@@ -354,7 +275,7 @@
 </key>
 <comment>This is just "routine" or "campaign".</comment>
 </table>
-<table x="202" y="832" name="vaccination_level">
+<table x="242" y="982" name="vaccination_level">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -366,7 +287,7 @@
 </key>
 <comment>Enum table. Possible values: No vaccination, Vaccination without GAVI support, Vaccination with GAVI support</comment>
 </table>
-<table x="327" y="274" name="scenario">
+<table x="367" y="424" name="scenario">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -386,12 +307,9 @@
 <part>scenario_description</part>
 </key>
 </table>
-<table x="752" y="499" name="coverage_set">
+<table x="880" y="602" name="coverage_set">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
-</row>
-<row name="campaign" null="0" autoincrement="0">
-<datatype>BOOLEAN</datatype>
 </row>
 <row name="name" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
@@ -400,32 +318,38 @@
 <datatype>TEXT</datatype>
 <relation table="touchstone" row="id" />
 </row>
+<row name="vaccine" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="vaccine" row="id" />
+</row>
+<row name="vaccination_level" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="vaccination_level" row="id" />
+</row>
+<row name="scenario_type" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="scenario_type" row="id" />
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="48" y="31" name="modelling_group">
-<row name="id" null="0" autoincrement="1">
-<datatype>INTEGER</datatype>
-</row>
-<row name="code" null="0" autoincrement="0">
+<table x="88" y="181" name="modelling_group">
+<row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
 <row name="description" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
 <row name="current" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
+<datatype>TEXT</datatype>
 <relation table="modelling_group" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
-<key type="UNIQUE" name="">
-<part>code</part>
-</key>
 </table>
-<table x="581" y="80" name="responsibility">
+<table x="621" y="230" name="responsibility">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -445,7 +369,7 @@
 <part>coverage_scenario</part>
 </key>
 </table>
-<table x="93" y="517" name="scenario_description">
+<table x="133" y="667" name="scenario_description">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -472,12 +396,12 @@
 <part>id</part>
 </key>
 </table>
-<table x="291" y="100" name="responsibility_set">
+<table x="331" y="250" name="responsibility_set">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
 <row name="modelling_group" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
+<datatype>TEXT</datatype>
 <relation table="modelling_group" row="id" />
 </row>
 <row name="touchstone" null="0" autoincrement="0">
@@ -496,7 +420,7 @@
 <part>touchstone</part>
 </key>
 </table>
-<table x="536" y="347" name="scenario_coverage_set">
+<table x="576" y="497" name="scenario_coverage_set">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -512,7 +436,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="430" y="484" name="touchstone_country">
+<table x="348" y="563" name="touchstone_country">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -537,7 +461,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="25" y="405" name="touchstone_status">
+<table x="65" y="555" name="touchstone_status">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -549,7 +473,7 @@
 </key>
 <comment>Valid values: {in-preparation, open, finished}</comment>
 </table>
-<table x="543" y="225" name="responsibility_set_status">
+<table x="583" y="375" name="responsibility_set_status">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
