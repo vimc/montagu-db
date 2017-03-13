@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- SQL XML created by WWW SQL Designer, https://github.com/ondras/wwwsqldesigner/ -->
+<!-- Active URL: http://ondras.zarovi.cz/sql/demo/ -->
+<sql>
+<datatypes db="postgresql">
+        <group label="Numeric" color="rgb(238,238,170)">
+            <type label="Integer" length="0" sql="INTEGER" re="INT" quote=""/>
+            <type label="Small Integer" length="0" sql="SMALLINT" quote=""/>
+            <type label="Big Integer" length="0" sql="BIGINT" quote=""/>
+            <type label="Decimal" length="1" sql="DECIMAL" re="numeric" quote=""/>
+            <type label="Serial" length="0" sql="SERIAL" re="SERIAL4" fk="Integer" quote=""/>
+            <type label="Big Serial" length="0" sql="BIGSERIAL" re="SERIAL8" fk="Big Integer" quote=""/>
+            <type label="Real" length="0" sql="BIGINT" quote=""/>
+            <type label="Single precision" length="0" sql="FLOAT" quote=""/>
+            <type label="Double precision" length="0" sql="DOUBLE PRECISION" re="DOUBLE PRECISION" quote=""/>
+        </group>
+
+        <group label="Character" color="rgb(255,200,200)">
+            <type label="Char" length="1" sql="CHAR" quote="'"/>
+            <type label="Varchar" length="1" sql="VARCHAR" re="CHARACTER VARYING" quote="'"/>
+            <type label="Text" length="0" sql="TEXT" quote="'"/>
+            <type label="Binary" length="1" sql="BYTEA" quote="'"/>
+            <type label="Boolean" length="0" sql="BOOLEAN" quote="'"/>
+        </group>
+
+        <group label="Date &amp; Time" color="rgb(200,255,200)">
+            <type label="Date" length="0" sql="DATE" quote="'"/>
+            <type label="Time" length="1" sql="TIME" quote="'"/>
+            <type label="Time w/ TZ" length="0" sql="TIME WITH TIME ZONE" quote="'"/>
+            <type label="Interval" length="1" sql="INTERVAL" quote="'"/>
+            <type label="Timestamp" length="1" sql="TIMESTAMP" quote="'"/>
+            <type label="Timestamp w/ TZ" length="0" sql="TIMESTAMP WITH TIME ZONE" quote="'"/>
+            <type label="Timestamp wo/ TZ" length="0" sql="TIMESTAMP WITHOUT TIME ZONE" quote="'"/>
+        </group>
+
+        <group label="Miscellaneous" color="rgb(200,200,255)">
+            <type label="XML" length="1" sql="XML" quote="'"/>
+            <type label="Bit" length="1" sql="BIT" quote="'"/>
+            <type label="Bit Varying" length="1" sql="VARBIT" re="BIT VARYING" quote="'"/>
+            <type label="Inet Host Addr" length="0" sql="INET" quote="'"/>
+            <type label="Inet CIDR Addr" length="0" sql="CIDR" quote="'"/>
+            <type label="Geometry" length="0" sql="GEOMETRY" quote="'"/>
+        </group>
+        </datatypes><table x="797" y="16" name="burden_estimate_set">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="responsibility" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="responsibility" row="id" />
+</row>
+<row name="model_version" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="model_version" row="id" />
+</row>
+<row name="run_info" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="validation" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="comment" null="1" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>NULL</default></row>
+<row name="interpolated" null="0" autoincrement="0">
+<datatype>BOOLEAN</datatype>
+</row>
+<row name="complete" null="0" autoincrement="0">
+<datatype>BOOLEAN</datatype>
+<default>'False'</default></row>
+<row name="uploaded_by" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="uploaded_on" null="0" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
+<default>'current_timestamp'</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1113" y="17" name="burden_estimate">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="burden_estimate_set" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="burden_estimate_set" row="id" />
+</row>
+<row name="country" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="country" row="id" />
+</row>
+<row name="year" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="outcome" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="outcome" row="id" />
+</row>
+<row name="stochastic" null="0" autoincrement="0">
+<datatype>BOOLEAN</datatype>
+</row>
+<row name="value" null="1" autoincrement="0">
+<datatype>DOUBLE PRECISION</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="53" y="716" name="vaccine">
+<row name="id" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>'NULL'</default></row>
+<row name="name" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="802" y="288" name="model">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="modelling_group" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="modelling_group" row="id" />
+</row>
+<row name="code" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="name" null="0" autoincrement="0">
+<datatype>VARCHAR(64)</datatype>
+</row>
+<row name="citation" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="description" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="current" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="model" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+<key type="UNIQUE" name="">
+<part>code</part>
+</key>
+</table>
+<table x="1333" y="112" name="outcome">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="code" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="name" null="0" autoincrement="0">
+<datatype>VARCHAR(32)</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+<key type="UNIQUE" name="">
+<part>code</part>
+</key>
+</table>
+<table x="1598" y="485" name="country">
+<row name="id" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="name" null="0" autoincrement="0">
+<datatype>VARCHAR(32)</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="956" y="538" name="coverage">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="coverage_set" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="coverage_set" row="id" />
+</row>
+<row name="year" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="country" null="1" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>NULL</default><relation table="country" row="id" />
+</row>
+<row name="age_from" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="age_to" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="percentage_coverage" null="1" autoincrement="0">
+<datatype>DECIMAL</datatype>
+<default>NULL</default></row>
+<row name="gavi_support" null="0" autoincrement="0">
+<datatype>BOOLEAN</datatype>
+</row>
+<row name="activity" null="1" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="53" y="833" name="disease">
+<row name="id" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="name" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="457" y="693" name="demographics_set">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="touchstone" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>'NULL'</default><relation table="touchstone" row="id" />
+</row>
+<row name="name" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<row name="version" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="695" y="754" name="demographics">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="demographics_set" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="demographics_set" row="id" />
+</row>
+<row name="year" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="country" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="country" row="id" />
+</row>
+<row name="age_group" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="age_group" row="id" />
+</row>
+<row name="no_males" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="no_females" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="mort_rate_male" null="1" autoincrement="0">
+<datatype>DOUBLE PRECISION</datatype>
+<default>NULL</default></row>
+<row name="mort_rate_female" null="0" autoincrement="0">
+<datatype>DOUBLE PRECISION</datatype>
+</row>
+<row name="fertility_rate_male" null="0" autoincrement="0">
+<datatype>DOUBLE PRECISION</datatype>
+</row>
+<row name="fertlity_rate_female" null="0" autoincrement="0">
+<datatype>DOUBLE PRECISION</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1008" y="915" name="age_group">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="from" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="to" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1277" y="300" name="model_version">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="model" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="model" row="id" />
+</row>
+<row name="version" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="note" null="1" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>NULL</default></row>
+<row name="fingerprint" null="1" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+<key type="UNIQUE" name="">
+<part>model</part>
+<part>version</part>
+</key>
+</table>
+<table x="21" y="218" name="touchstone">
+<row name="id" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="name" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="status" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="touchstone_status" row="id" />
+</row>
+<row name="year_start" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="year_end" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+<comment>This is the top-level categorization. It refers to an Operational Forecast from GAVI, a WUENIC July update, or some other data set against which impact estimates are going to be done </comment>
+</table>
+<table x="201" y="715" name="scenario_type">
+<row name="id" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>'NULL'</default></row>
+<row name="name" null="0" autoincrement="0">
+<datatype>VARCHAR(255)</datatype>
+<default>'NULL'</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+<comment>This is just "routine" or "campaign".</comment>
+</table>
+<table x="202" y="832" name="vaccination_level">
+<row name="id" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="name" null="0" autoincrement="0">
+<datatype>VARCHAR(255)</datatype>
+<default>'NULL'</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+<comment>Enum table. Possible values: No vaccination, Vaccination without GAVI support, Vaccination with GAVI support</comment>
+</table>
+<table x="327" y="274" name="scenario">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="touchstone" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>'NULL'</default><relation table="touchstone" row="id" />
+</row>
+<row name="scenario_description" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="scenario_description" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+<key type="UNIQUE" name="">
+<part>touchstone</part>
+<part>scenario_description</part>
+</key>
+</table>
+<table x="752" y="499" name="coverage_set">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="campaign" null="0" autoincrement="0">
+<datatype>BOOLEAN</datatype>
+</row>
+<row name="name" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="touchstone" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="touchstone" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="48" y="31" name="modelling_group">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="code" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="description" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="current" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="modelling_group" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+<key type="UNIQUE" name="">
+<part>code</part>
+</key>
+</table>
+<table x="581" y="80" name="responsibility">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="responsibility_set" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="responsibility_set" row="id" />
+</row>
+<row name="coverage_scenario" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="scenario" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+<key type="UNIQUE" name="">
+<part>responsibility_set</part>
+<part>coverage_scenario</part>
+</key>
+</table>
+<table x="93" y="517" name="scenario_description">
+<row name="id" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="description" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="vaccination_level" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="vaccination_level" row="id" />
+</row>
+<row name="disease" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="disease" row="id" />
+</row>
+<row name="vaccine" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="vaccine" row="id" />
+</row>
+<row name="scenario_type" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="scenario_type" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="291" y="100" name="responsibility_set">
+<row name="id" null="0" autoincrement="1">
+<datatype>INTEGER</datatype>
+</row>
+<row name="modelling_group" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="modelling_group" row="id" />
+</row>
+<row name="touchstone" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="touchstone" row="id" />
+</row>
+<row name="status" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="responsibility_set_status" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+<key type="UNIQUE" name="">
+<part>modelling_group</part>
+<part>touchstone</part>
+</key>
+</table>
+<table x="536" y="347" name="scenario_coverage_set">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="scenario" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="scenario" row="id" />
+</row>
+<row name="coverage_set" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="coverage_set" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="430" y="484" name="touchstone_country">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="touchstone" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="touchstone" row="id" />
+</row>
+<row name="country" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="country" row="id" />
+</row>
+<row name="who_region" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>'NULL'</default></row>
+<row name="gavi73" null="0" autoincrement="0">
+<datatype>BOOLEAN</datatype>
+</row>
+<row name="wuenic" null="0" autoincrement="0">
+<datatype>BOOLEAN</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="25" y="405" name="touchstone_status">
+<row name="id" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="name" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+<comment>Valid values: {in-preparation, open, finished}</comment>
+</table>
+<table x="543" y="225" name="responsibility_set_status">
+<row name="id" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="name" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+<comment>Possible values {incomplete, submitted, approved}</comment>
+</table>
+</sql>
