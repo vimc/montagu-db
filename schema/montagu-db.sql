@@ -134,9 +134,9 @@ PRIMARY KEY ("id")
 CREATE TABLE "responsibility" (
 "id"  SERIAL NOT NULL ,
 "responsibility_set" INTEGER NOT NULL ,
-"coverage_scenario" INTEGER NOT NULL ,
+"scenario" INTEGER NOT NULL ,
 PRIMARY KEY ("id"),
-UNIQUE ("responsibility_set", "coverage_scenario")
+UNIQUE ("responsibility_set", "scenario")
 );
 
 CREATE TABLE "scenario_description" (
@@ -208,7 +208,7 @@ ALTER TABLE "coverage_set" ADD FOREIGN KEY ("vaccination_level") REFERENCES "vac
 ALTER TABLE "coverage_set" ADD FOREIGN KEY ("scenario_type") REFERENCES "scenario_type" ("id");
 ALTER TABLE "modelling_group" ADD FOREIGN KEY ("current") REFERENCES "modelling_group" ("id");
 ALTER TABLE "responsibility" ADD FOREIGN KEY ("responsibility_set") REFERENCES "responsibility_set" ("id");
-ALTER TABLE "responsibility" ADD FOREIGN KEY ("coverage_scenario") REFERENCES "scenario" ("id");
+ALTER TABLE "responsibility" ADD FOREIGN KEY ("scenario") REFERENCES "scenario" ("id");
 ALTER TABLE "scenario_description" ADD FOREIGN KEY ("vaccination_level") REFERENCES "vaccination_level" ("id");
 ALTER TABLE "scenario_description" ADD FOREIGN KEY ("disease") REFERENCES "disease" ("id");
 ALTER TABLE "scenario_description" ADD FOREIGN KEY ("vaccine") REFERENCES "vaccine" ("id");

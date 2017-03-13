@@ -287,7 +287,7 @@
 </key>
 <comment>Enum table. Possible values: No vaccination, Vaccination without GAVI support, Vaccination with GAVI support</comment>
 </table>
-<table x="367" y="424" name="scenario">
+<table x="334" y="586" name="scenario">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -349,7 +349,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="621" y="230" name="responsibility">
+<table x="619" y="354" name="responsibility">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -357,7 +357,7 @@
 <datatype>INTEGER</datatype>
 <relation table="responsibility_set" row="id" />
 </row>
-<row name="coverage_scenario" null="0" autoincrement="0">
+<row name="scenario" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <relation table="scenario" row="id" />
 </row>
@@ -366,7 +366,7 @@
 </key>
 <key type="UNIQUE" name="">
 <part>responsibility_set</part>
-<part>coverage_scenario</part>
+<part>scenario</part>
 </key>
 </table>
 <table x="133" y="667" name="scenario_description">
@@ -396,7 +396,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="331" y="250" name="responsibility_set">
+<table x="324" y="435" name="responsibility_set">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -420,7 +420,7 @@
 <part>touchstone</part>
 </key>
 </table>
-<table x="576" y="497" name="scenario_coverage_set">
+<table x="604" y="591" name="scenario_coverage_set">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -436,7 +436,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="348" y="563" name="touchstone_country">
+<table x="387" y="203" name="touchstone_country">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -473,7 +473,7 @@
 </key>
 <comment>Valid values: {in-preparation, open, finished}</comment>
 </table>
-<table x="583" y="375" name="responsibility_set_status">
+<table x="600" y="497" name="responsibility_set_status">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>

@@ -13,7 +13,8 @@ fi
 echo "Creating new data volume '$DATA_VOLUME'"
 docker volume create $DATA_VOLUME
 
-## TODO: It's possible this should only be built if it does not exist
+## TODO: It's possible this should only be built if it does not exist,
+## but then this does not run well in other directories.
 docker build --rm --tag $IMAGE .
 
 BUILD_ID=$(docker run -d -v $DATA_VOLUME:/var/lib/postgresql/data $IMAGE)
