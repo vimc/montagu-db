@@ -72,7 +72,8 @@ docker run -d \
 When this starts up you should not see the database initialise a fresh database (including lines like `CREATE DATABASE`) and startup should be very quick.  If you created synthetic data you can replace the `-v` line with
 
 ```
-    -v montagu-db-synthetic:/var/lib/postgresql/data \```
+    -v montagu-db-synthetic:/var/lib/postgresql/data \
+```
 
 ```
 psql -h localhost -p 9999 -U vimc -d montagu
