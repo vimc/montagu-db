@@ -11,6 +11,3 @@ RUN install.r \
   remotes
 
 RUN Rscript -e 'remotes::install_github("rstats-db/RPostgres")'
-
-COPY synthetic /montagu-synthetic
-WORKDIR /montagu-synthetic

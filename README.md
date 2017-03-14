@@ -29,7 +29,12 @@ The database *process* container is disposable; it's just the [official postgres
 
 The database *data volume* containers are persistent and we'll need to be able to do a few things to these.
 
-Docker seems to be moving fairly rapidly in terms of data volumes (which we'll be making use of) so I'm going to assume fairly recent docker
+Docker seems to be moving fairly rapidly in terms of data volumes (which we'll be making use of) so I'm going to assume fairly recent docker throughout
+
+### Containers here
+
+* schema only
+* synthetic data
 
 ### Build a new empty data container
 
@@ -41,7 +46,18 @@ Run
 
 which will build the postgres container, create a new data volume, and set the schema up within that container.  By default this will create a data volume called `montagu-db-data`, but pass a single argument to the script to create a data container with a different name.
 
-### Run the database pointing at the data container
+### Build a container containing synthetic data
+
+Run
+
+```
+./scripts/create-synthetic.sh
+
+```
+
+which will run `create-empty.sh` but also populate this with synthetic data (currently totally rubbish data but we can improve this with time).  By default this will create a data volume called `montagu-db-data`, but pass a single argument to the script to create a data container with a different name.
+
+### Run the database pointing at a data container
 
 All we have to do here is point the database container at the database volume.  This also exposes the postgres port 5432 as 9999 for local access but we'd typically be using either `--link` or the new docker networking to join containers together.  Omit the `-d` to run the database without detaching (in which case you probably also want `--rm`)
 
@@ -53,7 +69,10 @@ docker run -d \
     vimc/montagu-db
 ```
 
-When this starts up you should not see the database initialise a fresh database (including lines like `CREATE DATABASE`) and startup should be very quick.
+When this starts up you should not see the database initialise a fresh database (including lines like `CREATE DATABASE`) and startup should be very quick.  If you created synthetic data you can replace the `-v` line with
+
+```
+    -v montagu-db-synthetic:/var/lib/postgresql/data \```
 
 ```
 psql -h localhost -p 9999 -U vimc -d montagu

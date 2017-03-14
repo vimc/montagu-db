@@ -15,10 +15,11 @@ montagu_synthetic <- function() {
 }
 
 montagu_connection <- function() {
-  if (nzchar(Sys.getenv("POSTGRES_PORT_5432_TCP_PORT"))) {
-    host <- "postgres"
-    port <- as.integer(Sys.getenv("POSTGRES_PORT_5432_TCP_PORT"))
+  host <- Sys.getenv("MONTAGU_DB")
+  if (nzchar(host)) {
+    port <- 5432L
   } else {
+    ## This will be where I'll tend to export things to by convention.
     host <- "localhost"
     port <- 8888
   }
