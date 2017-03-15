@@ -22,7 +22,7 @@ coverage-provider,null,coverage.write
 user-manager,null,users.create
 user-manager,null,users.edit-all
 user-manager,null,roles.read
-user-manager,roles.write
+user-manager,null,roles.write
 user-manager,null,modelling-groups.write
 estimates-reviewer,null,estimates.review
 estimates-reviewer,null,estimates.read-unfinished
