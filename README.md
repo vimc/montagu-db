@@ -47,7 +47,7 @@ Run
 which will build the postgres container, create a new data volume, and set the schema up within that container.  The argument is the name of the data volume; this will be stored on your computer (and can't be pushed to a registry).  If the volume name given already exists, the script will error; you can delete an image with
 
 ```
-docker volume delete montagu-db-data
+docker volume rm montagu-db-data
 ```
 
 (specifying the image to delete).  If no volume name is given then docker will use a randomly generated image name which will be a long hexadecimal string.
