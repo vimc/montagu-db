@@ -3,6 +3,9 @@ montagu_synthetic <- function() {
 
   import_simple_tables(con)
 
+  import_role_permission(con)
+  import_user_role(con)
+
   import_touchstone_country(con)
   import_scenario_description(con)
   import_scenario(con)
@@ -49,7 +52,11 @@ import_table <- function(con, tbl, filename) {
 }
 
 import_data_frame <- function(con, tbl, data) {
-  tbl_dat <- DBI::dbGetQuery(con, sprintf("SELECT * FROM %s LIMIT 1", tbl))
+  if (tbl == "user") {
+    tbl_dat <- DBI::dbReadTable(con, tbl)
+  } else {
+    tbl_dat <- DBI::dbGetQuery(con, sprintf("SELECT * FROM %s LIMIT 1", tbl))
+  }
   if (nrow(tbl_dat) == 0L) {
     message(sprintf("Importing '%s'", tbl))
     v <- intersect(names(data), names(tbl_dat))
@@ -64,8 +71,7 @@ import_simple_tables <- function(con) {
               "country", "outcome",
               "touchstone_status", "responsibility_set_status",
               "touchstone",
-              "permission", 
-              "role")
+              "permission", "role", "user")
   for (nm in simple) {
     filename <- file.path("data", paste0(nm, ".csv"))
     dat <- read_csv(filename)
@@ -206,8 +212,26 @@ import_burden_estimate <- function(con) {
 import_role_permission <- function(con) {
   role <- DBI::dbReadTable(con, "role")
   dat <- read_csv("data/role_permission.csv")
-  # Rewrite data so that it becomes a mapping from role.id -> permission.name
-  # by using the 'name' and 'scope_prefix' columns in the CSV file to get a
-  # role.id, and just using the third column ('permission') directly.
-  stop("needs implementing")
+
+  ## Rewrite data so that it becomes a mapping from role.id ->
+  ## permission.name by using the 'name' and 'scope_prefix' columns in
+  ## the CSV file to get a role.id, and just using the third column
+  ## ('permission') directly.
+  scope <- function(x, name) {
+    ifelse(x$scope_prefix == "null", x[[name]],
+           paste(x$scope_prefix, x[[name]], sep = "."))
+  }
+  dat$match_on <- scope(dat, "role")
+  role$match_on <- scope(role, "name")
+  dat$role <- match(dat$match_on, role$match_on)
+  import_data_frame(con, "role_permission", dat[c("role", "permission")])
+}
+
+import_user_role <- function(con) {
+  role <- DBI::dbGetQuery(con, "SELECT id FROM role WHERE name = 'user'")$id
+  dat <- data.frame(username = "rgf",
+                    role = role,
+                    scope_id = "null",
+                    stringsAsFactors = FALSE)
+  import_data_frame(con, "user_role", dat)
 }
