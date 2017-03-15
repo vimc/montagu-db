@@ -46,7 +46,7 @@ This contains the support scripts here and a few environment variables set up.  
 
 This build disables the cache because the build should only take a second or so.
 
-### Build a new empty data container
+### Build a new data volume containing just the database structure
 
 ```
 ./scripts/create-empty.sh montagu-db-data
@@ -77,13 +77,12 @@ docker build --no-cache --tag vimc/montagu-synthetic synthetic
 Run
 
 ```
-./scripts/create-synthetic.sh
-
+./scripts/create-synthetic.sh montagu-db-data-synthetic
 ```
 
-which will run `create-empty.sh` but also populate this with synthetic data (currently totally rubbish data but we can improve this with time).  By default this will create a data volume called `montagu-db-data`, but pass a single argument to the script to create a data container with a different name.
+which will set up the schema but also populate it with synthetic data (currently totally rubbish data but we can improve this with time).  The above call will create a data volume called `montagu-db-data-synthetic`, but pass a different argument to the script to create a data volume with a different name (or no argument to create an unnamed data volume)
 
-### Run the database pointing at a data container
+### Run the database pointing at a data volume
 
 All we have to do here is point the database container at the database volume.  This also exposes the postgres port 5432 as 9999 for local access but we'd typically be using either `--link` or the new docker networking to join containers together.  Omit the `-d` to run the database without detaching (in which case you probably also want `--rm`)
 
@@ -94,6 +93,8 @@ docker run -d \
     -p 9999:5432 \
     vimc/montagu-db
 ```
+
+(change the `montagu-db-data` to point at your preferred data volume, e.g., `montagu-db-data-synthetic`)
 
 When this starts up you should not see the database initialise a fresh database (including lines like `CREATE DATABASE`) and startup should be very quick.  If you created synthetic data you can replace the `-v` line with
 
