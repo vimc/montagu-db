@@ -36,9 +36,17 @@ Docker seems to be moving fairly rapidly in terms of data volumes (which we'll b
 * schema only
 * synthetic data
 
-### Build a new empty data container
+### Build the postgres server container vimc/montagu-db
 
-Run
+This contains the support scripts here and a few environment variables set up.  Rebuild this with
+
+```
+./scripts/create-montagu-db.sh
+```
+
+This build disables the cache because the build should only take a second or so.
+
+### Build a new empty data container
 
 ```
 ./scripts/create-empty.sh montagu-db-data

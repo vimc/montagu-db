@@ -21,10 +21,8 @@ else
 fi
 
 if [[ "$(docker images -q ${IMAGE} 2> /dev/null)" == "" ]]; then
-    echo "Image '${IMAGE}' does not exist; building"
-    docker build --no-cache --tag $IMAGE .
-else
-    echo "Image '${IMAGE}' exists"
+    echo "Image '${IMAGE}' does not exist; please build with scripts/create-montagu-db.sh"
+    exit 1
 fi
 
 BUILD_ID=$(docker run -d \
