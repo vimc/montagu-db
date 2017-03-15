@@ -547,6 +547,9 @@
 <datatype>TEXT</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
+<part>username</part>
+<part>role</part>
+<part>scope_id</part>
 </key>
 </table>
 <table x="1496" y="1169" name="role_permission">
@@ -559,6 +562,8 @@
 <relation table="permission" row="name" />
 </row>
 <key type="PRIMARY" name="">
+<part>role</part>
+<part>permission</part>
 </key>
 </table>
 </sql>

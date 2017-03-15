@@ -216,13 +216,13 @@ CREATE TABLE "user_role" (
 "username" TEXT NOT NULL ,
 "role" INTEGER ,
 "scope_id" TEXT ,
-PRIMARY KEY ()
+PRIMARY KEY ("username", "role", "scope_id")
 );
 
 CREATE TABLE "role_permission" (
 "role" INTEGER ,
 "permission" TEXT NOT NULL ,
-PRIMARY KEY ()
+PRIMARY KEY ("role", "permission")
 );
 
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
