@@ -189,8 +189,45 @@ PRIMARY KEY ("id")
 );
 COMMENT ON TABLE "responsibility_set_status" IS 'Possible values {incomplete, submitted, approved}';
 
+CREATE TABLE "user" (
+"username" TEXT NOT NULL ,
+"name" TEXT ,
+"email" TEXT ,
+"password_hash" TEXT ,
+"salt" TEXT ,
+"last_logged_in" TIMESTAMP ,
+PRIMARY KEY ("username")
+);
+
+CREATE TABLE "permission" (
+"name"  SERIAL NOT NULL ,
+PRIMARY KEY ("name")
+);
+
+CREATE TABLE "role" (
+"id"  SERIAL ,
+"name" TEXT NOT NULL ,
+"scope_prefix" TEXT ,
+"description" TEXT NOT NULL ,
+PRIMARY KEY ("id")
+);
+
+CREATE TABLE "user_role" (
+"username" TEXT NOT NULL ,
+"role" INTEGER ,
+"scope_id" TEXT ,
+PRIMARY KEY ()
+);
+
+CREATE TABLE "role_permission" (
+"role" INTEGER ,
+"permission" TEXT NOT NULL ,
+PRIMARY KEY ()
+);
+
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("model_version") REFERENCES "model_version" ("id");
+ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("uploaded_by") REFERENCES "user" ("username");
 ALTER TABLE "burden_estimate" ADD FOREIGN KEY ("burden_estimate_set") REFERENCES "burden_estimate_set" ("id");
 ALTER TABLE "burden_estimate" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
 ALTER TABLE "burden_estimate" ADD FOREIGN KEY ("outcome") REFERENCES "outcome" ("id");
@@ -220,3 +257,7 @@ ALTER TABLE "scenario_coverage_set" ADD FOREIGN KEY ("scenario") REFERENCES "sce
 ALTER TABLE "scenario_coverage_set" ADD FOREIGN KEY ("coverage_set") REFERENCES "coverage_set" ("id");
 ALTER TABLE "touchstone_country" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "touchstone_country" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
+ALTER TABLE "user_role" ADD FOREIGN KEY ("username") REFERENCES "user" ("username");
+ALTER TABLE "user_role" ADD FOREIGN KEY ("role") REFERENCES "role" ("id");
+ALTER TABLE "role_permission" ADD FOREIGN KEY ("role") REFERENCES "role" ("id");
+ALTER TABLE "role_permission" ADD FOREIGN KEY ("permission") REFERENCES "permission" ("name");
