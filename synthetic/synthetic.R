@@ -12,6 +12,7 @@ montagu_synthetic <- function() {
   import_responsibility(con)
   import_burden_estimate_set(con)
   import_burden_estimate(con)
+  import_role_permission(con)
 }
 
 montagu_connection <- function() {
@@ -62,7 +63,9 @@ import_simple_tables <- function(con) {
               "vaccine", "scenario_type", "disease", "vaccination_level",
               "country", "outcome",
               "touchstone_status", "responsibility_set_status",
-              "touchstone")
+              "touchstone",
+              "permission", 
+              "role")
   for (nm in simple) {
     filename <- file.path("data", paste0(nm, ".csv"))
     dat <- read_csv(filename)
@@ -198,4 +201,13 @@ import_burden_estimate <- function(con) {
                      stochastic = FALSE)
   dat$value <- round(runif(nrow(dat), 0, 10000), 2)
   import_data_frame(con, "burden_estimate", dat)
+}
+
+import_role_permission <- function(con) {
+  role <- DBI::dbReadTable(con, "role")
+  dat <- read_csv("data/role_permission.csv")
+  # Rewrite data so that it becomes a mapping from role.id -> permission.name
+  # by using the 'name' and 'scope_prefix' columns in the CSV file to get a
+  # role.id, and just using the third column ('permission') directly.
+  stop("needs implementing")
 }
