@@ -62,6 +62,18 @@ docker volume rm montagu-db-data
 
 ### Build a container containing synthetic data
 
+There are a bunch of dependencies in R for this, so run
+
+```
+./scripts/create-montagu-synthetic.sh
+```
+
+to create a container containing them.  This is only used for this step at this point.  This build _is_ cached because it takes quite a while, so to refresh run
+
+```
+docker build --no-cache --tag vimc/montagu-synthetic synthetic
+```
+
 Run
 
 ```
