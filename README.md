@@ -36,15 +36,29 @@ Docker seems to be moving fairly rapidly in terms of data volumes (which we'll b
 * schema only
 * synthetic data
 
+### Build the postgres server container vimc/montagu-db
+
+This contains the support scripts here and a few environment variables set up.  Rebuild this with
+
+```
+./scripts/create-montagu-db.sh
+```
+
+This build disables the cache because the build should only take a second or so.
+
 ### Build a new empty data container
 
-Run
-
 ```
-./scripts/create-empty.sh
+./scripts/create-empty.sh montagu-db-data
 ```
 
-which will build the postgres container, create a new data volume, and set the schema up within that container.  By default this will create a data volume called `montagu-db-data`, but pass a single argument to the script to create a data container with a different name.
+which will build the postgres container, create a new data volume, and set the schema up within that container.  The argument is the name of the data volume; this will be stored on your computer (and can't be pushed to a registry).  If the volume name given already exists, the script will error; you can delete an image with
+
+```
+docker volume rm montagu-db-data
+```
+
+(specifying the image to delete).  If no volume name is given then docker will use a randomly generated image name which will be a long hexadecimal string.
 
 ### Build a container containing synthetic data
 

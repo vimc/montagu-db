@@ -510,7 +510,7 @@
 </key>
 </table>
 <table x="1274" y="1294" name="permission">
-<row name="name" null="0" autoincrement="1">
+<row name="name" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
 <key type="PRIMARY" name="">
@@ -547,6 +547,9 @@
 <datatype>TEXT</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
+<part>username</part>
+<part>role</part>
+<part>scope_id</part>
 </key>
 </table>
 <table x="1496" y="1169" name="role_permission">
@@ -559,6 +562,8 @@
 <relation table="permission" row="name" />
 </row>
 <key type="PRIMARY" name="">
+<part>role</part>
+<part>permission</part>
 </key>
 </table>
 </sql>
