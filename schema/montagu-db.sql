@@ -200,7 +200,7 @@ PRIMARY KEY ("username")
 );
 
 CREATE TABLE "permission" (
-"name"  SERIAL NOT NULL ,
+"name" TEXT NOT NULL ,
 PRIMARY KEY ("name")
 );
 
