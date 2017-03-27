@@ -172,7 +172,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1129" y="569" name="coverage">
+<table x="1018" y="801" name="coverage">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -193,7 +193,13 @@
 <row name="age_to" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 </row>
-<row name="percentage_coverage" null="1" autoincrement="0">
+<row name="age_to_exclusive" null="0" autoincrement="0">
+<datatype>BOOLEAN</datatype>
+</row>
+<row name="age_range_verbatim" null="1" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>NULL</default></row>
+<row name="coverage" null="1" autoincrement="0">
 <datatype>DECIMAL</datatype>
 <default>NULL</default></row>
 <row name="gavi_support" null="0" autoincrement="0">
@@ -308,7 +314,7 @@
 <part>scenario_description</part>
 </key>
 </table>
-<table x="880" y="602" name="coverage_set">
+<table x="843" y="764" name="coverage_set">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -421,7 +427,7 @@
 <part>touchstone</part>
 </key>
 </table>
-<table x="604" y="591" name="scenario_coverage_set">
+<table x="619" y="685" name="scenario_coverage_set">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>

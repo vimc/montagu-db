@@ -60,7 +60,9 @@ CREATE TABLE "coverage" (
 "country" TEXT ,
 "age_from" INTEGER NOT NULL ,
 "age_to" INTEGER NOT NULL ,
-"percentage_coverage" DECIMAL ,
+"age_to_exclusive" BOOLEAN NOT NULL ,
+"age_range_verbatim" TEXT ,
+"coverage" DECIMAL ,
 "gavi_support" BOOLEAN NOT NULL ,
 "activity" TEXT ,
 PRIMARY KEY ("id")
