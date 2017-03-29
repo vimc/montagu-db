@@ -108,7 +108,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="93" y="866" name="vaccine">
+<table x="964" y="842" name="vaccine">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>'NULL'</default></row>
@@ -172,7 +172,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1018" y="801" name="coverage">
+<table x="962" y="539" name="coverage">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -212,7 +212,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="93" y="983" name="disease">
+<table x="310" y="802" name="disease">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -248,12 +248,16 @@
 <part>version</part>
 </key>
 </table>
-<table x="61" y="368" name="touchstone">
+<table x="68" y="339" name="touchstone">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
-<row name="name" null="0" autoincrement="0">
+<row name="touchstone_name" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
+<relation table="touchstone_name" row="id" />
+</row>
+<row name="version" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
 </row>
 <row name="status" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
@@ -268,9 +272,13 @@
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
+<key type="UNIQUE" name="">
+<part>touchstone_name</part>
+<part>version</part>
+</key>
 <comment>This is the top-level categorization. It refers to an Operational Forecast from GAVI, a WUENIC July update, or some other data set against which impact estimates are going to be done </comment>
 </table>
-<table x="241" y="865" name="scenario_type">
+<table x="963" y="1027" name="scenario_type">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>'NULL'</default></row>
@@ -282,7 +290,7 @@
 </key>
 <comment>This is just "routine" or "campaign".</comment>
 </table>
-<table x="242" y="982" name="vaccination_level">
+<table x="964" y="932" name="vaccination_level">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -294,7 +302,7 @@
 </key>
 <comment>Enum table. Possible values: No vaccination, Vaccination without GAVI support, Vaccination with GAVI support</comment>
 </table>
-<table x="334" y="586" name="scenario">
+<table x="324" y="602" name="scenario">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -314,7 +322,7 @@
 <part>scenario_description</part>
 </key>
 </table>
-<table x="843" y="764" name="coverage_set">
+<table x="722" y="776" name="coverage_set">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -341,7 +349,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="88" y="181" name="modelling_group">
+<table x="99" y="79" name="modelling_group">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -376,28 +384,16 @@
 <part>scenario</part>
 </key>
 </table>
-<table x="133" y="667" name="scenario_description">
+<table x="73" y="722" name="scenario_description">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
 <row name="description" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
-<row name="vaccination_level" null="0" autoincrement="0">
-<datatype>TEXT</datatype>
-<relation table="vaccination_level" row="id" />
-</row>
 <row name="disease" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 <relation table="disease" row="id" />
-</row>
-<row name="vaccine" null="0" autoincrement="0">
-<datatype>TEXT</datatype>
-<relation table="vaccine" row="id" />
-</row>
-<row name="scenario_type" null="0" autoincrement="0">
-<datatype>TEXT</datatype>
-<relation table="scenario_type" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -427,7 +423,7 @@
 <part>touchstone</part>
 </key>
 </table>
-<table x="619" y="685" name="scenario_coverage_set">
+<table x="493" y="693" name="scenario_coverage_set">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -439,8 +435,15 @@
 <datatype>INTEGER</datatype>
 <relation table="coverage_set" row="id" />
 </row>
+<row name="order" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
+</key>
+<key type="UNIQUE" name="">
+<part>scenario</part>
+<part>order</part>
 </key>
 </table>
 <table x="387" y="203" name="touchstone_country">
@@ -570,6 +573,14 @@
 <key type="PRIMARY" name="">
 <part>role</part>
 <part>permission</part>
+</key>
+</table>
+<table x="60" y="247" name="touchstone_name">
+<row name="id" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
 </key>
 </table>
 </sql>

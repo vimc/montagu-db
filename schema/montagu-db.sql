@@ -86,11 +86,13 @@ UNIQUE ("model", "version")
 
 CREATE TABLE "touchstone" (
 "id" TEXT NOT NULL ,
-"name" TEXT NOT NULL ,
+"touchstone_name" TEXT NOT NULL ,
+"version" INTEGER NOT NULL ,
 "status" TEXT NOT NULL ,
 "year_start" INTEGER NOT NULL ,
 "year_end" INTEGER NOT NULL ,
-PRIMARY KEY ("id")
+PRIMARY KEY ("id"),
+UNIQUE ("touchstone_name", "version")
 );
 COMMENT ON TABLE "touchstone" IS 'This is the top-level categorization. It refers to an Operational Forecast from GAVI, a WUENIC July update, or some other data set against which impact estimates are going to be done ';
 
@@ -144,10 +146,7 @@ UNIQUE ("responsibility_set", "scenario")
 CREATE TABLE "scenario_description" (
 "id" TEXT NOT NULL ,
 "description" TEXT NOT NULL ,
-"vaccination_level" TEXT NOT NULL ,
 "disease" TEXT NOT NULL ,
-"vaccine" TEXT NOT NULL ,
-"scenario_type" TEXT NOT NULL ,
 PRIMARY KEY ("id")
 );
 
@@ -164,7 +163,9 @@ CREATE TABLE "scenario_coverage_set" (
 "id"  SERIAL ,
 "scenario" INTEGER NOT NULL ,
 "coverage_set" INTEGER NOT NULL ,
-PRIMARY KEY ("id")
+"order" INTEGER NOT NULL ,
+PRIMARY KEY ("id"),
+UNIQUE ("scenario", "order")
 );
 
 CREATE TABLE "touchstone_country" (
@@ -227,6 +228,11 @@ CREATE TABLE "role_permission" (
 PRIMARY KEY ("role", "permission")
 );
 
+CREATE TABLE "touchstone_name" (
+"id" TEXT NOT NULL ,
+PRIMARY KEY ("id")
+);
+
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("model_version") REFERENCES "model_version" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("uploaded_by") REFERENCES "user" ("username");
@@ -238,6 +244,7 @@ ALTER TABLE "model" ADD FOREIGN KEY ("current") REFERENCES "model" ("id");
 ALTER TABLE "coverage" ADD FOREIGN KEY ("coverage_set") REFERENCES "coverage_set" ("id");
 ALTER TABLE "coverage" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
 ALTER TABLE "model_version" ADD FOREIGN KEY ("model") REFERENCES "model" ("id");
+ALTER TABLE "touchstone" ADD FOREIGN KEY ("touchstone_name") REFERENCES "touchstone_name" ("id");
 ALTER TABLE "touchstone" ADD FOREIGN KEY ("status") REFERENCES "touchstone_status" ("id");
 ALTER TABLE "scenario" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "scenario" ADD FOREIGN KEY ("scenario_description") REFERENCES "scenario_description" ("id");
@@ -248,10 +255,7 @@ ALTER TABLE "coverage_set" ADD FOREIGN KEY ("scenario_type") REFERENCES "scenari
 ALTER TABLE "modelling_group" ADD FOREIGN KEY ("current") REFERENCES "modelling_group" ("id");
 ALTER TABLE "responsibility" ADD FOREIGN KEY ("responsibility_set") REFERENCES "responsibility_set" ("id");
 ALTER TABLE "responsibility" ADD FOREIGN KEY ("scenario") REFERENCES "scenario" ("id");
-ALTER TABLE "scenario_description" ADD FOREIGN KEY ("vaccination_level") REFERENCES "vaccination_level" ("id");
 ALTER TABLE "scenario_description" ADD FOREIGN KEY ("disease") REFERENCES "disease" ("id");
-ALTER TABLE "scenario_description" ADD FOREIGN KEY ("vaccine") REFERENCES "vaccine" ("id");
-ALTER TABLE "scenario_description" ADD FOREIGN KEY ("scenario_type") REFERENCES "scenario_type" ("id");
 ALTER TABLE "responsibility_set" ADD FOREIGN KEY ("modelling_group") REFERENCES "modelling_group" ("id");
 ALTER TABLE "responsibility_set" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "responsibility_set" ADD FOREIGN KEY ("status") REFERENCES "responsibility_set_status" ("id");
