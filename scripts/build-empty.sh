@@ -10,7 +10,7 @@ APP_DOCKER_TAG=$REGISTRY/$NAME
 APP_DOCKER_COMMIT_TAG=$REGISTRY/$NAME:$GIT_ID
 APP_DOCKER_BRANCH_TAG=$REGISTRY/$NAME:$GIT_BRANCH
 
-docker build --no-cache \
+docker build \
        --tag $APP_DOCKER_COMMIT_TAG \
        --tag $APP_DOCKER_BRANCH_TAG \
        .
