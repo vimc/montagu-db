@@ -132,7 +132,7 @@ PRIMARY KEY ("id")
 CREATE TABLE "modelling_group" (
 "id" TEXT NOT NULL ,
 "description" TEXT NOT NULL ,
-"current" TEXT NOT NULL ,
+"current" TEXT ,
 PRIMARY KEY ("id")
 );
 COMMENT ON TABLE "modelling_group" IS 'With the self-referencing "current" field; we consider a modelling group to be the current one if current is null.  This is not recursive; if we move a modelling group to a new id then every modelling group that has current pointing at the old id must be updated to point at the new one.  This means that no `current` points at an `id` that does not have `current` as `null`.';
