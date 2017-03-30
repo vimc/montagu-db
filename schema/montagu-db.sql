@@ -96,19 +96,19 @@ UNIQUE ("touchstone_name", "version")
 );
 COMMENT ON TABLE "touchstone" IS 'This is the top-level categorization. It refers to an Operational Forecast from GAVI, a WUENIC July update, or some other data set against which impact estimates are going to be done ';
 
-CREATE TABLE "scenario_type" (
+CREATE TABLE "activity_type" (
 "id" TEXT NOT NULL DEFAULT 'NULL' ,
 "name" VARCHAR(255) NOT NULL DEFAULT 'NULL' ,
 PRIMARY KEY ("id")
 );
-COMMENT ON TABLE "scenario_type" IS 'This is just "routine" or "campaign".';
+COMMENT ON TABLE "activity_type" IS 'This is mostly "none", "routine" or "campaign" but with a few extras';
 
-CREATE TABLE "vaccination_level" (
+CREATE TABLE "gavi_support_level" (
 "id" TEXT NOT NULL ,
 "name" VARCHAR(255) NOT NULL DEFAULT 'NULL' ,
 PRIMARY KEY ("id")
 );
-COMMENT ON TABLE "vaccination_level" IS 'Enum table. Possible values: No vaccination, Vaccination without GAVI support, Vaccination with GAVI support';
+COMMENT ON TABLE "gavi_support_level" IS 'Enum table. Possible values: none (No vaccination), without (Vaccination without GAVI support), with (Vaccination with GAVI support)';
 
 CREATE TABLE "scenario" (
 "id"  SERIAL ,
@@ -123,8 +123,8 @@ CREATE TABLE "coverage_set" (
 "name" TEXT NOT NULL ,
 "touchstone" TEXT NOT NULL ,
 "vaccine" TEXT NOT NULL ,
-"vaccination_level" TEXT NOT NULL ,
-"scenario_type" TEXT NOT NULL ,
+"gavi_support_level" TEXT NOT NULL ,
+"activity_type" TEXT NOT NULL ,
 PRIMARY KEY ("id")
 );
 
@@ -250,8 +250,8 @@ ALTER TABLE "scenario" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("
 ALTER TABLE "scenario" ADD FOREIGN KEY ("scenario_description") REFERENCES "scenario_description" ("id");
 ALTER TABLE "coverage_set" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "coverage_set" ADD FOREIGN KEY ("vaccine") REFERENCES "vaccine" ("id");
-ALTER TABLE "coverage_set" ADD FOREIGN KEY ("vaccination_level") REFERENCES "vaccination_level" ("id");
-ALTER TABLE "coverage_set" ADD FOREIGN KEY ("scenario_type") REFERENCES "scenario_type" ("id");
+ALTER TABLE "coverage_set" ADD FOREIGN KEY ("gavi_support_level") REFERENCES "gavi_support_level" ("id");
+ALTER TABLE "coverage_set" ADD FOREIGN KEY ("activity_type") REFERENCES "activity_type" ("id");
 ALTER TABLE "modelling_group" ADD FOREIGN KEY ("current") REFERENCES "modelling_group" ("id");
 ALTER TABLE "responsibility" ADD FOREIGN KEY ("responsibility_set") REFERENCES "responsibility_set" ("id");
 ALTER TABLE "responsibility" ADD FOREIGN KEY ("scenario") REFERENCES "scenario" ("id");

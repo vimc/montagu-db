@@ -278,7 +278,7 @@
 </key>
 <comment>This is the top-level categorization. It refers to an Operational Forecast from GAVI, a WUENIC July update, or some other data set against which impact estimates are going to be done </comment>
 </table>
-<table x="963" y="1027" name="scenario_type">
+<table x="963" y="1029" name="activity_type">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>'NULL'</default></row>
@@ -288,9 +288,9 @@
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
-<comment>This is just "routine" or "campaign".</comment>
+<comment>This is mostly "none", "routine" or "campaign" but with a few extras</comment>
 </table>
-<table x="964" y="932" name="vaccination_level">
+<table x="964" y="932" name="gavi_support_level">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -300,7 +300,7 @@
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
-<comment>Enum table. Possible values: No vaccination, Vaccination without GAVI support, Vaccination with GAVI support</comment>
+<comment>Enum table. Possible values: none (No vaccination), without (Vaccination without GAVI support), with (Vaccination with GAVI support)</comment>
 </table>
 <table x="324" y="602" name="scenario">
 <row name="id" null="1" autoincrement="1">
@@ -337,13 +337,13 @@
 <datatype>TEXT</datatype>
 <relation table="vaccine" row="id" />
 </row>
-<row name="vaccination_level" null="0" autoincrement="0">
+<row name="gavi_support_level" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
-<relation table="vaccination_level" row="id" />
+<relation table="gavi_support_level" row="id" />
 </row>
-<row name="scenario_type" null="0" autoincrement="0">
+<row name="activity_type" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
-<relation table="scenario_type" row="id" />
+<relation table="activity_type" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
