@@ -143,6 +143,7 @@
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
+<comment>With the self-referencing "current" field; we consider a model to be the current one if current is null.</comment>
 </table>
 <table x="1373" y="262" name="outcome">
 <row name="id" null="1" autoincrement="1">
@@ -322,7 +323,7 @@
 <part>scenario_description</part>
 </key>
 </table>
-<table x="722" y="776" name="coverage_set">
+<table x="735" y="734" name="coverage_set">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -363,6 +364,7 @@
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
+<comment>With the self-referencing "current" field; we consider a modelling group to be the current one if current is null.</comment>
 </table>
 <table x="619" y="354" name="responsibility">
 <row name="id" null="0" autoincrement="1">

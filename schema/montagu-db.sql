@@ -38,6 +38,7 @@ CREATE TABLE "model" (
 "current" TEXT NOT NULL ,
 PRIMARY KEY ("id")
 );
+COMMENT ON TABLE "model" IS 'With the self-referencing "current" field; we consider a model to be the current one if current is null.';
 
 CREATE TABLE "outcome" (
 "id"  SERIAL ,
@@ -134,6 +135,7 @@ CREATE TABLE "modelling_group" (
 "current" TEXT NOT NULL ,
 PRIMARY KEY ("id")
 );
+COMMENT ON TABLE "modelling_group" IS 'With the self-referencing "current" field; we consider a modelling group to be the current one if current is null.';
 
 CREATE TABLE "responsibility" (
 "id"  SERIAL NOT NULL ,
