@@ -38,7 +38,7 @@ CREATE TABLE "model" (
 "current" TEXT NOT NULL ,
 PRIMARY KEY ("id")
 );
-COMMENT ON TABLE "model" IS 'With the self-referencing "current" field; we consider a model to be the current one if current is null.';
+COMMENT ON TABLE "model" IS 'With the self-referencing "current" field; we consider a model to be the current one if current is null.  See comment about recursion in modelling_group';
 
 CREATE TABLE "outcome" (
 "id"  SERIAL ,
@@ -135,7 +135,7 @@ CREATE TABLE "modelling_group" (
 "current" TEXT NOT NULL ,
 PRIMARY KEY ("id")
 );
-COMMENT ON TABLE "modelling_group" IS 'With the self-referencing "current" field; we consider a modelling group to be the current one if current is null.';
+COMMENT ON TABLE "modelling_group" IS 'With the self-referencing "current" field; we consider a modelling group to be the current one if current is null.  This is not recursive; if we move a modelling group to a new id then every modelling group that has current pointing at the old id must be updated to point at the new one.  This means that no `current` points at an `id` that does not have `current` as `null`.';
 
 CREATE TABLE "responsibility" (
 "id"  SERIAL NOT NULL ,

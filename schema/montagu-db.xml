@@ -143,7 +143,7 @@
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
-<comment>With the self-referencing "current" field; we consider a model to be the current one if current is null.</comment>
+<comment>With the self-referencing "current" field; we consider a model to be the current one if current is null.  See comment about recursion in modelling_group</comment>
 </table>
 <table x="1373" y="262" name="outcome">
 <row name="id" null="1" autoincrement="1">
@@ -364,7 +364,7 @@
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
-<comment>With the self-referencing "current" field; we consider a modelling group to be the current one if current is null.</comment>
+<comment>With the self-referencing "current" field; we consider a modelling group to be the current one if current is null.  This is not recursive; if we move a modelling group to a new id then every modelling group that has current pointing at the old id must be updated to point at the new one.  This means that no `current` points at an `id` that does not have `current` as `null`.</comment>
 </table>
 <table x="619" y="354" name="responsibility">
 <row name="id" null="0" autoincrement="1">
