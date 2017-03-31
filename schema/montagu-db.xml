@@ -70,7 +70,7 @@
 <default>'False'</default></row>
 <row name="uploaded_by" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
-<relation table="user" row="username" />
+<relation table="app_user" row="username" />
 </row>
 <row name="uploaded_on" null="0" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
@@ -497,7 +497,7 @@
 </key>
 <comment>Possible values {incomplete, submitted, approved}</comment>
 </table>
-<table x="1274" y="898" name="user">
+<table x="1274" y="898" name="app_user">
 <row name="username" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -528,7 +528,7 @@
 <part>name</part>
 </key>
 </table>
-<table x="1286" y="1110" name="role">
+<table x="1275" y="1109" name="role">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -548,7 +548,7 @@
 <table x="1488" y="991" name="user_role">
 <row name="username" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
-<relation table="user" row="username" />
+<relation table="app_user" row="username" />
 </row>
 <row name="role" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>

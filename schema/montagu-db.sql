@@ -194,7 +194,7 @@ PRIMARY KEY ("id")
 );
 COMMENT ON TABLE "responsibility_set_status" IS 'Possible values {incomplete, submitted, approved}';
 
-CREATE TABLE "user" (
+CREATE TABLE "app_user" (
 "username" TEXT NOT NULL ,
 "name" TEXT ,
 "email" TEXT ,
@@ -237,7 +237,7 @@ PRIMARY KEY ("id")
 
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("model_version") REFERENCES "model_version" ("id");
-ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("uploaded_by") REFERENCES "user" ("username");
+ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("uploaded_by") REFERENCES "app_user" ("username");
 ALTER TABLE "burden_estimate" ADD FOREIGN KEY ("burden_estimate_set") REFERENCES "burden_estimate_set" ("id");
 ALTER TABLE "burden_estimate" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
 ALTER TABLE "burden_estimate" ADD FOREIGN KEY ("outcome") REFERENCES "outcome" ("id");
@@ -265,7 +265,7 @@ ALTER TABLE "scenario_coverage_set" ADD FOREIGN KEY ("scenario") REFERENCES "sce
 ALTER TABLE "scenario_coverage_set" ADD FOREIGN KEY ("coverage_set") REFERENCES "coverage_set" ("id");
 ALTER TABLE "touchstone_country" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "touchstone_country" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
-ALTER TABLE "user_role" ADD FOREIGN KEY ("username") REFERENCES "user" ("username");
+ALTER TABLE "user_role" ADD FOREIGN KEY ("username") REFERENCES "app_user" ("username");
 ALTER TABLE "user_role" ADD FOREIGN KEY ("role") REFERENCES "role" ("id");
 ALTER TABLE "role_permission" ADD FOREIGN KEY ("role") REFERENCES "role" ("id");
 ALTER TABLE "role_permission" ADD FOREIGN KEY ("permission") REFERENCES "permission" ("name");
