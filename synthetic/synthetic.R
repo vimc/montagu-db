@@ -15,7 +15,6 @@ montagu_synthetic <- function() {
   import_responsibility(con)
   import_burden_estimate_set(con)
   import_burden_estimate(con)
-  import_role_permission(con)
 }
 
 montagu_connection <- function() {
