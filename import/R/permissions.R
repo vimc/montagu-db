@@ -1,13 +1,4 @@
 import_permissions <- function(con, path) {
-  for (nm in c("permission", "role")) {
-    filename <- file.path(PATH_COMMON, "permissions", paste0(nm, ".csv"))
-    dat <- read_csv(filename)
-    import_data_frame(con, nm, dat)
-    n <- DBI::dbGetQuery(con, paste("SELECT COUNT(*) FROM", nm))[[1]]
-    if (n != nrow(dat)) {
-      stop("Error importing table ", nm)
-    }
-  }
   import_role_permission(con)
   dat <- read_csv(file.path(path, "permissions", "app_user.csv"))
   app_user_create(con, dat$username, dat$name, dat$email)

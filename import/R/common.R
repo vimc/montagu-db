@@ -18,6 +18,13 @@ montagu_connection <- function() {
                  user = "vimc")
 }
 
+import_common <- function(con) {
+  files <- dir(PATH_COMMON, pattern = "\\.csv$", full.names = TRUE)
+  for (f in files) {
+    import_table(con, sub("\\.csv$", "", basename(f)), f)
+  }
+}
+
 read_csv <- function(filename, ...) {
   read.csv(filename, stringsAsFactors = FALSE, check.names = FALSE,
            na.strings = c("NA", "#VALUE!", "N/A", "#DIV/0!", "#N/A"),

@@ -1,0 +1,5 @@
+id,name
+none,No vaccination
+routine,Routine vaccination
+campaign,Campaign vaccination
+campaign-reactive,Reactive campaign vaccination

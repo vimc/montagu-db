@@ -3,7 +3,8 @@ source("R/permissions.R")
 
 con <- montagu_connection()
 path <- "data"
-DBI::dbListTables(con)
+
+import_common(con)
 
 ## 1. The permissions part; this is part of the database design and
 ## basically will not change I think.  The biggest difference is that
