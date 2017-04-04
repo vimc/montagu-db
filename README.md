@@ -42,7 +42,7 @@ docker build --tag montagu-db .
 On the CI system there is a script that wraps this and pushes to the registry so that
 
 ```
-docker run fi--didelx05.dide.ic.ac.uk:5000/montagu-db:<id>
+docker run montagu.dide.ic.ac.uk:5000/montagu-db:<id>
 ```
 
 will pull the container (`<id>` can be either a short git SHA or branch name).
@@ -50,6 +50,6 @@ will pull the container (`<id>` can be either a short git SHA or branch name).
 ### Use the empty container for testing
 
 ```
-docker run -p 5432:5432 fi--didelx05.dide.ic.ac.uk:5000/montagu-db:i228
+docker run -p 5432:5432 montagu.dide.ic.ac.uk:5000/montagu-db:i228
 psql -h localhost -p 5432 -U vimc -d montagu -c "\dt"
 ```

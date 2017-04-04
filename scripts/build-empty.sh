@@ -3,7 +3,7 @@ set -e
 
 GIT_ID=$(git rev-parse --short HEAD)
 GIT_BRANCH=$(git symbolic-ref --short HEAD)
-REGISTRY=fi--didelx05.dide.ic.ac.uk:5000
+REGISTRY=montagu.dide.ic.ac.uk:5000
 NAME=montagu-db
 
 APP_DOCKER_TAG=$REGISTRY/$NAME
