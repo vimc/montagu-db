@@ -189,10 +189,10 @@
 <default>NULL</default><relation table="country" row="id" />
 </row>
 <row name="age_from" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
+<datatype>DECIMAL</datatype>
 </row>
 <row name="age_to" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
+<datatype>DECIMAL</datatype>
 </row>
 <row name="age_to_exclusive" null="0" autoincrement="0">
 <datatype>BOOLEAN</datatype>
