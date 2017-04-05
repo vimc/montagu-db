@@ -102,7 +102,7 @@
 <datatype>BOOLEAN</datatype>
 </row>
 <row name="value" null="1" autoincrement="0">
-<datatype>DOUBLE PRECISION</datatype>
+<datatype>DECIMAL</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>

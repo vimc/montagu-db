@@ -19,7 +19,7 @@ CREATE TABLE "burden_estimate" (
 "year" INTEGER NOT NULL ,
 "outcome" INTEGER ,
 "stochastic" BOOLEAN NOT NULL ,
-"value" DOUBLE PRECISION ,
+"value" DECIMAL ,
 PRIMARY KEY ("id")
 );
 
