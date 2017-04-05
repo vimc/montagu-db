@@ -1,5 +1,12 @@
 source("R/common.R")
 source("R/permissions.R")
+source("R/coverage.R")
+
+## TODO: I need to map the burden estimate bits to the new scenario
+## metadata, not the gavi_scenario_name!  Then I can can just drop
+## gavi_scenario_name entirely
+##
+## TODO: need to curate and update the mapping of countries
 
 con <- montagu_connection()
 path <- "data"
@@ -10,3 +17,10 @@ import_common(con)
 ## basically will not change I think.  The biggest difference is that
 ## the actual list of users will need changing.
 import_permissions(con, path)
+
+import_table(con, "vaccine", "data/meta/vaccine.csv")
+import_table(con, "disease", "data/meta/disease.csv")
+
+## 2. Coverage data; the burden estimates will be driven from these.
+## These do require some serious metadata though.
+import_touchstones(con, path)
