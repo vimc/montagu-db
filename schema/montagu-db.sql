@@ -1,7 +1,7 @@
 CREATE TABLE "burden_estimate_set" (
 "id"  SERIAL NOT NULL ,
-"responsibility" INTEGER NOT NULL ,
 "model_version" INTEGER NOT NULL ,
+"responsibility" INTEGER NOT NULL ,
 "run_info" TEXT NOT NULL ,
 "validation" TEXT NOT NULL ,
 "comment" TEXT ,
@@ -235,8 +235,8 @@ CREATE TABLE "touchstone_name" (
 PRIMARY KEY ("id")
 );
 
-ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("model_version") REFERENCES "model_version" ("id");
+ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("uploaded_by") REFERENCES "app_user" ("username");
 ALTER TABLE "burden_estimate" ADD FOREIGN KEY ("burden_estimate_set") REFERENCES "burden_estimate_set" ("id");
 ALTER TABLE "burden_estimate" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
