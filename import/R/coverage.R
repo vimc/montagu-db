@@ -15,6 +15,7 @@ import_touchstone <- function(con, filename, path) {
     insert_touchstone_coverage(con, dat, el, activities, path)
   }
   insert_touchstone_scenarios(con, dat, activities, path)
+  insert_touchstone_country(con, dat, path)
 }
 
 ## 'dat' here is the contents of the yaml file
@@ -120,4 +121,9 @@ insert_touchstone_scenarios <- function(con, dat, activities, path) {
 
   DBI::dbWriteTable(con, "scenario_coverage_set", scenario_coverage_set,
                     append = TRUE)
+}
+
+insert_touchstone_country <- function(con, dat, path) {
+  d <- read_csv(file.path(path, "coverage", dat$id, "touchstone_country.csv"))
+  DBI::dbWriteTable(con, "touchstone_country", d, append = TRUE)
 }
