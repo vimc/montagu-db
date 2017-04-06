@@ -34,7 +34,7 @@ CREATE TABLE "model" (
 "modelling_group" TEXT NOT NULL DEFAULT 'NULL' ,
 "description" TEXT NOT NULL ,
 "citation" TEXT NOT NULL ,
-"current" TEXT NOT NULL ,
+"current" TEXT ,
 PRIMARY KEY ("id")
 );
 COMMENT ON TABLE "model" IS 'With the self-referencing "current" field; we consider a model to be the current one if current is null.  See comment about recursion in modelling_group';

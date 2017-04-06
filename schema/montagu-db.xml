@@ -133,9 +133,9 @@
 <row name="citation" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
-<row name="current" null="0" autoincrement="0">
+<row name="current" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
-<relation table="model" row="id" />
+<default>NULL</default><relation table="model" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
