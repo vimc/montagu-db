@@ -89,6 +89,7 @@ CREATE TABLE "touchstone" (
 "id" TEXT NOT NULL ,
 "touchstone_name" TEXT NOT NULL ,
 "version" INTEGER NOT NULL ,
+"description" TEXT NOT NULL ,
 "status" TEXT NOT NULL ,
 "year_start" INTEGER NOT NULL ,
 "year_end" INTEGER NOT NULL ,
@@ -232,6 +233,7 @@ PRIMARY KEY ("role", "permission")
 
 CREATE TABLE "touchstone_name" (
 "id" TEXT NOT NULL ,
+"description" TEXT NOT NULL ,
 PRIMARY KEY ("id")
 );
 

@@ -260,6 +260,9 @@
 <row name="version" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 </row>
+<row name="description" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
 <row name="status" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 <relation table="touchstone_status" row="id" />
@@ -473,7 +476,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="50" y="550" name="touchstone_status">
+<table x="50" y="600" name="touchstone_status">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -579,6 +582,9 @@
 </table>
 <table x="50" y="250" name="touchstone_name">
 <row name="id" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="description" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
 <key type="PRIMARY" name="">
