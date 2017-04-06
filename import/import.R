@@ -18,8 +18,11 @@ import_common(con)
 ## the actual list of users will need changing.
 import_permissions(con, path)
 
-import_table(con, "vaccine", "data/meta/vaccine.csv")
-import_table(con, "disease", "data/meta/disease.csv")
+meta_tables <- c("vaccine", "disease", "outcome",
+                 "modelling_group", "model", "model_version")
+for (table in meta_tables) {
+  import_table(con, table, file.path(path, "meta", paste0(table, ".csv")))
+}
 
 ## 2. Coverage data; the burden estimates will be driven from these.
 ## These do require some serious metadata though.
