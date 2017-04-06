@@ -32,9 +32,8 @@ PRIMARY KEY ("id")
 CREATE TABLE "model" (
 "id" TEXT NOT NULL ,
 "modelling_group" TEXT NOT NULL DEFAULT 'NULL' ,
-"name" VARCHAR(64) NOT NULL ,
-"citation" TEXT NOT NULL ,
 "description" TEXT NOT NULL ,
+"citation" TEXT NOT NULL ,
 "current" TEXT NOT NULL ,
 PRIMARY KEY ("id")
 );

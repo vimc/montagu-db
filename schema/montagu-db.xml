@@ -127,13 +127,10 @@
 <datatype>TEXT</datatype>
 <default>'NULL'</default><relation table="modelling_group" row="id" />
 </row>
-<row name="name" null="0" autoincrement="0">
-<datatype>VARCHAR(64)</datatype>
-</row>
-<row name="citation" null="0" autoincrement="0">
+<row name="description" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
-<row name="description" null="0" autoincrement="0">
+<row name="citation" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
 <row name="current" null="0" autoincrement="0">
@@ -353,7 +350,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="50" y="30" name="modelling_group">
+<table x="50" y="10" name="modelling_group">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
