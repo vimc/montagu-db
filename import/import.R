@@ -19,7 +19,8 @@ import_common(con)
 import_permissions(con, path)
 
 meta_tables <- c("vaccine", "disease", "outcome",
-                 "modelling_group", "model", "model_version")
+                 "modelling_group", "model", "model_version",
+                 "touchstone_name")
 for (table in meta_tables) {
   import_table(con, table, file.path(path, "meta", paste0(table, ".csv")))
 }

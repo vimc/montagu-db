@@ -21,9 +21,8 @@ import_touchstone <- function(con, filename, path) {
 ## 'dat' here is the contents of the yaml file
 insert_touchstone <- function(con, dat) {
   touchstone <- dat$touchstone_name
-  insert_values_into(con, "touchstone_name", list(id = dat$touchstone_name),
-                     "id", TRUE)
-  d <- dat[c("id", "touchstone_name", "version", "year_start", "year_end")]
+  d <- dat[c("id", "touchstone_name", "version", "description",
+             "year_start", "year_end")]
   d$status <- "finished"
   insert_values_into(con, "touchstone", d, "id", TRUE)
 }
