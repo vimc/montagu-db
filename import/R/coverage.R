@@ -11,11 +11,11 @@ import_touchstone <- function(con, filename, path) {
   message(sprintf("*** Importing touchstone %s (%s)", dat$id, filename))
   insert_touchstone(con, dat)
   activities <- insert_touchstone_activities(con, dat, path)
+  insert_touchstone_scenarios(con, dat, activities, path)
+  insert_touchstone_country(con, dat, path)
   for (el in dat$coverage_set) {
     insert_touchstone_coverage(con, dat, el, activities, path)
   }
-  insert_touchstone_scenarios(con, dat, activities, path)
-  insert_touchstone_country(con, dat, path)
 }
 
 ## 'dat' here is the contents of the yaml file
@@ -97,7 +97,6 @@ insert_touchstone_scenarios <- function(con, dat, activities, path) {
                        description = tmp$gavi_scenario_name,
                        disease = tmp$disease)
   insert_values_into(con, "scenario_description", upload, "id", TRUE)
-  ## Annoyingly this fails really quite badly
 
   tmp2 <- data_frame(touchstone = dat$id,
                      scenario_description = upload$id)
