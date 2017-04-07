@@ -56,7 +56,7 @@
 <row name="run_info" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
-<row name="validation" null="0" autoincrement="0">
+<row name="validation" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
 <row name="comment" null="1" autoincrement="0">

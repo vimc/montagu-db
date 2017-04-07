@@ -3,7 +3,7 @@ CREATE TABLE "burden_estimate_set" (
 "model_version" INTEGER NOT NULL ,
 "responsibility" INTEGER NOT NULL ,
 "run_info" TEXT NOT NULL ,
-"validation" TEXT NOT NULL ,
+"validation" TEXT ,
 "comment" TEXT ,
 "interpolated" BOOLEAN NOT NULL ,
 "complete" BOOLEAN NOT NULL DEFAULT 'False' ,
