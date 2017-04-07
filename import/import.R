@@ -1,6 +1,7 @@
 source("R/common.R")
 source("R/permissions.R")
 source("R/coverage.R")
+source("R/burden.R")
 
 ## TODO: I need to map the burden estimate bits to the new scenario
 ## metadata, not the gavi_scenario_name!  Then I can can just drop
@@ -18,6 +19,7 @@ import_common(con)
 ## the actual list of users will need changing.
 import_permissions(con, path)
 
+## 2. Metadata
 meta_tables <- c("vaccine", "disease", "outcome",
                  "modelling_group", "model", "model_version",
                  "touchstone_name")
@@ -25,6 +27,16 @@ for (table in meta_tables) {
   import_table(con, table, file.path(path, "meta", paste0(table, ".csv")))
 }
 
-## 2. Coverage data; the burden estimates will be driven from these.
+## 3. Coverage data; the burden estimates will be driven from these.
 ## These do require some serious metadata though.
 import_touchstones(con, path)
+
+## 4. Burden estimates
+import_burden(con, path)
+
+## How much data?
+tbls <- DBI::dbListTables(con)
+n <- vapply(tbls, function(x)
+  DBI::dbGetQuery(con, sprintf("SELECT COUNT(*) as n FROM %s", x))$n,
+  integer(1))
+print(sort(n))
