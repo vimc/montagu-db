@@ -156,9 +156,10 @@ CREATE TABLE "responsibility_set" (
 "id"  SERIAL NOT NULL ,
 "modelling_group" TEXT NOT NULL ,
 "touchstone" TEXT NOT NULL ,
+"disease" TEXT NOT NULL ,
 "status" TEXT NOT NULL ,
 PRIMARY KEY ("id"),
-UNIQUE ("modelling_group", "touchstone")
+UNIQUE ("modelling_group", "touchstone", "disease")
 );
 
 CREATE TABLE "scenario_coverage_set" (
@@ -261,6 +262,7 @@ ALTER TABLE "responsibility" ADD FOREIGN KEY ("scenario") REFERENCES "scenario" 
 ALTER TABLE "scenario_description" ADD FOREIGN KEY ("disease") REFERENCES "disease" ("id");
 ALTER TABLE "responsibility_set" ADD FOREIGN KEY ("modelling_group") REFERENCES "modelling_group" ("id");
 ALTER TABLE "responsibility_set" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
+ALTER TABLE "responsibility_set" ADD FOREIGN KEY ("disease") REFERENCES "disease" ("id");
 ALTER TABLE "responsibility_set" ADD FOREIGN KEY ("status") REFERENCES "responsibility_set_status" ("id");
 ALTER TABLE "scenario_coverage_set" ADD FOREIGN KEY ("scenario") REFERENCES "scenario" ("id");
 ALTER TABLE "scenario_coverage_set" ADD FOREIGN KEY ("coverage_set") REFERENCES "coverage_set" ("id");
