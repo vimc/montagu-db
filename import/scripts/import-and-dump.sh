@@ -18,7 +18,6 @@ MONTAGU_IMPORT_PATH_ABS=$(readlink -f $MONTAGU_IMPORT_PATH)
 MONTAGU_IMPORT_PATH_CONTAINER=/montagu-import-data
 
 MONTAGU_DB_HOST=montagu-db-server
-MONTAGU_DB_TAG=master
 MONTAGU_DB_IMAGE=montagu.dide.ic.ac.uk:5000/montagu-db:${MONTAGU_DB_TAG}
 
 MONTAGU_DB_NETWORK=montagu-db-import-nw
