@@ -30,7 +30,7 @@ docker run -d --rm \
 # First wait for the container to come up; for now this should be enough
 sleep 1
 
-docker run --rm -it \
+docker run --rm \
        --network $MONTAGU_DB_NETWORK \
        -e MONTAGU_DB_HOST=$MONTAGU_DB_HOST \
        -e MONTAGU_DB_PORT=5432 \
