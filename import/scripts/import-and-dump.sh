@@ -4,6 +4,7 @@ set -x
 
 if [ "$#" -ne 1 ]; then
     echo "Expected one argument (the import path)"
+    exit 1
 fi
 MONTAGU_IMPORT_PATH=$1
 
@@ -29,6 +30,8 @@ docker run -d --rm \
 
 # First wait for the container to come up; for now this should be enough
 sleep 1
+
+docker ps
 
 docker run --rm \
        --network $MONTAGU_DB_NETWORK \
