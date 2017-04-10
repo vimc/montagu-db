@@ -15,5 +15,5 @@ docker build \
        --tag $APP_DOCKER_BRANCH_TAG \
        .
 
-# docker push $APP_DOCKER_BRANCH_TAG
-# docker push $APP_DOCKER_COMMIT_TAG
+docker push $APP_DOCKER_BRANCH_TAG
+docker push $APP_DOCKER_COMMIT_TAG
