@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -x
+
 if [ "$#" -ne 1 ]; then
     echo "Expected one argument (the import path)"
 fi
@@ -34,13 +36,17 @@ docker run --rm -it \
        -e MONTAGU_DB_PORT=5432 \
        -e MONTAGU_IMPORT_PATH=$MONTAGU_IMPORT_PATH_CONTAINER \
        -v $MONTAGU_IMPORT_PATH_ABS:$MONTAGU_IMPORT_PATH_CONTAINER \
-       montagu.dide.ic.ac.uk:5000/montagu-db-import:master bash
+       montagu.dide.ic.ac.uk:5000/montagu-db-import:master \
+       Rscript import.R
 
 SUCCESS=$?
 
 if [ $SUCCESS -eq 0 ]; then
     echo "Success!"
-    pg_dump -U vimc -Fc montagu > montagu.dump
+    docker exec $MONTAGU_DB_HOST \
+           pg_dump -U vimc -Fc montagu > montagu.dump
+else
+    echo "Failure :("
 fi
 
 docker stop $MONTAGU_DB_HOST
