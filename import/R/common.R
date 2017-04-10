@@ -1,15 +1,6 @@
 PATH_COMMON <- "common"
 
-montagu_connection <- function() {
-  host <- Sys.getenv("MONTAGU_DB")
-  if (nzchar(host)) {
-    port <- 5432L
-  } else {
-    ## This will be where I'll tend to export things to by convention.
-    host <- "localhost"
-    port <- 8888
-  }
-
+montagu_connection <- function(host = "localhost", port = 5432) {
   DBI::dbConnect(RPostgres::Postgres(),
                  dbname = "montagu",
                  host = host,
