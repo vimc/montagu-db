@@ -2,11 +2,12 @@
 
 set -x
 
-if [ "$#" -ne 1 ]; then
+if [ "$#" -ne 2 ]; then
     echo "Expected one argument (the import path)"
     exit 1
 fi
 MONTAGU_IMPORT_PATH=$1
+MONTAGU_DB_TAG=$2
 
 if [ ! -d $MONTAGU_IMPORT_PATH ]; then
     echo "Import path must exist and be a directory"
