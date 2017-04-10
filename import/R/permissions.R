@@ -1,6 +1,6 @@
 import_permissions <- function(con, path) {
   import_role_permission(con)
-  dat <- read_csv(file.path(path, "permissions", "app_user.csv"))
+  dat <- read_csv(file.path(path, "meta", "app_user.csv"))
   app_user_create(con, dat$username, dat$name, dat$email)
 }
 
