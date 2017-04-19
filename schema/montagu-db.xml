@@ -58,7 +58,7 @@
 </row>
 <row name="validation" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
-</row>
+<default>NULL</default></row>
 <row name="comment" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>NULL</default></row>
@@ -588,6 +588,67 @@
 </row>
 <row name="description" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1450" y="20" name="impact_estimate_set">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="version" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="name" null="1" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>NULL</default></row>
+<row name="script" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1197" y="18" name="impact_estimate_components">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="burden_estimate_set" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="burden_estimate_set" row="id" />
+</row>
+<row name="impact_estimate_set" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="impact_estimate_set" row="id" />
+</row>
+<row name="outcome" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="name" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1650" y="20" name="impact_estimate">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="impact_estimate_set" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="impact_estimate_set" row="id" />
+</row>
+<row name="year" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="country" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="country" row="id" />
+</row>
+<row name="value" null="0" autoincrement="0">
+<datatype>DECIMAL</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>

@@ -237,6 +237,32 @@ CREATE TABLE "touchstone_name" (
 PRIMARY KEY ("id")
 );
 
+CREATE TABLE "impact_estimate_set" (
+"id"  SERIAL ,
+"version" INTEGER NOT NULL ,
+"name" TEXT ,
+"script" TEXT NOT NULL ,
+PRIMARY KEY ("id")
+);
+
+CREATE TABLE "impact_estimate_components" (
+"id"  SERIAL ,
+"burden_estimate_set" INTEGER ,
+"impact_estimate_set" INTEGER NOT NULL ,
+"outcome" INTEGER ,
+"name" TEXT NOT NULL ,
+PRIMARY KEY ("id")
+);
+
+CREATE TABLE "impact_estimate" (
+"id"  SERIAL ,
+"impact_estimate_set" INTEGER ,
+"year" INTEGER ,
+"country" TEXT NOT NULL ,
+"value" DECIMAL NOT NULL ,
+PRIMARY KEY ("id")
+);
+
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("model_version") REFERENCES "model_version" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("uploaded_by") REFERENCES "app_user" ("username");
@@ -272,3 +298,7 @@ ALTER TABLE "user_role" ADD FOREIGN KEY ("username") REFERENCES "app_user" ("use
 ALTER TABLE "user_role" ADD FOREIGN KEY ("role") REFERENCES "role" ("id");
 ALTER TABLE "role_permission" ADD FOREIGN KEY ("role") REFERENCES "role" ("id");
 ALTER TABLE "role_permission" ADD FOREIGN KEY ("permission") REFERENCES "permission" ("name");
+ALTER TABLE "impact_estimate_components" ADD FOREIGN KEY ("burden_estimate_set") REFERENCES "burden_estimate_set" ("id");
+ALTER TABLE "impact_estimate_components" ADD FOREIGN KEY ("impact_estimate_set") REFERENCES "impact_estimate_set" ("id");
+ALTER TABLE "impact_estimate" ADD FOREIGN KEY ("impact_estimate_set") REFERENCES "impact_estimate_set" ("id");
+ALTER TABLE "impact_estimate" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
