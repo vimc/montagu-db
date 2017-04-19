@@ -361,6 +361,10 @@
 <datatype>TEXT</datatype>
 <default>NULL</default><relation table="modelling_group" row="id" />
 </row>
+<row name="disease" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="disease" row="id" />
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -413,10 +417,6 @@
 <datatype>TEXT</datatype>
 <relation table="touchstone" row="id" />
 </row>
-<row name="disease" null="0" autoincrement="0">
-<datatype>TEXT</datatype>
-<relation table="disease" row="id" />
-</row>
 <row name="status" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 <relation table="responsibility_set_status" row="id" />
@@ -427,7 +427,6 @@
 <key type="UNIQUE" name="">
 <part>modelling_group</part>
 <part>touchstone</part>
-<part>disease</part>
 </key>
 </table>
 <table x="500" y="700" name="scenario_coverage_set">
