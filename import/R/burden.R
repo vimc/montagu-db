@@ -49,8 +49,8 @@ import_burden1 <- function(con, path, filename) {
     insert_values_into(con, "responsibility_set",
                        list(modelling_group = dat$modelling_group,
                             touchstone = dat$touchstone_id,
-                            disease = dat$disease,
-                            status = "approved"))
+                            status = "approved"),
+                       key = c("modelling_group", "touchstone"))
 
   tmp <- DBI::dbGetQuery(con, "SELECT * FROM scenario WHERE touchstone = $1",
                          dat$touchstone_id)
