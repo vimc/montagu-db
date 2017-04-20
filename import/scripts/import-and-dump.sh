@@ -19,6 +19,7 @@ MONTAGU_IMPORT_PATH_CONTAINER=/montagu-import-data
 
 MONTAGU_DB_HOST=montagu-db-server
 MONTAGU_DB_IMAGE=montagu.dide.ic.ac.uk:5000/montagu-db:${MONTAGU_DB_TAG}
+MONTAGU_IMPORT_IMAGE=montagu.dide.ic.ac.uk:5000/montagu-db-import:${MONTAGU_DB_TAG}
 
 MONTAGU_DB_NETWORK=montagu-db-import-nw
 
@@ -39,7 +40,7 @@ docker run --rm \
        -e MONTAGU_DB_PORT=5432 \
        -e MONTAGU_IMPORT_PATH=$MONTAGU_IMPORT_PATH_CONTAINER \
        -v $MONTAGU_IMPORT_PATH_ABS:$MONTAGU_IMPORT_PATH_CONTAINER \
-       montagu.dide.ic.ac.uk:5000/montagu-db-import:master \
+       ${MONTAGU_IMPORT_IMAGE} \
        Rscript import.R
 
 SUCCESS=$?
