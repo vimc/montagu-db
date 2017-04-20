@@ -133,7 +133,6 @@ CREATE TABLE "modelling_group" (
 "id" TEXT NOT NULL ,
 "description" TEXT NOT NULL ,
 "current" TEXT ,
-"disease" TEXT NOT NULL ,
 PRIMARY KEY ("id")
 );
 COMMENT ON TABLE "modelling_group" IS 'With the self-referencing "current" field; we consider a modelling group to be the current one if current is null.  This is not recursive; if we move a modelling group to a new id then every modelling group that has current pointing at the old id must be updated to point at the new one.  This means that no `current` points at an `id` that does not have `current` as `null`.';
@@ -157,9 +156,10 @@ CREATE TABLE "responsibility_set" (
 "id"  SERIAL NOT NULL ,
 "modelling_group" TEXT NOT NULL ,
 "touchstone" TEXT NOT NULL ,
+"disease" TEXT NOT NULL ,
 "status" TEXT NOT NULL ,
 PRIMARY KEY ("id"),
-UNIQUE ("modelling_group", "touchstone")
+UNIQUE ("modelling_group", "touchstone", "disease")
 );
 
 CREATE TABLE "scenario_coverage_set" (
@@ -283,12 +283,12 @@ ALTER TABLE "coverage_set" ADD FOREIGN KEY ("vaccine") REFERENCES "vaccine" ("id
 ALTER TABLE "coverage_set" ADD FOREIGN KEY ("gavi_support_level") REFERENCES "gavi_support_level" ("id");
 ALTER TABLE "coverage_set" ADD FOREIGN KEY ("activity_type") REFERENCES "activity_type" ("id");
 ALTER TABLE "modelling_group" ADD FOREIGN KEY ("current") REFERENCES "modelling_group" ("id");
-ALTER TABLE "modelling_group" ADD FOREIGN KEY ("disease") REFERENCES "disease" ("id");
 ALTER TABLE "responsibility" ADD FOREIGN KEY ("responsibility_set") REFERENCES "responsibility_set" ("id");
 ALTER TABLE "responsibility" ADD FOREIGN KEY ("scenario") REFERENCES "scenario" ("id");
 ALTER TABLE "scenario_description" ADD FOREIGN KEY ("disease") REFERENCES "disease" ("id");
 ALTER TABLE "responsibility_set" ADD FOREIGN KEY ("modelling_group") REFERENCES "modelling_group" ("id");
 ALTER TABLE "responsibility_set" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
+ALTER TABLE "responsibility_set" ADD FOREIGN KEY ("disease") REFERENCES "disease" ("id");
 ALTER TABLE "responsibility_set" ADD FOREIGN KEY ("status") REFERENCES "responsibility_set_status" ("id");
 ALTER TABLE "scenario_coverage_set" ADD FOREIGN KEY ("scenario") REFERENCES "scenario" ("id");
 ALTER TABLE "scenario_coverage_set" ADD FOREIGN KEY ("coverage_set") REFERENCES "coverage_set" ("id");
