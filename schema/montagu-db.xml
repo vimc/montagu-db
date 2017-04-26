@@ -41,7 +41,7 @@
             <type label="Inet CIDR Addr" length="0" sql="CIDR" quote="'"/>
             <type label="Geometry" length="0" sql="GEOMETRY" quote="'"/>
         </group>
-        </datatypes><table x="950" y="200" name="burden_estimate_set">
+        </datatypes><table x="950" y="280" name="burden_estimate_set">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -79,7 +79,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1190" y="200" name="burden_estimate">
+<table x="1190" y="280" name="burden_estimate">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -108,7 +108,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="950" y="850" name="vaccine">
+<table x="950" y="890" name="vaccine">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>'NULL'</default></row>
@@ -119,7 +119,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="304" y="14" name="model">
+<table x="305" y="55" name="model">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -142,7 +142,7 @@
 </key>
 <comment>With the self-referencing "current" field; we consider a model to be the current one if current is null.  See comment about recursion in modelling_group</comment>
 </table>
-<table x="1400" y="300" name="outcome">
+<table x="1380" y="390" name="outcome">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -159,7 +159,7 @@
 <part>code</part>
 </key>
 </table>
-<table x="1400" y="500" name="country">
+<table x="1385" y="565" name="country">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -170,7 +170,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="950" y="550" name="coverage">
+<table x="950" y="590" name="coverage">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -210,7 +210,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="750" y="950" name="disease">
+<table x="750" y="990" name="disease">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -221,7 +221,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="500" y="13" name="model_version">
+<table x="500" y="55" name="model_version">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -246,7 +246,7 @@
 <part>version</part>
 </key>
 </table>
-<table x="50" y="350" name="touchstone">
+<table x="50" y="390" name="touchstone">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -279,7 +279,7 @@
 </key>
 <comment>This is the top-level categorization. It refers to an Operational Forecast from GAVI, a WUENIC July update, or some other data set against which impact estimates are going to be done </comment>
 </table>
-<table x="950" y="1050" name="activity_type">
+<table x="950" y="1090" name="activity_type">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>'NULL'</default></row>
@@ -291,7 +291,7 @@
 </key>
 <comment>This is mostly "none", "routine" or "campaign" but with a few extras</comment>
 </table>
-<table x="950" y="950" name="gavi_support_level">
+<table x="950" y="990" name="gavi_support_level">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -303,7 +303,7 @@
 </key>
 <comment>Enum table. Possible values: none (No vaccination), without (Vaccination without GAVI support), with (Vaccination with GAVI support)</comment>
 </table>
-<table x="300" y="700" name="scenario">
+<table x="300" y="740" name="scenario">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -323,7 +323,7 @@
 <part>scenario_description</part>
 </key>
 </table>
-<table x="750" y="700" name="coverage_set">
+<table x="750" y="740" name="coverage_set">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -350,7 +350,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="50" y="10" name="modelling_group">
+<table x="50" y="55" name="modelling_group">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -366,7 +366,7 @@
 </key>
 <comment>With the self-referencing "current" field; we consider a modelling group to be the current one if current is null.  This is not recursive; if we move a modelling group to a new id then every modelling group that has current pointing at the old id must be updated to point at the new one.  This means that no `current` points at an `id` that does not have `current` as `null`.</comment>
 </table>
-<table x="500" y="400" name="responsibility">
+<table x="500" y="440" name="responsibility">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -386,7 +386,7 @@
 <part>scenario</part>
 </key>
 </table>
-<table x="500" y="850" name="scenario_description">
+<table x="500" y="890" name="scenario_description">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -401,7 +401,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="300" y="400" name="responsibility_set">
+<table x="300" y="440" name="responsibility_set">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -425,7 +425,7 @@
 <part>touchstone</part>
 </key>
 </table>
-<table x="500" y="700" name="scenario_coverage_set">
+<table x="500" y="740" name="scenario_coverage_set">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -448,7 +448,7 @@
 <part>order</part>
 </key>
 </table>
-<table x="300" y="200" name="touchstone_country">
+<table x="300" y="240" name="touchstone_country">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -473,7 +473,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="50" y="600" name="touchstone_status">
+<table x="50" y="640" name="touchstone_status">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -485,7 +485,7 @@
 </key>
 <comment>Valid values: {in-preparation, open, finished}</comment>
 </table>
-<table x="500" y="550" name="responsibility_set_status">
+<table x="500" y="590" name="responsibility_set_status">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -497,7 +497,7 @@
 </key>
 <comment>Possible values {incomplete, submitted, approved}</comment>
 </table>
-<table x="1200" y="700" name="app_user">
+<table x="1200" y="740" name="app_user">
 <row name="username" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -520,7 +520,7 @@
 <part>username</part>
 </key>
 </table>
-<table x="1200" y="1050" name="permission">
+<table x="1200" y="1090" name="permission">
 <row name="name" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -528,7 +528,7 @@
 <part>name</part>
 </key>
 </table>
-<table x="1200" y="900" name="role">
+<table x="1200" y="940" name="role">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -545,7 +545,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1400" y="800" name="user_role">
+<table x="1400" y="840" name="user_role">
 <row name="username" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 <relation table="app_user" row="username" />
@@ -563,7 +563,7 @@
 <part>scope_id</part>
 </key>
 </table>
-<table x="1400" y="950" name="role_permission">
+<table x="1400" y="990" name="role_permission">
 <row name="role" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="role" row="id" />
@@ -577,7 +577,7 @@
 <part>permission</part>
 </key>
 </table>
-<table x="50" y="250" name="touchstone_name">
+<table x="50" y="290" name="touchstone_name">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -588,7 +588,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1450" y="20" name="impact_estimate_set">
+<table x="950" y="115" name="impact_estimate_calculation">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -601,21 +601,24 @@
 <row name="script" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
+<row name="comment" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="1197" y="18" name="impact_estimate_components">
+<table x="700" y="55" name="impact_estimate_component">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="burden_estimate_set" null="1" autoincrement="0">
+<row name="responsibility" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="burden_estimate_set" row="id" />
+<relation table="responsibility" row="id" />
 </row>
-<row name="impact_estimate_set" null="0" autoincrement="0">
+<row name="impact_estimate" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="impact_estimate_set" row="id" />
+<default>NULL</default><relation table="impact_estimate_calculation" row="id" />
 </row>
 <row name="outcome" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
@@ -627,14 +630,14 @@
 <part>id</part>
 </key>
 </table>
-<table x="1650" y="20" name="impact_estimate">
+<table x="1510" y="285" name="impact_estimate">
 <row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="impact_estimate_set" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="impact_estimate_set" row="id" />
 </row>
+<row name="impact_estimate_set" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
 <row name="year" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -644,6 +647,26 @@
 </row>
 <row name="value" null="0" autoincrement="0">
 <datatype>DECIMAL</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1250" y="50" name="impact_estimate_set">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="impact_estimate_component" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="impact_estimate_component" row="id" />
+</row>
+<row name="impact_estimate_calculation" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="impact_estimate_calculation" row="id" />
+</row>
+<row name="burden_estimate_set" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="burden_estimate_set" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
