@@ -248,7 +248,7 @@ PRIMARY KEY ("id")
 CREATE TABLE "impact_estimate_component" (
 "id"  SERIAL ,
 "responsibility" INTEGER NOT NULL ,
-"impact_estimate" INTEGER NOT NULL ,
+"impact_estimate_calculation" INTEGER NOT NULL ,
 "outcome" INTEGER ,
 "name" TEXT NOT NULL ,
 PRIMARY KEY ("id")
@@ -306,7 +306,7 @@ ALTER TABLE "user_role" ADD FOREIGN KEY ("role") REFERENCES "role" ("id");
 ALTER TABLE "role_permission" ADD FOREIGN KEY ("role") REFERENCES "role" ("id");
 ALTER TABLE "role_permission" ADD FOREIGN KEY ("permission") REFERENCES "permission" ("name");
 ALTER TABLE "impact_estimate_component" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
-ALTER TABLE "impact_estimate_component" ADD FOREIGN KEY ("impact_estimate") REFERENCES "impact_estimate_calculation" ("id");
+ALTER TABLE "impact_estimate_component" ADD FOREIGN KEY ("impact_estimate_calculation") REFERENCES "impact_estimate_calculation" ("id");
 ALTER TABLE "impact_estimate_component" ADD FOREIGN KEY ("outcome") REFERENCES "outcome" ("id");
 ALTER TABLE "impact_estimate" ADD FOREIGN KEY ("impact_estimate_set") REFERENCES "impact_estimate_set" ("id");
 ALTER TABLE "impact_estimate" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
