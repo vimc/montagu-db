@@ -239,9 +239,9 @@ PRIMARY KEY ("id")
 CREATE TABLE "impact_estimate_calculation" (
 "id"  SERIAL ,
 "version" INTEGER NOT NULL ,
-"name" TEXT ,
+"name" TEXT NOT NULL ,
 "script" TEXT NOT NULL ,
-"comment" TEXT NOT NULL ,
+"comment" TEXT ,
 PRIMARY KEY ("id")
 );
 

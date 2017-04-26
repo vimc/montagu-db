@@ -595,15 +595,15 @@
 <row name="version" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 </row>
-<row name="name" null="1" autoincrement="0">
+<row name="name" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
-<default>NULL</default></row>
+</row>
 <row name="script" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
-<row name="comment" null="0" autoincrement="0">
+<row name="comment" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
-</row>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
