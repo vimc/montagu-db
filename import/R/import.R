@@ -24,6 +24,7 @@ montagu_import <- function(path, host = "localhost", port = 5432) {
   import_burden(con, path)
 
   create_impact_functions(con)
+  import_impact_estimate_calculations(con, path)
 
   ## How much data?
   tbls <- DBI::dbListTables(con)
