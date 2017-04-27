@@ -594,7 +594,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="950" y="115" name="impact_estimate_calculation">
+<table x="700" y="50" name="impact_estimate_calculation">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -614,7 +614,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="700" y="55" name="impact_estimate_component">
+<table x="950" y="130" name="impact_estimate_component">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -643,14 +643,14 @@
 <part>name</part>
 </key>
 </table>
-<table x="1545" y="50" name="impact_estimate">
+<table x="1725" y="95" name="impact_estimate">
 <row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="impact_estimate_set" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="impact_estimate_set" row="id" />
 </row>
+<row name="impact_estimate_set" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
 <row name="year" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -665,22 +665,37 @@
 <part>id</part>
 </key>
 </table>
-<table x="1250" y="50" name="impact_estimate_set">
+<table x="1395" y="125" name="impact_estimate_set_component">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
+<row name="impact_estimate_set" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="impact_estimate_set" row="id" />
+</row>
 <row name="impact_estimate_component" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="impact_estimate_component" row="id" />
-</row>
-<row name="impact_estimate_calculation" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="impact_estimate_calculation" row="id" />
 </row>
 <row name="burden_estimate_set" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="burden_estimate_set" row="id" />
 </row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1190" y="20" name="impact_estimate_set">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="impact_estimate_calculation" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="impact_estimate_calculation" row="id" />
+</row>
+<row name="computed_on" null="0" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
+<default>'current_timestamp'</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>

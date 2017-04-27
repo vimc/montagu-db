@@ -265,11 +265,18 @@ CREATE TABLE "impact_estimate" (
 PRIMARY KEY ("id")
 );
 
+CREATE TABLE "impact_estimate_set_component" (
+"id"  SERIAL ,
+"impact_estimate_set" INTEGER ,
+"impact_estimate_component" INTEGER ,
+"burden_estimate_set" INTEGER ,
+PRIMARY KEY ("id")
+);
+
 CREATE TABLE "impact_estimate_set" (
 "id"  SERIAL ,
-"impact_estimate_component" INTEGER ,
 "impact_estimate_calculation" INTEGER ,
-"burden_estimate_set" INTEGER ,
+"computed_on" TIMESTAMP NOT NULL DEFAULT 'current_timestamp' ,
 PRIMARY KEY ("id")
 );
 
@@ -310,8 +317,9 @@ ALTER TABLE "role_permission" ADD FOREIGN KEY ("permission") REFERENCES "permiss
 ALTER TABLE "impact_estimate_component" ADD FOREIGN KEY ("impact_estimate_calculation") REFERENCES "impact_estimate_calculation" ("id");
 ALTER TABLE "impact_estimate_component" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
 ALTER TABLE "impact_estimate_component" ADD FOREIGN KEY ("outcome") REFERENCES "outcome" ("id");
-ALTER TABLE "impact_estimate" ADD FOREIGN KEY ("impact_estimate_set") REFERENCES "impact_estimate_set" ("id");
+ALTER TABLE "impact_estimate" ADD FOREIGN KEY ("id") REFERENCES "impact_estimate_set" ("id");
 ALTER TABLE "impact_estimate" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
-ALTER TABLE "impact_estimate_set" ADD FOREIGN KEY ("impact_estimate_component") REFERENCES "impact_estimate_component" ("id");
+ALTER TABLE "impact_estimate_set_component" ADD FOREIGN KEY ("impact_estimate_set") REFERENCES "impact_estimate_set" ("id");
+ALTER TABLE "impact_estimate_set_component" ADD FOREIGN KEY ("impact_estimate_component") REFERENCES "impact_estimate_component" ("id");
+ALTER TABLE "impact_estimate_set_component" ADD FOREIGN KEY ("burden_estimate_set") REFERENCES "burden_estimate_set" ("id");
 ALTER TABLE "impact_estimate_set" ADD FOREIGN KEY ("impact_estimate_calculation") REFERENCES "impact_estimate_calculation" ("id");
-ALTER TABLE "impact_estimate_set" ADD FOREIGN KEY ("burden_estimate_set") REFERENCES "burden_estimate_set" ("id");
