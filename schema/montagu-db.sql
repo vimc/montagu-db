@@ -20,7 +20,8 @@ CREATE TABLE "burden_estimate" (
 "outcome" INTEGER ,
 "stochastic" BOOLEAN NOT NULL ,
 "value" DECIMAL ,
-PRIMARY KEY ("id")
+PRIMARY KEY ("id"),
+UNIQUE ("burden_estimate_set", "country", "year", "outcome")
 );
 
 CREATE TABLE "vaccine" (

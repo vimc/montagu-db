@@ -107,6 +107,12 @@
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
+<key type="UNIQUE" name="">
+<part>burden_estimate_set</part>
+<part>country</part>
+<part>year</part>
+<part>outcome</part>
+</key>
 </table>
 <table x="950" y="890" name="vaccine">
 <row name="id" null="0" autoincrement="0">
@@ -637,7 +643,7 @@
 <part>name</part>
 </key>
 </table>
-<table x="1510" y="285" name="impact_estimate">
+<table x="1545" y="50" name="impact_estimate">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
