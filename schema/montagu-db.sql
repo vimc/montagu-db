@@ -261,7 +261,7 @@ CREATE TABLE "impact_estimate" (
 "impact_estimate_set" INTEGER ,
 "year" INTEGER ,
 "country" TEXT NOT NULL ,
-"value" DECIMAL NOT NULL ,
+"value" DECIMAL ,
 PRIMARY KEY ("id")
 );
 

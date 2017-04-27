@@ -658,9 +658,9 @@
 <datatype>TEXT</datatype>
 <relation table="country" row="id" />
 </row>
-<row name="value" null="0" autoincrement="0">
+<row name="value" null="1" autoincrement="0">
 <datatype>DECIMAL</datatype>
-</row>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
