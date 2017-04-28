@@ -344,7 +344,7 @@ ALTER TABLE "impact_estimate_recipe" ADD FOREIGN KEY ("support_type") REFERENCES
 ALTER TABLE "impact_estimate_ingredient" ADD FOREIGN KEY ("impact_estimate_recipe") REFERENCES "impact_estimate_recipe" ("id");
 ALTER TABLE "impact_estimate_ingredient" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
 ALTER TABLE "impact_estimate_ingredient" ADD FOREIGN KEY ("burden_outcome") REFERENCES "burden_outcome" ("id");
-ALTER TABLE "impact_estimate" ADD FOREIGN KEY ("id") REFERENCES "impact_estimate_set" ("id");
+ALTER TABLE "impact_estimate" ADD FOREIGN KEY ("impact_estimate_set") REFERENCES "impact_estimate_set" ("id");
 ALTER TABLE "impact_estimate" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
 ALTER TABLE "impact_estimate_set_ingredient" ADD FOREIGN KEY ("impact_estimate_set") REFERENCES "impact_estimate_set" ("id");
 ALTER TABLE "impact_estimate_set_ingredient" ADD FOREIGN KEY ("impact_estimate_ingredient") REFERENCES "impact_estimate_ingredient" ("id");

@@ -659,14 +659,14 @@
 <part>name</part>
 </key>
 </table>
-<table x="1725" y="95" name="impact_estimate">
+<table x="1740" y="75" name="impact_estimate">
 <row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="impact_estimate_set" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="impact_estimate_set" row="id" />
 </row>
-<row name="impact_estimate_set" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
 <row name="year" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -725,8 +725,6 @@
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
-</key>
-<key type="UNIQUE" name="">
 </key>
 </table>
 <table x="700" y="390" name="support_type">
