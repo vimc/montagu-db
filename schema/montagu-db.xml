@@ -79,7 +79,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1190" y="280" name="burden_estimate">
+<table x="1170" y="340" name="burden_estimate">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -94,9 +94,9 @@
 <row name="year" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 </row>
-<row name="outcome" null="1" autoincrement="0">
+<row name="burden_outcome" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="outcome" row="id" />
+<default>NULL</default><relation table="burden_outcome" row="id" />
 </row>
 <row name="stochastic" null="0" autoincrement="0">
 <datatype>BOOLEAN</datatype>
@@ -111,7 +111,7 @@
 <part>burden_estimate_set</part>
 <part>country</part>
 <part>year</part>
-<part>outcome</part>
+<part>burden_outcome</part>
 </key>
 </table>
 <table x="950" y="890" name="vaccine">
@@ -148,7 +148,7 @@
 </key>
 <comment>With the self-referencing "current" field; we consider a model to be the current one if current is null.  See comment about recursion in modelling_group</comment>
 </table>
-<table x="1380" y="390" name="outcome">
+<table x="1430" y="245" name="burden_outcome">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -642,9 +642,9 @@
 <datatype>INTEGER</datatype>
 <relation table="responsibility" row="id" />
 </row>
-<row name="outcome" null="1" autoincrement="0">
+<row name="burden_outcome" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="outcome" row="id" />
+<default>NULL</default><relation table="burden_outcome" row="id" />
 </row>
 <row name="name" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
@@ -655,7 +655,7 @@
 <key type="UNIQUE" name="">
 <part>responsibility</part>
 <part>impact_estimate_recipe</part>
-<part>outcome</part>
+<part>burden_outcome</part>
 <part>name</part>
 </key>
 </table>

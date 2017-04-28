@@ -17,11 +17,11 @@ CREATE TABLE "burden_estimate" (
 "burden_estimate_set" INTEGER NOT NULL ,
 "country" TEXT NOT NULL ,
 "year" INTEGER NOT NULL ,
-"outcome" INTEGER ,
+"burden_outcome" INTEGER ,
 "stochastic" BOOLEAN NOT NULL ,
 "value" DECIMAL ,
 PRIMARY KEY ("id"),
-UNIQUE ("burden_estimate_set", "country", "year", "outcome")
+UNIQUE ("burden_estimate_set", "country", "year", "burden_outcome")
 );
 
 CREATE TABLE "vaccine" (
@@ -40,7 +40,7 @@ PRIMARY KEY ("id")
 );
 COMMENT ON TABLE "model" IS 'With the self-referencing "current" field; we consider a model to be the current one if current is null.  See comment about recursion in modelling_group';
 
-CREATE TABLE "outcome" (
+CREATE TABLE "burden_outcome" (
 "id"  SERIAL ,
 "code" TEXT NOT NULL ,
 "name" VARCHAR(32) NOT NULL ,
@@ -254,10 +254,10 @@ CREATE TABLE "impact_estimate_ingredient" (
 "id"  SERIAL ,
 "impact_estimate_recipe" INTEGER NOT NULL ,
 "responsibility" INTEGER NOT NULL ,
-"outcome" INTEGER ,
+"burden_outcome" INTEGER ,
 "name" TEXT NOT NULL ,
 PRIMARY KEY ("id"),
-UNIQUE ("responsibility", "impact_estimate_recipe", "outcome", "name")
+UNIQUE ("responsibility", "impact_estimate_recipe", "burden_outcome", "name")
 );
 
 CREATE TABLE "impact_estimate" (
@@ -310,7 +310,7 @@ ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("responsibility") REFERENCES 
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("uploaded_by") REFERENCES "app_user" ("username");
 ALTER TABLE "burden_estimate" ADD FOREIGN KEY ("burden_estimate_set") REFERENCES "burden_estimate_set" ("id");
 ALTER TABLE "burden_estimate" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
-ALTER TABLE "burden_estimate" ADD FOREIGN KEY ("outcome") REFERENCES "outcome" ("id");
+ALTER TABLE "burden_estimate" ADD FOREIGN KEY ("burden_outcome") REFERENCES "burden_outcome" ("id");
 ALTER TABLE "model" ADD FOREIGN KEY ("modelling_group") REFERENCES "modelling_group" ("id");
 ALTER TABLE "model" ADD FOREIGN KEY ("current") REFERENCES "model" ("id");
 ALTER TABLE "coverage" ADD FOREIGN KEY ("coverage_set") REFERENCES "coverage_set" ("id");
@@ -345,7 +345,7 @@ ALTER TABLE "impact_estimate_recipe" ADD FOREIGN KEY ("activity_type") REFERENCE
 ALTER TABLE "impact_estimate_recipe" ADD FOREIGN KEY ("support_type") REFERENCES "support_type" ("id");
 ALTER TABLE "impact_estimate_ingredient" ADD FOREIGN KEY ("impact_estimate_recipe") REFERENCES "impact_estimate_recipe" ("id");
 ALTER TABLE "impact_estimate_ingredient" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
-ALTER TABLE "impact_estimate_ingredient" ADD FOREIGN KEY ("outcome") REFERENCES "outcome" ("id");
+ALTER TABLE "impact_estimate_ingredient" ADD FOREIGN KEY ("burden_outcome") REFERENCES "burden_outcome" ("id");
 ALTER TABLE "impact_estimate" ADD FOREIGN KEY ("id") REFERENCES "impact_estimate_set" ("id");
 ALTER TABLE "impact_estimate" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
 ALTER TABLE "impact_estimate_set_ingredient" ADD FOREIGN KEY ("impact_estimate_set") REFERENCES "impact_estimate_set" ("id");
