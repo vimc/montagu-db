@@ -5,14 +5,6 @@ compute_impact <- function(con, impact_estimate_recipe_id) {
 }
 
 compute_impact_data <- function(con, impact_estimate_recipe_id) {
-  ## TODO: this needs huge work when there is more than one entry in
-  ## the burden_estimate_set table.
-  ##
-  ## * what is the current set of burden estimates
-  ##
-  ## * do we already have an entry in impact_estimate_set_component
-  ##   with these calculations?
-
   ## The components required to run the script.
   sql <- c(
     "SELECT",
@@ -27,10 +19,13 @@ compute_impact_data <- function(con, impact_estimate_recipe_id) {
     "  impact_estimate_ingredient.burden_outcome,",
     ## This needs expanding as version information
     "  burden_estimate_set.uploaded_on",
+    ## Then a nasty join to get the *current set of responsibilities*
     "FROM impact_estimate_ingredient",
+    "  JOIN responsibility",
+    "    ON impact_estimate_ingredient.responsibility = responsibility.id",
     "  JOIN burden_estimate_set",
-    "    ON burden_estimate_set.responsibility = ",
-    "      impact_estimate_ingredient.responsibility",
+    "    ON responsibility.current_burden_estimate_set = ",
+    "       burden_estimate_set.id",
     "WHERE impact_estimate_ingredient.impact_estimate_recipe = $1")
   cols <- DBI::dbGetQuery(con, paste(sql, collapse = " "),
                           impact_estimate_recipe_id)
