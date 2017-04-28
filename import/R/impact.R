@@ -55,7 +55,7 @@ import_impact_estimate_calculations <- function(con, path) {
               sep = "\r")
   message("Importing impact estimate calculations")
   for (x in split(impact, g)) {
-    import_impact_estimate_calculation1(con, x)
+    import_impact_estimate_calculations1(con, x)
   }
 }
 
@@ -63,7 +63,7 @@ import_impact_estimate_calculations1 <- function(con, impact) {
   touchstone <- impact$touchstone[[1L]]
   disease <- impact$disease[[1L]]
   modelling_group <- impact$modelling_group[[1L]]
-  message(" - %s / %s / %s", touchstone, disease, modelling_group)
+  message(sprintf(" - %s / %s / %s", touchstone, disease, modelling_group))
 
   ## Then we look up what is needed:
   tmp <- strsplit(impact$scenario, "\\s*,\\s*")
@@ -79,6 +79,8 @@ import_impact_estimate_calculations1 <- function(con, impact) {
   d <- data.frame(version = 1L,
                   name = impact$name,
                   script = impact$script,
+                  activity_type = impact$activity_type,
+                  support_type = impact$support_type,
                   comment = as.character(impact$comment))
   impact_estimate_calculation <-
     insert_values_into(con, "impact_estimate_calculation", d)
@@ -101,8 +103,15 @@ import_impact_estimate_calculations1 <- function(con, impact) {
     "  AND scenario_description.disease = $3")
   d <- DBI::dbGetQuery(con, paste(sql, collapse = " "),
                        list(touchstone, modelling_group, disease))
+
   responsibility_id <- d$responsibility_id[
     match(components$scenario, d$scenario_description_id)]
+  if (any(is.na(responsibility_id))) {
+    ## This can fail for all sorts of reasons but the nasty one that I
+    ## have seen so far is that if the impact estimate references the
+    ## wrong touchstone version it will appear that nothing is there!
+    stop("Failed to identify responsibilities within this touchstone")
+  }
   outcomes <- DBI::dbReadTable(con, "outcome")
   outcome_id <- outcomes$id[match(components$outcome, outcomes$code)]
 
