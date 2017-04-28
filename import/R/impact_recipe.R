@@ -64,11 +64,11 @@ compute_impact1 <- function(con, impact_estimate_recipe_id) {
   d <- data.frame(impact_estimate_recipe = impact_estimate_recipe_id)
   impact_estimate_set <- insert_values_into(con, "impact_estimate_set", d)
 
-  ## impact_estimate_set_component
+  ## impact_estimate_set_ingredient
   d <- data.frame(impact_estimate_set = impact_estimate_set,
                   impact_estimate_ingredient = cols$impact_estimate_ingredient,
                   burden_estimate_set = cols$burden_estimate_set)
-  DBI::dbWriteTable(con, "impact_estimate_set_component", d, append = TRUE)
+  DBI::dbWriteTable(con, "impact_estimate_set_ingredient", d, append = TRUE)
 
   ## impact_estimate
   d <- data.frame(impact_estimate_set = impact_estimate_set,
