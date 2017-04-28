@@ -1,7 +1,15 @@
 compute_impact <- function(con, impact_estimate_recipe_id) {
+  message(sprintf("Computing %d impact estimate sets",
+                  impact_estimate_recipe_id))
   for (id in impact_estimate_recipe_id) {
+    message("*")
     compute_impact1(con, id)
   }
+}
+
+compute_all_impact <- function(con) {
+  dat <- DBI::dbReadTable(con, "impact_estimate_recipe")
+  compute_impact(con, dat$id)
 }
 
 compute_impact_data <- function(con, impact_estimate_recipe_id) {

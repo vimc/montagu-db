@@ -29,6 +29,9 @@ montagu_import <- function(path, host = "localhost", port = 5432) {
   ## for now.
   import_impact_estimate_recipes(con, path)
 
+  ## 6. Compute impact metrics for everything that needs it
+  compute_all_impact(con)
+
   ## How much data?
   tbls <- DBI::dbListTables(con)
   n <- vapply(tbls, function(x)
