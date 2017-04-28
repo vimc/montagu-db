@@ -27,7 +27,6 @@ montagu_import <- function(path, host = "localhost", port = 5432) {
   ## and burden estimates have been created.  The functions for this
   ## should probably be part of the schema but that's a bit of a faff
   ## for now.
-  create_impact_functions(con)
   import_impact_estimate_recipes(con, path)
 
   ## How much data?
