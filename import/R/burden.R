@@ -69,6 +69,15 @@ import_burden1 <- function(con, path, filename) {
                     uploaded_by = "richfitz")
   burden_estimate_set <- insert_values_into(con, "burden_estimate_set", tmp)
 
+  ## Indicate that these are the current records:
+  sql <- paste("UPDATE responsibility",
+               "SET current_burden_estimate_set = $1",
+               "WHERE responsibility.id = $2")
+  for (i in seq_along(burden_estimate_set)) {
+    DBI::dbExecute(con, sql, list(burden_estimate_set[[i]],
+                                  dat$scenarios_responsibility[[i]]))
+  }
+
   burden_outcome <- DBI::dbReadTable(con, "burden_outcome")
 
   ## Then import the actual files
