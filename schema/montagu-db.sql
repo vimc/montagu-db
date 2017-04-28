@@ -244,7 +244,7 @@ CREATE TABLE "impact_estimate_recipe" (
 "name" TEXT NOT NULL ,
 "script" TEXT NOT NULL ,
 "comment" TEXT ,
-"impact_outcome" INTEGER ,
+"impact_outcome" TEXT NOT NULL ,
 "activity_type" TEXT NOT NULL ,
 "support_type" TEXT NOT NULL ,
 PRIMARY KEY ("id")
@@ -285,11 +285,9 @@ PRIMARY KEY ("id")
 );
 
 CREATE TABLE "impact_outcome" (
-"id"  SERIAL ,
-"code" TEXT NOT NULL ,
+"id" TEXT NOT NULL ,
 "name" TEXT NOT NULL ,
-PRIMARY KEY ("id"),
-UNIQUE ("code")
+PRIMARY KEY ("id")
 );
 
 CREATE TABLE "support_type" (

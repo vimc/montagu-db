@@ -614,9 +614,9 @@
 <row name="comment" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>NULL</default></row>
-<row name="impact_outcome" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="impact_outcome" row="id" />
+<row name="impact_outcome" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="impact_outcome" row="id" />
 </row>
 <row name="activity_type" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
@@ -717,10 +717,7 @@
 </key>
 </table>
 <table x="700" y="275" name="impact_outcome">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="code" null="0" autoincrement="0">
+<row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
 <row name="name" null="0" autoincrement="0">
@@ -730,7 +727,6 @@
 <part>id</part>
 </key>
 <key type="UNIQUE" name="">
-<part>code</part>
 </key>
 </table>
 <table x="700" y="390" name="support_type">
