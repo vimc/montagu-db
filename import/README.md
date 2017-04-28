@@ -5,7 +5,6 @@ Start an empty container that includes the schema;
 ```
 docker pull montagu.dide.ic.ac.uk:5000/montagu-db:master
 docker run --rm -p 8888:5432 montagu.dide.ic.ac.uk:5000/montagu-db:master
-docker run --rm -p 5432:5432 montagu.dide.ic.ac.uk:5000/montagu-db:master
 ```
 
 Create a symlink `data_import` to the data you want to import

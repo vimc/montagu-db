@@ -63,7 +63,7 @@ import_impact_estimate_recipes1 <- function(con, impact) {
     ## wrong touchstone version it will appear that nothing is there!
     stop("Failed to identify responsibilities within this touchstone")
   }
-  burden_outcomes <- DBI::dbReadTable(con, "burdn_outcome")
+  burden_outcomes <- DBI::dbReadTable(con, "burden_outcome")
   burden_outcome_id <-
     burden_outcomes$id[match(components$burden_outcome, burden_outcomes$code)]
 
