@@ -243,6 +243,9 @@ CREATE TABLE "impact_estimate_calculation" (
 "name" TEXT NOT NULL ,
 "script" TEXT NOT NULL ,
 "comment" TEXT ,
+"outcome" INTEGER ,
+"activity_type" TEXT NOT NULL ,
+"support_type" TEXT NOT NULL ,
 PRIMARY KEY ("id")
 );
 
@@ -280,6 +283,20 @@ CREATE TABLE "impact_estimate_set" (
 PRIMARY KEY ("id")
 );
 
+CREATE TABLE "outcome_impact" (
+"id"  SERIAL ,
+"code" TEXT NOT NULL ,
+"name" TEXT NOT NULL ,
+PRIMARY KEY ("id"),
+UNIQUE ("code")
+);
+
+CREATE TABLE "support_type" (
+"id" TEXT NOT NULL ,
+"name" TEXT NOT NULL ,
+PRIMARY KEY ("id")
+);
+
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("model_version") REFERENCES "model_version" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("uploaded_by") REFERENCES "app_user" ("username");
@@ -314,6 +331,9 @@ ALTER TABLE "user_role" ADD FOREIGN KEY ("username") REFERENCES "app_user" ("use
 ALTER TABLE "user_role" ADD FOREIGN KEY ("role") REFERENCES "role" ("id");
 ALTER TABLE "role_permission" ADD FOREIGN KEY ("role") REFERENCES "role" ("id");
 ALTER TABLE "role_permission" ADD FOREIGN KEY ("permission") REFERENCES "permission" ("name");
+ALTER TABLE "impact_estimate_calculation" ADD FOREIGN KEY ("outcome") REFERENCES "outcome_impact" ("id");
+ALTER TABLE "impact_estimate_calculation" ADD FOREIGN KEY ("activity_type") REFERENCES "activity_type" ("id");
+ALTER TABLE "impact_estimate_calculation" ADD FOREIGN KEY ("support_type") REFERENCES "support_type" ("id");
 ALTER TABLE "impact_estimate_component" ADD FOREIGN KEY ("impact_estimate_calculation") REFERENCES "impact_estimate_calculation" ("id");
 ALTER TABLE "impact_estimate_component" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
 ALTER TABLE "impact_estimate_component" ADD FOREIGN KEY ("outcome") REFERENCES "outcome" ("id");

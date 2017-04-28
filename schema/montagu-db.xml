@@ -594,7 +594,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="700" y="50" name="impact_estimate_calculation">
+<table x="700" y="55" name="impact_estimate_calculation">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -610,6 +610,18 @@
 <row name="comment" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>NULL</default></row>
+<row name="outcome" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="outcome_impact" row="id" />
+</row>
+<row name="activity_type" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="activity_type" row="id" />
+</row>
+<row name="support_type" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="support_type" row="id" />
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -696,6 +708,34 @@
 <row name="computed_on" null="0" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
 <default>'current_timestamp'</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="700" y="275" name="outcome_impact">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="code" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="name" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+<key type="UNIQUE" name="">
+<part>code</part>
+</key>
+</table>
+<table x="700" y="390" name="support_type">
+<row name="id" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="name" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
