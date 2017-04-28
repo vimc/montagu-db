@@ -9,7 +9,7 @@ montagu_import <- function(path, host = "localhost", port = 5432) {
   import_permissions(con, path)
 
   ## 2. Metadata
-  meta_tables <- c("vaccine", "disease", "outcome",
+  meta_tables <- c("vaccine", "disease", "outcome", "outcome_impact",
                    "modelling_group", "model", "model_version",
                    "touchstone_name")
   for (table in meta_tables) {
@@ -23,6 +23,10 @@ montagu_import <- function(path, host = "localhost", port = 5432) {
   ## 4. Burden estimates
   import_burden(con, path)
 
+  ## 5. Impact calculations, which must happen _after_ the touchstones
+  ## and burden estimates have been created.  The functions for this
+  ## should probably be part of the schema but that's a bit of a faff
+  ## for now.
   create_impact_functions(con)
   import_impact_estimate_calculations(con, path)
 
