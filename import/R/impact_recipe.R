@@ -1,5 +1,5 @@
 compute_impact <- function(con, impact_estimate_recipe_id) {
-  for (id in impact_estimate_recipe) {
+  for (id in impact_estimate_recipe_id) {
     compute_impact1(con, id)
   }
 }
@@ -38,9 +38,10 @@ compute_impact_data <- function(con, impact_estimate_recipe_id) {
   ## Data for the calculation:
   rename <- paste(sprintf("value%d AS %s", seq_along(cols$name), cols$name),
                   collapse = ", ")
+  n <- nrow(cols)
+  args <- paste0("$", seq_len(n * 2), collapse = ", ")
   sql <- sprintf(
-    "SELECT country, year, %s from select_burden_data2($1, $2, $3, $4)",
-    rename)
+    "SELECT country, year, %s from select_burden_data%d(%s)", rename, n, args)
   pars <- as.list(c(rbind(cols$burden_estimate_set, cols$burden_outcome)))
   list(cols = cols, data = DBI::dbGetQuery(con, sql, pars))
 }

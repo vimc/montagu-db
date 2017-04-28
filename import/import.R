@@ -4,6 +4,7 @@ source("R/coverage.R")
 source("R/burden.R")
 source("R/import.R")
 source("R/impact.R")
+source("R/impact_recipe.R")
 
 montagu_import_path <- Sys.getenv("MONTAGU_IMPORT_PATH", "data_import")
 montagu_db_host <- Sys.getenv("MONTAGU_DB_HOST", "localhost")
