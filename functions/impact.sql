@@ -5,7 +5,7 @@ CREATE OR REPLACE FUNCTION
   AS
     'SELECT country, year, value
        FROM burden_estimate
-       WHERE burden_estimate_set = set_id AND outcome = outcome_id'
+       WHERE burden_estimate_set = set_id AND burden_outcome = outcome_id'
   LANGUAGE SQL;
 CREATE OR REPLACE FUNCTION
   select_burden_data2(set1 int, outcome1 int,

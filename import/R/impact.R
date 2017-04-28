@@ -23,12 +23,13 @@ import_impact_estimate_recipes1 <- function(con, impact) {
   re <- "^([^:]+):([^:]+):([^:]+)$"
   stopifnot(all(grepl(re, tmp)))
   components <- data_frame(scenario = sub(re, "\\1", tmp),
-                           outcome = sub(re, "\\2", tmp),
+                           burden_outcome = sub(re, "\\2", tmp),
                            name = sub(re, "\\3", tmp))
 
   d <- data.frame(version = 1L,
                   name = impact$name,
                   script = impact$script,
+                  impact_outcome = impact$impact_outcome,
                   activity_type = impact$activity_type,
                   support_type = impact$support_type,
                   comment = as.character(impact$comment))
@@ -62,12 +63,13 @@ import_impact_estimate_recipes1 <- function(con, impact) {
     ## wrong touchstone version it will appear that nothing is there!
     stop("Failed to identify responsibilities within this touchstone")
   }
-  outcomes <- DBI::dbReadTable(con, "outcome")
-  outcome_id <- outcomes$id[match(components$outcome, outcomes$code)]
+  burden_outcomes <- DBI::dbReadTable(con, "burdn_outcome")
+  burden_outcome_id <-
+    burden_outcomes$id[match(components$burden_outcome, burden_outcomes$code)]
 
   d <- data.frame(responsibility = responsibility_id,
                   impact_estimate_recipe = impact_estimate_recipe[i],
-                  outcome = outcome_id,
+                  burden_outcome = burden_outcome_id,
                   name = components$name)
   DBI::dbWriteTable(con, "impact_estimate_ingredient", d, append = TRUE)
 }

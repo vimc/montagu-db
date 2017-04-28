@@ -9,7 +9,7 @@ montagu_import <- function(path, host = "localhost", port = 5432) {
   import_permissions(con, path)
 
   ## 2. Metadata
-  meta_tables <- c("vaccine", "disease", "outcome", "impact_outcome",
+  meta_tables <- c("vaccine", "disease", "burden_outcome", "impact_outcome",
                    "modelling_group", "model", "model_version",
                    "touchstone_name")
   for (table in meta_tables) {

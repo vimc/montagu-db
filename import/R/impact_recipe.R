@@ -24,7 +24,7 @@ compute_impact_data <- function(con, impact_estimate_recipe_id) {
     "    AS burden_estimate_set,",
     ## We need to know these for the translation
     "  impact_estimate_ingredient.name,",
-    "  impact_estimate_ingredient.outcome,",
+    "  impact_estimate_ingredient.burden_outcome,",
     ## This needs expanding as version information
     "  burden_estimate_set.uploaded_on",
     "FROM impact_estimate_ingredient",
@@ -41,7 +41,7 @@ compute_impact_data <- function(con, impact_estimate_recipe_id) {
   sql <- sprintf(
     "SELECT country, year, %s from select_burden_data2($1, $2, $3, $4)",
     rename)
-  pars <- as.list(c(rbind(cols$burden_estimate_set, cols$outcome)))
+  pars <- as.list(c(rbind(cols$burden_estimate_set, cols$burden_outcome)))
   list(cols = cols, data = DBI::dbGetQuery(con, sql, pars))
 }
 

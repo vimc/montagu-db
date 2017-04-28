@@ -18,7 +18,7 @@ create_impact_functions <- function() {
     "  AS",
     "    'SELECT country, year, value",
     "       FROM burden_estimate",
-    "       WHERE burden_estimate_set = set_id AND outcome = outcome_id'",
+    "       WHERE burden_estimate_set = set_id AND burden_outcome = outcome_id'",
     "  LANGUAGE SQL;"), collapse = "\n")
 
   select_burden_data_fun <- function(n) {

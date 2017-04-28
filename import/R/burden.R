@@ -69,14 +69,14 @@ import_burden1 <- function(con, path, filename) {
                     uploaded_by = "richfitz")
   burden_estimate_set <- insert_values_into(con, "burden_estimate_set", tmp)
 
-  outcome <- DBI::dbReadTable(con, "outcome")
+  burden_outcome <- DBI::dbReadTable(con, "burden_outcome")
 
   ## Then import the actual files
   burden <- read_csv(sub("\\.yml", ".csv", filename))
   burden$burden_estimate_set <-
     burden_estimate_set[match(burden$scenario_code, dat$scenarios)]
-  burden$outcome <-
-    outcome$id[match(burden$outcome, outcome$code)]
+  burden$burden_outcome <-
+    burden_outcome$id[match(burden$burden_outcome, burden_outcome$code)]
   burden$country <- burden$country_code
   burden$stochastic <- FALSE
   burden$country_code <- burden$activities <- burden$scenario_code <- NULL
