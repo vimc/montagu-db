@@ -142,6 +142,7 @@ CREATE TABLE "responsibility" (
 "id"  SERIAL NOT NULL ,
 "responsibility_set" INTEGER NOT NULL ,
 "scenario" INTEGER NOT NULL ,
+"current_burden_estimate_set" INTEGER ,
 PRIMARY KEY ("id"),
 UNIQUE ("responsibility_set", "scenario")
 );
@@ -237,26 +238,26 @@ CREATE TABLE "touchstone_name" (
 PRIMARY KEY ("id")
 );
 
-CREATE TABLE "impact_estimate_calculation" (
+CREATE TABLE "impact_estimate_recipe" (
 "id"  SERIAL ,
 "version" INTEGER NOT NULL ,
 "name" TEXT NOT NULL ,
 "script" TEXT NOT NULL ,
 "comment" TEXT ,
-"outcome" INTEGER ,
+"impact_outcome" INTEGER ,
 "activity_type" TEXT NOT NULL ,
 "support_type" TEXT NOT NULL ,
 PRIMARY KEY ("id")
 );
 
-CREATE TABLE "impact_estimate_component" (
+CREATE TABLE "impact_estimate_ingredient" (
 "id"  SERIAL ,
-"impact_estimate_calculation" INTEGER NOT NULL ,
+"impact_estimate_recipe" INTEGER NOT NULL ,
 "responsibility" INTEGER NOT NULL ,
 "outcome" INTEGER ,
 "name" TEXT NOT NULL ,
 PRIMARY KEY ("id"),
-UNIQUE ("responsibility", "impact_estimate_calculation", "outcome", "name")
+UNIQUE ("responsibility", "impact_estimate_recipe", "outcome", "name")
 );
 
 CREATE TABLE "impact_estimate" (
@@ -268,22 +269,22 @@ CREATE TABLE "impact_estimate" (
 PRIMARY KEY ("id")
 );
 
-CREATE TABLE "impact_estimate_set_component" (
+CREATE TABLE "impact_estimate_set_ingredient" (
 "id"  SERIAL ,
 "impact_estimate_set" INTEGER ,
-"impact_estimate_component" INTEGER ,
+"impact_estimate_ingredient" INTEGER ,
 "burden_estimate_set" INTEGER ,
 PRIMARY KEY ("id")
 );
 
 CREATE TABLE "impact_estimate_set" (
 "id"  SERIAL ,
-"impact_estimate_calculation" INTEGER ,
+"impact_estimate_recipe" INTEGER ,
 "computed_on" TIMESTAMP NOT NULL DEFAULT 'current_timestamp' ,
 PRIMARY KEY ("id")
 );
 
-CREATE TABLE "outcome_impact" (
+CREATE TABLE "impact_outcome" (
 "id"  SERIAL ,
 "code" TEXT NOT NULL ,
 "name" TEXT NOT NULL ,
@@ -294,6 +295,13 @@ UNIQUE ("code")
 CREATE TABLE "support_type" (
 "id" TEXT NOT NULL ,
 "name" TEXT NOT NULL ,
+PRIMARY KEY ("id")
+);
+
+CREATE TABLE "burden_estimate_set_problem" (
+"id"  SERIAL ,
+"burden_estimate_set" INTEGER NOT NULL ,
+"problem" TEXT NOT NULL ,
 PRIMARY KEY ("id")
 );
 
@@ -319,6 +327,7 @@ ALTER TABLE "coverage_set" ADD FOREIGN KEY ("activity_type") REFERENCES "activit
 ALTER TABLE "modelling_group" ADD FOREIGN KEY ("current") REFERENCES "modelling_group" ("id");
 ALTER TABLE "responsibility" ADD FOREIGN KEY ("responsibility_set") REFERENCES "responsibility_set" ("id");
 ALTER TABLE "responsibility" ADD FOREIGN KEY ("scenario") REFERENCES "scenario" ("id");
+ALTER TABLE "responsibility" ADD FOREIGN KEY ("current_burden_estimate_set") REFERENCES "burden_estimate_set" ("id");
 ALTER TABLE "scenario_description" ADD FOREIGN KEY ("disease") REFERENCES "disease" ("id");
 ALTER TABLE "responsibility_set" ADD FOREIGN KEY ("modelling_group") REFERENCES "modelling_group" ("id");
 ALTER TABLE "responsibility_set" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
@@ -331,15 +340,16 @@ ALTER TABLE "user_role" ADD FOREIGN KEY ("username") REFERENCES "app_user" ("use
 ALTER TABLE "user_role" ADD FOREIGN KEY ("role") REFERENCES "role" ("id");
 ALTER TABLE "role_permission" ADD FOREIGN KEY ("role") REFERENCES "role" ("id");
 ALTER TABLE "role_permission" ADD FOREIGN KEY ("permission") REFERENCES "permission" ("name");
-ALTER TABLE "impact_estimate_calculation" ADD FOREIGN KEY ("outcome") REFERENCES "outcome_impact" ("id");
-ALTER TABLE "impact_estimate_calculation" ADD FOREIGN KEY ("activity_type") REFERENCES "activity_type" ("id");
-ALTER TABLE "impact_estimate_calculation" ADD FOREIGN KEY ("support_type") REFERENCES "support_type" ("id");
-ALTER TABLE "impact_estimate_component" ADD FOREIGN KEY ("impact_estimate_calculation") REFERENCES "impact_estimate_calculation" ("id");
-ALTER TABLE "impact_estimate_component" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
-ALTER TABLE "impact_estimate_component" ADD FOREIGN KEY ("outcome") REFERENCES "outcome" ("id");
+ALTER TABLE "impact_estimate_recipe" ADD FOREIGN KEY ("impact_outcome") REFERENCES "impact_outcome" ("id");
+ALTER TABLE "impact_estimate_recipe" ADD FOREIGN KEY ("activity_type") REFERENCES "activity_type" ("id");
+ALTER TABLE "impact_estimate_recipe" ADD FOREIGN KEY ("support_type") REFERENCES "support_type" ("id");
+ALTER TABLE "impact_estimate_ingredient" ADD FOREIGN KEY ("impact_estimate_recipe") REFERENCES "impact_estimate_recipe" ("id");
+ALTER TABLE "impact_estimate_ingredient" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
+ALTER TABLE "impact_estimate_ingredient" ADD FOREIGN KEY ("outcome") REFERENCES "outcome" ("id");
 ALTER TABLE "impact_estimate" ADD FOREIGN KEY ("id") REFERENCES "impact_estimate_set" ("id");
 ALTER TABLE "impact_estimate" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
-ALTER TABLE "impact_estimate_set_component" ADD FOREIGN KEY ("impact_estimate_set") REFERENCES "impact_estimate_set" ("id");
-ALTER TABLE "impact_estimate_set_component" ADD FOREIGN KEY ("impact_estimate_component") REFERENCES "impact_estimate_component" ("id");
-ALTER TABLE "impact_estimate_set_component" ADD FOREIGN KEY ("burden_estimate_set") REFERENCES "burden_estimate_set" ("id");
-ALTER TABLE "impact_estimate_set" ADD FOREIGN KEY ("impact_estimate_calculation") REFERENCES "impact_estimate_calculation" ("id");
+ALTER TABLE "impact_estimate_set_ingredient" ADD FOREIGN KEY ("impact_estimate_set") REFERENCES "impact_estimate_set" ("id");
+ALTER TABLE "impact_estimate_set_ingredient" ADD FOREIGN KEY ("impact_estimate_ingredient") REFERENCES "impact_estimate_ingredient" ("id");
+ALTER TABLE "impact_estimate_set_ingredient" ADD FOREIGN KEY ("burden_estimate_set") REFERENCES "burden_estimate_set" ("id");
+ALTER TABLE "impact_estimate_set" ADD FOREIGN KEY ("impact_estimate_recipe") REFERENCES "impact_estimate_recipe" ("id");
+ALTER TABLE "burden_estimate_set_problem" ADD FOREIGN KEY ("burden_estimate_set") REFERENCES "burden_estimate_set" ("id");

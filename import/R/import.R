@@ -9,7 +9,7 @@ montagu_import <- function(path, host = "localhost", port = 5432) {
   import_permissions(con, path)
 
   ## 2. Metadata
-  meta_tables <- c("vaccine", "disease", "outcome", "outcome_impact",
+  meta_tables <- c("vaccine", "disease", "outcome", "impact_outcome",
                    "modelling_group", "model", "model_version",
                    "touchstone_name")
   for (table in meta_tables) {
@@ -28,7 +28,7 @@ montagu_import <- function(path, host = "localhost", port = 5432) {
   ## should probably be part of the schema but that's a bit of a faff
   ## for now.
   create_impact_functions(con)
-  import_impact_estimate_calculations(con, path)
+  import_impact_estimate_recipes(con, path)
 
   ## How much data?
   tbls <- DBI::dbListTables(con)

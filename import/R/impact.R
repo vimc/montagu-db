@@ -48,18 +48,18 @@ create_impact_functions <- function(con) {
   }
 }
 
-import_impact_estimate_calculations <- function(con, path) {
+import_impact_estimate_recipes <- function(con, path) {
   impact <- read_csv(file.path(path, "meta", "impact.csv"))
 
   g <- paste0(impact$touchstone, impact$disease, impact$modelling_group,
               sep = "\r")
   message("Importing impact estimate calculations")
   for (x in split(impact, g)) {
-    import_impact_estimate_calculations1(con, x)
+    import_impact_estimate_recipes1(con, x)
   }
 }
 
-import_impact_estimate_calculations1 <- function(con, impact) {
+import_impact_estimate_recipes1 <- function(con, impact) {
   touchstone <- impact$touchstone[[1L]]
   disease <- impact$disease[[1L]]
   modelling_group <- impact$modelling_group[[1L]]
@@ -82,8 +82,8 @@ import_impact_estimate_calculations1 <- function(con, impact) {
                   activity_type = impact$activity_type,
                   support_type = impact$support_type,
                   comment = as.character(impact$comment))
-  impact_estimate_calculation <-
-    insert_values_into(con, "impact_estimate_calculation", d)
+  impact_estimate_recipe <-
+    insert_values_into(con, "impact_estimate_recipe", d)
 
   ## Then we need to do a *massive* join to pull all this together:
   sql <- c(
@@ -116,8 +116,8 @@ import_impact_estimate_calculations1 <- function(con, impact) {
   outcome_id <- outcomes$id[match(components$outcome, outcomes$code)]
 
   d <- data.frame(responsibility = responsibility_id,
-                  impact_estimate_calculation = impact_estimate_calculation[i],
+                  impact_estimate_recipe = impact_estimate_recipe[i],
                   outcome = outcome_id,
                   name = components$name)
-  DBI::dbWriteTable(con, "impact_estimate_component", d, append = TRUE)
+  DBI::dbWriteTable(con, "impact_estimate_ingredient", d, append = TRUE)
 }
