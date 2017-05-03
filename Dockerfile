@@ -12,5 +12,6 @@ COPY functions functions
 RUN sed "s/'current_timestamp'/CURRENT_TIMESTAMP/" montagu-db.sql > \
       /docker-entrypoint-initdb.d/montagu.sql && \
     cat functions/impact.sql >> /docker-entrypoint-initdb.d/montagu.sql && \
+    cat functions/indexes.sql >> /docker-entrypoint-initdb.d/montagu.sql && \
     ./docker-entrypoint.sh --version && \
     rm -f /docker-entrypoint-initdb.d/montagu.sql
