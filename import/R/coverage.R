@@ -51,9 +51,18 @@ insert_touchstone_coverage <- function(con, dat, el, activities, path) {
     el$touchstone_name <- el$touchstone
     el$touchstone <- dat$id
 
-    i <- (activities$touchstone == dat$id &
-          activities$activity_type == el$activity_type &
-          activities$gavi_support_level == el$gavi_support_level)
+    if (el$touchstone_name == "2015-sdf12") {
+      i <- (activities$touchstone == dat$id &
+            activities$activity_type == el$activity_type &
+            activities$gavi_support_level == el$gavi_support_level)
+    } else {
+      i <- (activities$touchstone == dat$id &
+            activities$activity_type == el$activity_type &
+            activities$gavi_support_level == el$gavi_support_level &
+            activities$disease == el$disease &
+            activities$vaccine == el$vaccine)
+    }
+
     msg <- setdiff(activities$vaccine[i], cov$vaccine)
     if (length(msg) > 0L) {
       stop("Missing vaccine coverage")
