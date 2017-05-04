@@ -222,7 +222,7 @@ PRIMARY KEY ("id")
 CREATE TABLE "user_role" (
 "username" TEXT NOT NULL ,
 "role" INTEGER ,
-"scope_id" TEXT ,
+"scope_id" TEXT NOT NULL ,
 PRIMARY KEY ("username", "role", "scope_id")
 );
 
