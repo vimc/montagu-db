@@ -11,6 +11,25 @@ The montagu-db.sql script is generated directly from the [online generator](http
 
 We do not reformat either file and be sure to update both if you update either.  The xml file will be taken as the canonical form here.
 
+## Starting an empty copy of the database
+
+Run the empty database mapped to port 8888
+
+```
+docker pull montagu.dide.ic.ac.uk:5000/montagu-db:master
+docker run --rm -p 8888:5432 montagu.dide.ic.ac.uk:5000/montagu-db:master
+```
+
+## Restore a dump (as created from CI)
+
+This will delete all data in the database for the running container and import a dump from a file
+
+```
+CONTAINER_ID=$(docker run --rm -d -p 8888:5432 montagu.dide.ic.ac.uk:5000/montagu-db:master)
+./scripts/load-dump-into-container.sh montagu.dump $CONTAINER_ID
+docker attach $CONTAINER_ID
+```
+
 ## Data lifecycle
 
 At the moment we're thinking of things as totally disposable (create the database structure, import legacy data, point the API at it, throw it all away when done).  This allows us to change the data model pretty freely but it's not going to be appropriate for anything but that because once we have data from users we will need to be doing something more clever if we want to update the data model (e.g., create a second database, run an import script, check that everything works, swap it over.
