@@ -176,7 +176,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="950" y="590" name="coverage">
+<table x="950" y="570" name="coverage">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -206,6 +206,10 @@
 <row name="coverage" null="1" autoincrement="0">
 <datatype>DECIMAL</datatype>
 <default>NULL</default></row>
+<row name="target" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><comment>This field is valid only for campaign coverage</comment>
+</row>
 <row name="gavi_support" null="0" autoincrement="0">
 <datatype>BOOLEAN</datatype>
 </row>

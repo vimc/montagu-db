@@ -64,10 +64,12 @@ CREATE TABLE "coverage" (
 "age_to_exclusive" BOOLEAN NOT NULL ,
 "age_range_verbatim" TEXT ,
 "coverage" DECIMAL ,
+"target" INTEGER /* This field is valid only for campaign coverage */,
 "gavi_support" BOOLEAN NOT NULL ,
 "activity" TEXT ,
 PRIMARY KEY ("id")
 );
+COMMENT ON COLUMN "coverage"."target" IS 'This field is valid only for campaign coverage';
 
 CREATE TABLE "disease" (
 "id" TEXT NOT NULL ,
