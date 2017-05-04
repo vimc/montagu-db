@@ -64,7 +64,7 @@ CREATE TABLE "coverage" (
 "age_to_exclusive" BOOLEAN NOT NULL ,
 "age_range_verbatim" TEXT ,
 "coverage" DECIMAL ,
-"target" INTEGER /* This field is valid only for campaign coverage */,
+"target" DECIMAL /* This field is valid only for campaign coverage */,
 "gavi_support" BOOLEAN NOT NULL ,
 "activity" TEXT ,
 PRIMARY KEY ("id")
