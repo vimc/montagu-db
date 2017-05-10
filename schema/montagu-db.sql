@@ -249,6 +249,8 @@ CREATE TABLE "impact_estimate_recipe" (
 "impact_outcome" TEXT NOT NULL ,
 "activity_type" TEXT NOT NULL ,
 "support_type" TEXT NOT NULL ,
+"disease" TEXT NOT NULL ,
+"vaccine" TEXT NOT NULL ,
 PRIMARY KEY ("id")
 );
 
@@ -343,6 +345,8 @@ ALTER TABLE "role_permission" ADD FOREIGN KEY ("permission") REFERENCES "permiss
 ALTER TABLE "impact_estimate_recipe" ADD FOREIGN KEY ("impact_outcome") REFERENCES "impact_outcome" ("id");
 ALTER TABLE "impact_estimate_recipe" ADD FOREIGN KEY ("activity_type") REFERENCES "activity_type" ("id");
 ALTER TABLE "impact_estimate_recipe" ADD FOREIGN KEY ("support_type") REFERENCES "support_type" ("id");
+ALTER TABLE "impact_estimate_recipe" ADD FOREIGN KEY ("disease") REFERENCES "disease" ("id");
+ALTER TABLE "impact_estimate_recipe" ADD FOREIGN KEY ("vaccine") REFERENCES "vaccine" ("id");
 ALTER TABLE "impact_estimate_ingredient" ADD FOREIGN KEY ("impact_estimate_recipe") REFERENCES "impact_estimate_recipe" ("id");
 ALTER TABLE "impact_estimate_ingredient" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
 ALTER TABLE "impact_estimate_ingredient" ADD FOREIGN KEY ("burden_outcome") REFERENCES "burden_outcome" ("id");

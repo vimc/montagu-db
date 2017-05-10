@@ -630,6 +630,14 @@
 <datatype>TEXT</datatype>
 <relation table="support_type" row="id" />
 </row>
+<row name="disease" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="disease" row="id" />
+</row>
+<row name="vaccine" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="vaccine" row="id" />
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -720,7 +728,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="700" y="275" name="impact_outcome">
+<table x="700" y="300" name="impact_outcome">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
