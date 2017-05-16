@@ -602,12 +602,16 @@
 <part>id</part>
 </key>
 </table>
-<table x="700" y="55" name="impact_estimate_recipe">
+<table x="695" y="25" name="impact_estimate_recipe">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="version" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
+</row>
+<row name="touchstone" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="touchstone" row="id" />
 </row>
 <row name="name" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
