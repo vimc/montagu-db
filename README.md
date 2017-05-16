@@ -11,6 +11,39 @@ The montagu-db.sql script is generated directly from the [online generator](http
 
 We do not reformat either file and be sure to update both if you update either.  The xml file will be taken as the canonical form here.
 
+## Setting up docker for use with montagu
+
+We run a private docker registry.  To access it (for pulling) you must be on the VPN.
+
+Then you need to set up a certificate to that your docker client trusts our registry.
+
+On **Linux**, run:
+
+    $ sudo mkdir -p /etc/docker/certs.d/montagu.dide.ic.ac.uk:5000
+    $ curl -L https://raw.githubusercontent.com/vimc/montagu-ci/master/registry/certs/domain.crt > domain.crt
+    $ sudo cp domain.crt /etc/docker/certs.d/montagu.dide.ic.ac.uk:5000
+
+Or on **Windows**:
+
+1. Download the certificate from https://raw.githubusercontent.com/vimc/montagu-ci/master/registry/certs/domain.crt
+2. Start > "Manage Computer Certificates" (also available in the control panel)
+3. Right-click on "Trusted Root Certification Authoritites" > "All tasks" > "Import"
+4. Browse to the crt file and then keep pressing "Next" to complete the wizard
+5. Restart Docker for Windows
+
+Or on Mac
+
+    $ curl -OL https://raw.githubusercontent.com/vimc/montagu-ci/master/registry/certs/domain.crt
+    $ sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain domain.crt
+
+Then restart docker
+
+You can **verify** that this works with:
+
+    $ docker pull montagu.dide.ic.ac.uk:5000/postgres
+
+which will pull the image (if needed) but not throw an error.
+
 ## Starting an empty copy of the database
 
 Run the empty database mapped to port 8888
