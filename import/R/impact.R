@@ -28,6 +28,7 @@ import_impact_estimate_recipes1 <- function(con, impact) {
 
   d <- data.frame(version = 1L,
                   name = impact$name,
+                  touchstone = touchstone,
                   disease = impact$disease,
                   vaccine = impact$vaccine,
                   script = impact$script,
