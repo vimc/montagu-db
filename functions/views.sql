@@ -1,7 +1,7 @@
 CREATE OR REPLACE VIEW v_coverage_info AS
 SELECT
   scenario.touchstone,
-  scenario.scenario_description
+  scenario.scenario_description,
   scenario_description.disease,
   coverage_set.vaccine,
   coverage_set.gavi_support_level,
