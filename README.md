@@ -63,6 +63,42 @@ CONTAINER_ID=$(docker run --rm -d -p 8888:5432 montagu.dide.ic.ac.uk:5000/montag
 docker attach $CONTAINER_ID
 ```
 
+## Accessing the dump from R
+
+Install the `RPostgres` package.  On windows, run:
+
+``` r
+# install.packages("drat")
+drat::add("dide-tools")
+install.packages("RPostgres")
+```
+
+On linux first install the postgres development libraries:
+
+```
+apt-get install libpq-dev
+```
+
+then install the package from source with
+
+``` r
+# install.packages("remotes")
+remotes::install_github("rstats-db/RPostgres", upgrade = FALSE)
+```
+
+To access a local copy of the database (started with docker) run:
+
+```r
+con <- DBI::dbConnect(RPostgres::Postgres(),
+                 dbname = "montagu",
+                 host = "localhost",
+                 port = 8888,
+                 password = "changeme",
+                 user = "vimc")
+```
+
+Or change host to `montagu.dide.ic.ac.uk` to run a copy running on our server.
+
 ## Data lifecycle
 
 At the moment we're thinking of things as totally disposable (create the database structure, import legacy data, point the API at it, throw it all away when done).  This allows us to change the data model pretty freely but it's not going to be appropriate for anything but that because once we have data from users we will need to be doing something more clever if we want to update the data model (e.g., create a second database, run an import script, check that everything works, swap it over.
