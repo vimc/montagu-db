@@ -69,7 +69,7 @@ Install the `RPostgres` package.  On windows, run:
 
 ``` r
 # install.packages("drat")
-drat::add("dide-tools")
+drat:::add("dide-tools")
 install.packages("RPostgres")
 ```
 
