@@ -29,7 +29,7 @@ import_impact_estimate_recipes1 <- function(con, impact) {
   sql <- c("SELECT id FROM responsibility_set",
            "WHERE touchstone = $1 AND modelling_group = $2")
   responsibility_set <- DBI::dbGetQuery(con, paste(sql, collapse = "\n"),
-                                        touchstone, modelling_group)$id
+                                        list(touchstone, modelling_group))$id
   stopifnot(length(responsibility_set) == 1L)
 
   d <- data.frame(version = 1L,
