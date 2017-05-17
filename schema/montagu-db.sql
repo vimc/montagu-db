@@ -243,7 +243,7 @@ PRIMARY KEY ("id")
 CREATE TABLE "impact_estimate_recipe" (
 "id"  SERIAL ,
 "version" INTEGER NOT NULL ,
-"touchstone" TEXT NOT NULL ,
+"responsibility_set" INTEGER NOT NULL ,
 "name" TEXT NOT NULL ,
 "script" TEXT NOT NULL ,
 "comment" TEXT ,
@@ -343,7 +343,7 @@ ALTER TABLE "user_role" ADD FOREIGN KEY ("username") REFERENCES "app_user" ("use
 ALTER TABLE "user_role" ADD FOREIGN KEY ("role") REFERENCES "role" ("id");
 ALTER TABLE "role_permission" ADD FOREIGN KEY ("role") REFERENCES "role" ("id");
 ALTER TABLE "role_permission" ADD FOREIGN KEY ("permission") REFERENCES "permission" ("name");
-ALTER TABLE "impact_estimate_recipe" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
+ALTER TABLE "impact_estimate_recipe" ADD FOREIGN KEY ("responsibility_set") REFERENCES "responsibility_set" ("id");
 ALTER TABLE "impact_estimate_recipe" ADD FOREIGN KEY ("impact_outcome") REFERENCES "impact_outcome" ("id");
 ALTER TABLE "impact_estimate_recipe" ADD FOREIGN KEY ("activity_type") REFERENCES "activity_type" ("id");
 ALTER TABLE "impact_estimate_recipe" ADD FOREIGN KEY ("support_type") REFERENCES "support_type" ("id");
