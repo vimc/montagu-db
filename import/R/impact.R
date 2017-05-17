@@ -26,9 +26,15 @@ import_impact_estimate_recipes1 <- function(con, impact) {
                            burden_outcome = sub(re, "\\2", tmp),
                            name = sub(re, "\\3", tmp))
 
+  sql <- c("SELECT id FROM responsibility_set",
+           "WHERE touchstone = $1 AND modelling_group = $2")
+  responsibility_set <- DBI::dbGetQuery(con, paste(sql, collapse = "\n"),
+                                        touchstone, modelling_group)$id
+  stopifnot(length(responsibility_set) == 1L)
+
   d <- data.frame(version = 1L,
                   name = impact$name,
-                  touchstone = touchstone,
+                  responsibility_set = responsibility_set,
                   disease = impact$disease,
                   vaccine = impact$vaccine,
                   script = impact$script,
