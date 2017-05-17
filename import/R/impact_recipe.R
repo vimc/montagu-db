@@ -1,8 +1,7 @@
-compute_impact <- function(con, impact_estimate_recipe_id) {
+compute_impact <- function(con, impact_estimate_recipe_ids) {
   message(sprintf("Computing %d impact estimate sets",
-                  impact_estimate_recipe_id))
-  for (id in impact_estimate_recipe_id) {
-    message("*")
+                  length(impact_estimate_recipe_ids)))
+  for (id in impact_estimate_recipe_ids) {
     compute_impact1(con, id)
   }
 }
@@ -50,15 +49,26 @@ compute_impact_data <- function(con, impact_estimate_recipe_id) {
 }
 
 compute_impact1 <- function(con, impact_estimate_recipe_id) {
-  ## The calculation metadata:
-  sql <- "SELECT * from impact_estimate_recipe WHERE id = $1"
-  info <- DBI::dbGetQuery(con, sql, impact_estimate_recipe_id)
+  sql <- c("SELECT",
+           "    impact_estimate_recipe.*,",
+           "    responsibility_set.touchstone,",
+           "    responsibility_set.modelling_group",
+           "  FROM impact_estimate_recipe",
+           "  JOIN responsibility_set",
+           "    ON responsibility_set.id =",
+           "         impact_estimate_recipe.responsibility_set",
+           " WHERE impact_estimate_recipe.id = $1")
+  info <- DBI::dbGetQuery(con, paste(sql, collapse = "\n"),
+                          impact_estimate_recipe_id)
+  message(sprintf(" - %s / %s / %s / %s",
+                  info$touchstone, info$modelling_group, info$disease,
+                  info$name))
 
+  ## Hmm, there are too many zeros and not enough NAs coming out here!
   res <- compute_impact_data(con, impact_estimate_recipe_id)
   dat <- res$data
   cols <- res$cols
-
-  value <- eval(parse(text = info$script), dat, .GlobalEnv)
+  res$value <- eval(parse(text = info$script), dat, .GlobalEnv)
 
   ## impact_estimate_set
   d <- data.frame(impact_estimate_recipe = impact_estimate_recipe_id)
@@ -74,6 +84,34 @@ compute_impact1 <- function(con, impact_estimate_recipe_id) {
   d <- data.frame(impact_estimate_set = impact_estimate_set,
                   year = dat$year,
                   country = dat$country,
-                  value = value)
+                  value = res$value)
   DBI::dbWriteTable(con, "impact_estimate", d, append = TRUE)
+  invisible(res)
+}
+
+impact_estimate_list <- function(con) {
+  sql <- c("SELECT",
+           "    impact_estimate_recipe.*,",
+           "    responsibility_set.touchstone,",
+           "    responsibility_set.modelling_group",
+           "  FROM impact_estimate_recipe",
+           "  JOIN responsibility_set",
+           "    ON responsibility_set.id =",
+           "         impact_estimate_recipe.responsibility_set")
+  DBI::dbGetQuery(con, paste(sql, collapse = "\n"))
+}
+
+impact_estimate_clear <- function(con, impact_estimate_recipe_ids) {
+  sql <- c("SELECT id",
+           "  FROM impact_estimate_set",
+           sprintf(" WHERE impact_estimate_recipe IN (%s)",
+                   paste(impact_estimate_recipe_ids, collapse = ", ")))
+  ids <- DBI::dbGetQuery(con, paste(sql, collapse = "\n"))$id
+  ids_str <- paste(ids, collapse = ", ")
+  sql <- "DELETE FROM %s WHERE impact_estimate_set IN (%s)"
+  for (t in c("impact_estimate", "impact_estimate_set_ingredient")) {
+    DBI::dbExecute(con, sprintf(sql, t, ids_str))
+  }
+  sql <- "DELETE FROM impact_estimate_set WHERE id IN (%s)"
+  DBI::dbExecute(con, sprintf(sql, ids_str))
 }

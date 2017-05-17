@@ -4,9 +4,9 @@ import_impact_estimate_recipes <- function(con, path) {
   g <- paste0(impact$touchstone, impact$disease, impact$modelling_group,
               sep = "\r")
   message("Importing impact estimate calculations")
-  for (x in split(impact, g)) {
-    import_impact_estimate_recipes1(con, x)
-  }
+  dat <- lapply(split(impact, g), import_impact_estimate_recipes1, con = con)
+  impact$impact_estimate_recipe <- unlist(dat, use.names = FALSE)
+  invisible(impact)
 }
 
 import_impact_estimate_recipes1 <- function(con, impact) {
@@ -81,4 +81,14 @@ import_impact_estimate_recipes1 <- function(con, impact) {
                   burden_outcome = burden_outcome_id,
                   name = components$name)
   DBI::dbWriteTable(con, "impact_estimate_ingredient", d, append = TRUE)
+  invisible(impact_estimate_recipe)
+}
+
+impact_estimate_purge <- function(con) {
+  DBI::dbExecute(con, "DELETE FROM impact_estimate")
+  DBI::dbExecute(con, "DELETE FROM impact_estimate_set_ingredient")
+  DBI::dbExecute(con, "DELETE FROM impact_estimate_set")
+  DBI::dbExecute(con, "DELETE FROM impact_estimate_ingredient")
+  DBI::dbExecute(con, "DELETE FROM impact_estimate_recipe")
+  invisible(NULL)
 }
