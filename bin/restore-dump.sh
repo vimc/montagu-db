@@ -7,5 +7,6 @@
 
 set -ex
 PATH_DUMP=$1
-pg_restore --clean -C --verbose \
-    -d "$POSTGRES_DB" -U "$POSTGRES_USER" "$PATH_DUMP"
+DB_DEFAULT=postgres
+pg_restore --clean -C --verbose -d "$DB_DEFAULT" -U "$POSTGRES_USER" \
+           "$PATH_DUMP"
