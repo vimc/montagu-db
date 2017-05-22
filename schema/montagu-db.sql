@@ -61,7 +61,6 @@ CREATE TABLE "coverage" (
 "country" TEXT ,
 "age_from" DECIMAL NOT NULL ,
 "age_to" DECIMAL NOT NULL ,
-"age_to_exclusive" BOOLEAN NOT NULL ,
 "age_range_verbatim" TEXT ,
 "coverage" DECIMAL ,
 "target" DECIMAL /* This field is valid only for campaign coverage */,
