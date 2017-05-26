@@ -307,6 +307,11 @@ CREATE TABLE "burden_estimate_set_problem" (
 PRIMARY KEY ("id")
 );
 
+CREATE TABLE "onetime_token" (
+"token" TEXT NOT NULL ,
+PRIMARY KEY ("token")
+);
+
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("model_version") REFERENCES "model_version" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("uploaded_by") REFERENCES "app_user" ("username");

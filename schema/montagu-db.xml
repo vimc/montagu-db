@@ -766,4 +766,12 @@
 <part>id</part>
 </key>
 </table>
+<table x="1390" y="1129" name="onetime_token">
+<row name="token" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>token</part>
+</key>
+</table>
 </sql>
