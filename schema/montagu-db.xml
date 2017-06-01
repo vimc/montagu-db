@@ -41,7 +41,7 @@
             <type label="Inet CIDR Addr" length="0" sql="CIDR" quote="'"/>
             <type label="Geometry" length="0" sql="GEOMETRY" quote="'"/>
         </group>
-        </datatypes><table x="945" y="300" name="burden_estimate_set">
+        </datatypes><table x="955" y="313" name="burden_estimate_set">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -217,7 +217,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="750" y="990" name="disease">
+<table x="749" y="1046" name="disease">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -228,7 +228,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="500" y="55" name="model_version">
+<table x="502" y="94" name="model_version">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -373,7 +373,7 @@
 </key>
 <comment>With the self-referencing "current" field; we consider a modelling group to be the current one if current is null.  This is not recursive; if we move a modelling group to a new id then every modelling group that has current pointing at the old id must be updated to point at the new one.  This means that no `current` points at an `id` that does not have `current` as `null`.</comment>
 </table>
-<table x="500" y="440" name="responsibility">
+<table x="534" y="441" name="responsibility">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -772,6 +772,34 @@
 </row>
 <key type="PRIMARY" name="">
 <part>token</part>
+</key>
+</table>
+<table x="282" y="892" name="disability_weight">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="touchstone" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>'NULL'</default><relation table="touchstone" row="id" />
+</row>
+<row name="disease" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>'NULL'</default><relation table="disease" row="id" />
+</row>
+<row name="sequela" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>'NULL'</default></row>
+<row name="disability_weight" null="1" autoincrement="0">
+<datatype>DECIMAL</datatype>
+<default>NULL</default></row>
+<row name="disability_weight_min" null="1" autoincrement="0">
+<datatype>DECIMAL</datatype>
+<default>NULL</default></row>
+<row name="disability_weight_max" null="1" autoincrement="0">
+<datatype>DECIMAL</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
 </key>
 </table>
 </sql>
