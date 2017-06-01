@@ -802,4 +802,29 @@
 <part>id</part>
 </key>
 </table>
+<table x="73" y="787" name="population_size">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="touchstone" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>'NULL'</default><relation table="touchstone" row="id" />
+</row>
+<row name="year" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="country" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>'NULL'</default><relation table="country" row="id" />
+</row>
+<row name="age" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="population" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
 </sql>
