@@ -780,7 +780,7 @@
 <default>NULL</default></row>
 <row name="touchstone" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
-<default>'NULL'</default><relation table="touchstone" row="id" />
+<relation table="touchstone" row="id" />
 </row>
 <row name="disease" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
@@ -788,10 +788,10 @@
 </row>
 <row name="sequela" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
-<default>'NULL'</default></row>
-<row name="disability_weight" null="1" autoincrement="0">
+</row>
+<row name="disability_weight" null="0" autoincrement="0">
 <datatype>DECIMAL</datatype>
-<default>NULL</default></row>
+</row>
 <row name="disability_weight_min" null="1" autoincrement="0">
 <datatype>DECIMAL</datatype>
 <default>NULL</default></row>
