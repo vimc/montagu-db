@@ -66,7 +66,7 @@ import_burden1 <- function(con, path, filename) {
                     run_info = dat$scenarios_run_info,
                     interpolated = FALSE,
                     complete = TRUE,
-                    uploaded_by = "richfitz")
+                    uploaded_by = "legacy")
   burden_estimate_set <- insert_values_into(con, "burden_estimate_set", tmp)
 
   ## Indicate that these are the current records:
