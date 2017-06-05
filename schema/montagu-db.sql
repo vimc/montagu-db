@@ -312,6 +312,27 @@ CREATE TABLE "onetime_token" (
 PRIMARY KEY ("token")
 );
 
+CREATE TABLE "disability_weight" (
+"id"  SERIAL NOT NULL ,
+"touchstone" TEXT NOT NULL ,
+"disease" TEXT NOT NULL ,
+"sequela" TEXT NOT NULL ,
+"disability_weight" DECIMAL NOT NULL ,
+"disability_weight_min" DECIMAL ,
+"disability_weight_max" DECIMAL ,
+PRIMARY KEY ("id")
+);
+
+CREATE TABLE "population_size" (
+"id"  SERIAL NOT NULL ,
+"touchstone" TEXT NOT NULL ,
+"year" INTEGER NOT NULL ,
+"country" TEXT NOT NULL ,
+"age" INTEGER ,
+"population" INTEGER NOT NULL ,
+PRIMARY KEY ("id")
+);
+
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("model_version") REFERENCES "model_version" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("uploaded_by") REFERENCES "app_user" ("username");
@@ -363,3 +384,7 @@ ALTER TABLE "impact_estimate_set_ingredient" ADD FOREIGN KEY ("impact_estimate_i
 ALTER TABLE "impact_estimate_set_ingredient" ADD FOREIGN KEY ("burden_estimate_set") REFERENCES "burden_estimate_set" ("id");
 ALTER TABLE "impact_estimate_set" ADD FOREIGN KEY ("impact_estimate_recipe") REFERENCES "impact_estimate_recipe" ("id");
 ALTER TABLE "burden_estimate_set_problem" ADD FOREIGN KEY ("burden_estimate_set") REFERENCES "burden_estimate_set" ("id");
+ALTER TABLE "disability_weight" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
+ALTER TABLE "disability_weight" ADD FOREIGN KEY ("disease") REFERENCES "disease" ("id");
+ALTER TABLE "population_size" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
+ALTER TABLE "population_size" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");

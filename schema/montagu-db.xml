@@ -775,16 +775,16 @@
 </key>
 </table>
 <table x="282" y="892" name="disability_weight">
-<row name="id" null="1" autoincrement="1">
+<row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
-<default>NULL</default></row>
+</row>
 <row name="touchstone" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 <relation table="touchstone" row="id" />
 </row>
 <row name="disease" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
-<default>'NULL'</default><relation table="disease" row="id" />
+<relation table="disease" row="id" />
 </row>
 <row name="sequela" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
@@ -803,26 +803,26 @@
 </key>
 </table>
 <table x="73" y="787" name="population_size">
-<row name="id" null="1" autoincrement="1">
+<row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
-<default>NULL</default></row>
+</row>
 <row name="touchstone" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
-<default>'NULL'</default><relation table="touchstone" row="id" />
+<relation table="touchstone" row="id" />
 </row>
 <row name="year" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default></row>
+</row>
 <row name="country" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
-<default>'NULL'</default><relation table="country" row="id" />
+<relation table="country" row="id" />
 </row>
 <row name="age" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="population" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default></row>
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
