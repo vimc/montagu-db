@@ -18,7 +18,7 @@ import_common <- function(con) {
 
 read_csv <- function(filename, ...) {
   read.csv(filename, stringsAsFactors = FALSE, check.names = FALSE,
-           na.strings = c("NA", "#VALUE!", "N/A", "#DIV/0!", "#N/A"),
+           na.strings = c("NA", "#VALUE!", "N/A", "#DIV/0!", "#N/A", "null"),
            ...)
 }
 
