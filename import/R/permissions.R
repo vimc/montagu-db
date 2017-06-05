@@ -13,7 +13,7 @@ import_role_permission <- function(con) {
   ## the CSV file to get a role.id, and just using the third column
   ## ('permission') directly.
   scope <- function(x, name) {
-    ifelse(x$scope_prefix == "null", x[[name]],
+    ifelse(is.na(x$scope_prefix), x[[name]],
            paste(x$scope_prefix, x[[name]], sep = "."))
   }
   dat$match_on <- scope(dat, "role")
@@ -26,16 +26,4 @@ app_user_create <- function(con, username, name, email) {
   d <- data_frame(username = username, name = name, email = email)
   message(sprintf("Creating %d users in 'app_user'", nrow(d)))
   insert_values_into(con, "app_user", d, "username", TRUE)
-  app_user_add_permission(con, username, "user")
-}
-
-app_user_add_permission <- function(con, username, role_name = "user") {
-  stopifnot(length(role_name) == 1L)
-  role <- DBI::dbGetQuery(con, "SELECT id FROM role WHERE name = $1",
-                          role_name)$id
-  dat <- data.frame(username = username,
-                    role = role,
-                    scope_id = "null",
-                    stringsAsFactors = FALSE)
-  insert_values_into(con, "user_role", dat, names(dat), TRUE, "username")
 }
