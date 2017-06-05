@@ -82,6 +82,10 @@ import_burden1 <- function(con, path, filename) {
 
   ## Then import the actual files
   burden <- read_csv(sub("\\.yml", ".csv", filename))
+  msg <- setdiff(burden$burden_outcome, burden_outcome$code)
+  if (length(msg) > 0L) {
+    stop("Unknown burden outcome: ", paste(msg, collapse = ", "))
+  }
   burden$burden_estimate_set <-
     burden_estimate_set[match(burden$scenario_code, dat$scenarios)]
   burden$burden_outcome <-
