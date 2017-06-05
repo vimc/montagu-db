@@ -17,7 +17,7 @@ CREATE TABLE "burden_estimate" (
 "burden_estimate_set" INTEGER NOT NULL ,
 "country" TEXT NOT NULL ,
 "year" INTEGER NOT NULL ,
-"burden_outcome" INTEGER ,
+"burden_outcome" INTEGER NOT NULL ,
 "stochastic" BOOLEAN NOT NULL ,
 "value" DECIMAL ,
 PRIMARY KEY ("id"),
@@ -258,7 +258,7 @@ CREATE TABLE "impact_estimate_ingredient" (
 "id"  SERIAL ,
 "impact_estimate_recipe" INTEGER NOT NULL ,
 "responsibility" INTEGER NOT NULL ,
-"burden_outcome" INTEGER ,
+"burden_outcome" INTEGER NOT NULL ,
 "name" TEXT NOT NULL ,
 PRIMARY KEY ("id"),
 UNIQUE ("responsibility", "impact_estimate_recipe", "burden_outcome", "name")
@@ -266,8 +266,8 @@ UNIQUE ("responsibility", "impact_estimate_recipe", "burden_outcome", "name")
 
 CREATE TABLE "impact_estimate" (
 "id"  SERIAL ,
-"impact_estimate_set" INTEGER ,
-"year" INTEGER ,
+"impact_estimate_set" INTEGER NOT NULL ,
+"year" INTEGER NOT NULL ,
 "country" TEXT NOT NULL ,
 "value" DECIMAL ,
 PRIMARY KEY ("id")
@@ -275,15 +275,15 @@ PRIMARY KEY ("id")
 
 CREATE TABLE "impact_estimate_set_ingredient" (
 "id"  SERIAL ,
-"impact_estimate_set" INTEGER ,
+"impact_estimate_set" INTEGER NOT NULL ,
 "impact_estimate_ingredient" INTEGER ,
-"burden_estimate_set" INTEGER ,
+"burden_estimate_set" INTEGER NOT NULL ,
 PRIMARY KEY ("id")
 );
 
 CREATE TABLE "impact_estimate_set" (
 "id"  SERIAL ,
-"impact_estimate_recipe" INTEGER ,
+"impact_estimate_recipe" INTEGER NOT NULL ,
 "computed_on" TIMESTAMP NOT NULL DEFAULT 'current_timestamp' ,
 PRIMARY KEY ("id")
 );

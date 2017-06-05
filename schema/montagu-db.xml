@@ -94,9 +94,9 @@
 <row name="year" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 </row>
-<row name="burden_outcome" null="1" autoincrement="0">
+<row name="burden_outcome" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="burden_outcome" row="id" />
+<relation table="burden_outcome" row="id" />
 </row>
 <row name="stochastic" null="0" autoincrement="0">
 <datatype>BOOLEAN</datatype>
@@ -649,15 +649,15 @@
 <default>NULL</default></row>
 <row name="impact_estimate_recipe" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="impact_estimate_recipe" row="id" />
+<relation table="impact_estimate_recipe" row="id" />
 </row>
 <row name="responsibility" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <relation table="responsibility" row="id" />
 </row>
-<row name="burden_outcome" null="1" autoincrement="0">
+<row name="burden_outcome" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="burden_outcome" row="id" />
+<relation table="burden_outcome" row="id" />
 </row>
 <row name="name" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
@@ -676,13 +676,13 @@
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="impact_estimate_set" null="1" autoincrement="0">
+<row name="impact_estimate_set" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="impact_estimate_set" row="id" />
+<relation table="impact_estimate_set" row="id" />
 </row>
-<row name="year" null="1" autoincrement="0">
+<row name="year" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default></row>
+</row>
 <row name="country" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 <relation table="country" row="id" />
@@ -698,17 +698,17 @@
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="impact_estimate_set" null="1" autoincrement="0">
+<row name="impact_estimate_set" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="impact_estimate_set" row="id" />
+<relation table="impact_estimate_set" row="id" />
 </row>
 <row name="impact_estimate_ingredient" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="impact_estimate_ingredient" row="id" />
 </row>
-<row name="burden_estimate_set" null="1" autoincrement="0">
+<row name="burden_estimate_set" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="burden_estimate_set" row="id" />
+<relation table="burden_estimate_set" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -718,9 +718,9 @@
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="impact_estimate_recipe" null="1" autoincrement="0">
+<row name="impact_estimate_recipe" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="impact_estimate_recipe" row="id" />
+<relation table="impact_estimate_recipe" row="id" />
 </row>
 <row name="computed_on" null="0" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
