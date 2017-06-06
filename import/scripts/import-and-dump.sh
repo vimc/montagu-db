@@ -2,12 +2,28 @@
 
 set -x
 
-if [ "$#" -ne 2 ]; then
-    echo "Expected one argument (the import path)"
+if [ "$#" -lt 1 ]; then
+    echo "Expected at least one argument (the db hash)"
     exit 1
 fi
+if [ "$#" -gt 2 ]; then
+    echo "Expected at most two arguments (the db hash)"
+    exit 1
+fi
+
 MONTAGU_DB_TAG=$1
-MONTAGU_IMPORT_PATH=$2
+if [ "$#" -eq 2 ]; then
+    MONTAGU_IMPORT_PATH=$2
+    SCRIPT=import.R
+    DUMP_ARGS=-Fc
+    DUMP_NAME=montagu.dump
+else
+    MONTAGU_IMPORT_PATH=import
+    SCRIPT=minimal.R
+    DUMP_ARGS=
+    DUMP_NAME=minimal.dump
+fi
+
 
 if [ ! -d $MONTAGU_IMPORT_PATH ]; then
     echo "Import path must exist and be a directory"
@@ -41,14 +57,14 @@ docker run --rm \
        -e MONTAGU_IMPORT_PATH=$MONTAGU_IMPORT_PATH_CONTAINER \
        -v $MONTAGU_IMPORT_PATH_ABS:$MONTAGU_IMPORT_PATH_CONTAINER \
        ${MONTAGU_IMPORT_IMAGE} \
-       Rscript import.R
+       Rscript $SCRIPT
 
 SUCCESS=$?
 
 if [ $SUCCESS -eq 0 ]; then
     echo "Success!"
     docker exec $MONTAGU_DB_HOST \
-           pg_dump -U vimc -Fc montagu > montagu.dump
+           pg_dump -U vimc $DUMP_ARGS montagu > $DUMP_NAME
 else
     echo "Failure :("
 fi
