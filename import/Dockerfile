@@ -21,5 +21,6 @@ WORKDIR /montagu-db-import
 COPY common /montagu-db-import/common/
 COPY R /montagu-db-import/R
 COPY import.R .
+COPY minimal.R .
 
 CMD ["Rscript", "import.R"]
