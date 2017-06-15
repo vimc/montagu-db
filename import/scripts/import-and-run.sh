@@ -18,8 +18,8 @@ MONTAGU_IMPORT_PATH_ABS=$(readlink -f $MONTAGU_IMPORT_PATH)
 MONTAGU_IMPORT_PATH_CONTAINER=/montagu-import-data
 
 MONTAGU_DB_HOST=montagu-db-server
-MONTAGU_DB_IMAGE=montagu.dide.ic.ac.uk:5000/montagu-db:${MONTAGU_DB_TAG}
-MONTAGU_IMPORT_IMAGE=montagu.dide.ic.ac.uk:5000/montagu-db-import:${MONTAGU_DB_TAG}
+MONTAGU_DB_IMAGE=docker.montagu.dide.ic.ac.uk:5000/montagu-db:${MONTAGU_DB_TAG}
+MONTAGU_IMPORT_IMAGE=docker.montagu.dide.ic.ac.uk:5000/montagu-db-import:${MONTAGU_DB_TAG}
 
 docker run -d --rm \
        -p 8888:5432 \

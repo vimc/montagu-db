@@ -19,9 +19,9 @@ Then you need to set up a certificate to that your docker client trusts our regi
 
 On **Linux**, run:
 
-    $ sudo mkdir -p /etc/docker/certs.d/montagu.dide.ic.ac.uk:5000
+    $ sudo mkdir -p /etc/docker/certs.d/docker.montagu.dide.ic.ac.uk:5000
     $ curl -L https://raw.githubusercontent.com/vimc/montagu-ci/master/registry/certs/domain.crt > domain.crt
-    $ sudo cp domain.crt /etc/docker/certs.d/montagu.dide.ic.ac.uk:5000
+    $ sudo cp domain.crt /etc/docker/certs.d/docker.montagu.dide.ic.ac.uk:5000
 
 Or on **Windows**:
 
@@ -40,7 +40,7 @@ Then restart docker
 
 You can **verify** that this works with:
 
-    $ docker pull montagu.dide.ic.ac.uk:5000/postgres
+    $ docker pull docker.montagu.dide.ic.ac.uk:5000/postgres
 
 which will pull the image (if needed) but not throw an error.
 
@@ -49,8 +49,8 @@ which will pull the image (if needed) but not throw an error.
 Run the empty database mapped to port 8888
 
 ```
-docker pull montagu.dide.ic.ac.uk:5000/montagu-db:master
-docker run --rm -p 8888:5432 montagu.dide.ic.ac.uk:5000/montagu-db:master
+docker pull docker.montagu.dide.ic.ac.uk:5000/montagu-db:master
+docker run --rm -p 8888:5432 docker.montagu.dide.ic.ac.uk:5000/montagu-db:master
 ```
 
 ## Restore a dump (as created from CI)
@@ -58,7 +58,7 @@ docker run --rm -p 8888:5432 montagu.dide.ic.ac.uk:5000/montagu-db:master
 This will delete all data in the database for the running container and import a dump from a file
 
 ```
-CONTAINER_ID=$(docker run --rm -d -p 8888:5432 montagu.dide.ic.ac.uk:5000/montagu-db:master)
+CONTAINER_ID=$(docker run --rm -d -p 8888:5432 docker.montagu.dide.ic.ac.uk:5000/montagu-db:master)
 ./scripts/load-dump-into-container.sh montagu.dump $CONTAINER_ID
 docker attach $CONTAINER_ID
 ```
@@ -130,7 +130,7 @@ docker build --tag montagu-db .
 On the CI system there is a script that wraps this and pushes to the registry so that
 
 ```
-docker run montagu.dide.ic.ac.uk:5000/montagu-db:<id>
+docker run docker.montagu.dide.ic.ac.uk:5000/montagu-db:<id>
 ```
 
 will pull the container (`<id>` can be either a short git SHA or branch name).
@@ -138,6 +138,6 @@ will pull the container (`<id>` can be either a short git SHA or branch name).
 ### Use the empty container for testing
 
 ```
-docker run -p 5432:5432 montagu.dide.ic.ac.uk:5000/montagu-db:i228
+docker run -p 5432:5432 docker.montagu.dide.ic.ac.uk:5000/montagu-db:i228
 psql -h localhost -p 5432 -U vimc -d montagu -c "\dt"
 ```

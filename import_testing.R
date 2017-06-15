@@ -1,5 +1,5 @@
-## docker pull montagu.dide.ic.ac.uk:5000/montagu-db:master
-## docker run --rm -p 8888:5432 montagu.dide.ic.ac.uk:5000/montagu-db:master
+## docker pull docker.montagu.dide.ic.ac.uk:5000/montagu-db:master
+## docker run --rm -p 8888:5432 docker.montagu.dide.ic.ac.uk:5000/montagu-db:master
 
 ## work in the top level montagu_db/import directory where a symlink
 ## has been created.
