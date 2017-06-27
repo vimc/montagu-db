@@ -802,7 +802,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="73" y="787" name="population_size">
+<table x="74" y="787" name="population_size">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -822,6 +822,21 @@
 <default>NULL</default></row>
 <row name="population" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
+</row>
+<row name="gender" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>'Both'</default><relation table="gender" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="81" y="1056" name="gender">
+<row name="id" null="1" autoincrement="1">
+<datatype>TEXT</datatype>
+<default>NULL</default></row>
+<row name="name" null="0" autoincrement="0">
+<datatype>VARCHAR(6)</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
