@@ -148,7 +148,7 @@
 </key>
 <comment>With the self-referencing "current" field; we consider a model to be the current one if current is null.  See comment about recursion in modelling_group</comment>
 </table>
-<table x="1430" y="245" name="burden_outcome">
+<table x="1429" y="245" name="burden_outcome">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -165,7 +165,7 @@
 <part>code</part>
 </key>
 </table>
-<table x="1385" y="565" name="country">
+<table x="1452" y="424" name="country">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -276,6 +276,10 @@
 </row>
 <row name="year_end" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
+</row>
+<row name="source" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="source" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -774,7 +778,7 @@
 <part>token</part>
 </key>
 </table>
-<table x="282" y="892" name="disability_weight">
+<table x="459" y="1052" name="disability_weight">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -802,41 +806,94 @@
 <part>id</part>
 </key>
 </table>
-<table x="74" y="787" name="population_size">
-<row name="id" null="0" autoincrement="1">
-<datatype>INTEGER</datatype>
-</row>
-<row name="touchstone" null="0" autoincrement="0">
+<table x="282" y="1132" name="gender">
+<row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
-<relation table="touchstone" row="id" />
 </row>
-<row name="year" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
-</row>
-<row name="country" null="0" autoincrement="0">
-<datatype>TEXT</datatype>
-<relation table="country" row="id" />
-</row>
-<row name="age" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="population" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
-</row>
-<row name="gender" null="0" autoincrement="0">
-<datatype>TEXT</datatype>
-<default>'Both'</default><relation table="gender" row="id" />
+<row name="name" null="0" autoincrement="0">
+<datatype>VARCHAR(6)</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="81" y="1056" name="gender">
+<table x="294" y="916" name="projection_variant">
 <row name="id" null="1" autoincrement="1">
-<datatype>TEXT</datatype>
+<datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="name" null="0" autoincrement="0">
-<datatype>VARCHAR(6)</datatype>
+<datatype>VARCHAR</datatype>
+<default>'NULL'</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="51" y="893" name="demographic_statistic">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="age_from" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="age_to" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="value" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="year_start" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="year_end" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="projection_variant" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="projection_variant" row="id" />
+</row>
+<row name="gender" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="gender" row="id" />
+</row>
+<row name="country" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="country" row="id" />
+</row>
+<row name="source" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="source" row="id" />
+</row>
+<row name="demographic_type" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="demographic_statistic_type" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="53" y="1241" name="demographic_statistic_type">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="code" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="age_interpretation" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="name" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="54" y="766" name="source">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="name" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
