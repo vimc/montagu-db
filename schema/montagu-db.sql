@@ -94,6 +94,7 @@ CREATE TABLE "touchstone" (
 "status" TEXT NOT NULL ,
 "year_start" INTEGER NOT NULL ,
 "year_end" INTEGER NOT NULL ,
+"source" INTEGER NOT NULL ,
 PRIMARY KEY ("id"),
 UNIQUE ("touchstone_name", "version")
 );
@@ -323,13 +324,44 @@ CREATE TABLE "disability_weight" (
 PRIMARY KEY ("id")
 );
 
-CREATE TABLE "population_size" (
-"id"  SERIAL NOT NULL ,
-"touchstone" TEXT NOT NULL ,
-"year" INTEGER NOT NULL ,
+CREATE TABLE "gender" (
+"id" TEXT NOT NULL ,
+"name" VARCHAR(6) NOT NULL ,
+PRIMARY KEY ("id")
+);
+
+CREATE TABLE "projection_variant" (
+"id"  SERIAL ,
+"name" VARCHAR NOT NULL DEFAULT 'NULL' ,
+PRIMARY KEY ("id")
+);
+
+CREATE TABLE "demographic_statistic" (
+"id"  SERIAL ,
+"age_from" INTEGER NOT NULL ,
+"age_to" INTEGER NOT NULL ,
+"value" INTEGER NOT NULL ,
+"year_start" INTEGER NOT NULL ,
+"year_end" INTEGER ,
+"projection_variant" INTEGER ,
+"gender" TEXT NOT NULL ,
 "country" TEXT NOT NULL ,
-"age" INTEGER ,
-"population" INTEGER NOT NULL ,
+"source" INTEGER NOT NULL ,
+"demographic_type" INTEGER NOT NULL ,
+PRIMARY KEY ("id")
+);
+
+CREATE TABLE "demographic_statistic_type" (
+"id"  SERIAL ,
+"code" TEXT NOT NULL ,
+"age_interpretation" TEXT NOT NULL ,
+"name" VARCHAR NOT NULL ,
+PRIMARY KEY ("id")
+);
+
+CREATE TABLE "source" (
+"id"  SERIAL ,
+"name" VARCHAR NOT NULL ,
 PRIMARY KEY ("id")
 );
 
@@ -346,6 +378,7 @@ ALTER TABLE "coverage" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
 ALTER TABLE "model_version" ADD FOREIGN KEY ("model") REFERENCES "model" ("id");
 ALTER TABLE "touchstone" ADD FOREIGN KEY ("touchstone_name") REFERENCES "touchstone_name" ("id");
 ALTER TABLE "touchstone" ADD FOREIGN KEY ("status") REFERENCES "touchstone_status" ("id");
+ALTER TABLE "touchstone" ADD FOREIGN KEY ("source") REFERENCES "source" ("id");
 ALTER TABLE "scenario" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "scenario" ADD FOREIGN KEY ("scenario_description") REFERENCES "scenario_description" ("id");
 ALTER TABLE "coverage_set" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
@@ -386,5 +419,8 @@ ALTER TABLE "impact_estimate_set" ADD FOREIGN KEY ("impact_estimate_recipe") REF
 ALTER TABLE "burden_estimate_set_problem" ADD FOREIGN KEY ("burden_estimate_set") REFERENCES "burden_estimate_set" ("id");
 ALTER TABLE "disability_weight" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "disability_weight" ADD FOREIGN KEY ("disease") REFERENCES "disease" ("id");
-ALTER TABLE "population_size" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
-ALTER TABLE "population_size" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
+ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("projection_variant") REFERENCES "projection_variant" ("id");
+ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("gender") REFERENCES "gender" ("id");
+ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
+ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("source") REFERENCES "source" ("id");
+ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("demographic_type") REFERENCES "demographic_statistic_type" ("id");
