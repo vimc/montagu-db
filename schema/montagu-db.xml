@@ -841,12 +841,12 @@
 <row name="value" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 </row>
-<row name="year_start" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
+<row name="date_start" null="0" autoincrement="0">
+<datatype>DATE</datatype>
 </row>
-<row name="year_end" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
+<row name="date_end" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
 <row name="projection_variant" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="projection_variant" row="id" />
