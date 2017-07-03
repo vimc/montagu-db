@@ -94,7 +94,6 @@ CREATE TABLE "touchstone" (
 "status" TEXT NOT NULL ,
 "year_start" INTEGER NOT NULL ,
 "year_end" INTEGER NOT NULL ,
-"source" TEXT NOT NULL ,
 PRIMARY KEY ("id"),
 UNIQUE ("touchstone_name", "version")
 );
@@ -364,6 +363,13 @@ CREATE TABLE "source" (
 PRIMARY KEY ("id")
 );
 
+CREATE TABLE "touchstone_demographic_source" (
+"id"  SERIAL ,
+"touchstone" TEXT NOT NULL ,
+"source" TEXT NOT NULL ,
+PRIMARY KEY ("id")
+);
+
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("model_version") REFERENCES "model_version" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("uploaded_by") REFERENCES "app_user" ("username");
@@ -377,7 +383,6 @@ ALTER TABLE "coverage" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
 ALTER TABLE "model_version" ADD FOREIGN KEY ("model") REFERENCES "model" ("id");
 ALTER TABLE "touchstone" ADD FOREIGN KEY ("touchstone_name") REFERENCES "touchstone_name" ("id");
 ALTER TABLE "touchstone" ADD FOREIGN KEY ("status") REFERENCES "touchstone_status" ("id");
-ALTER TABLE "touchstone" ADD FOREIGN KEY ("source") REFERENCES "source" ("id");
 ALTER TABLE "scenario" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "scenario" ADD FOREIGN KEY ("scenario_description") REFERENCES "scenario_description" ("id");
 ALTER TABLE "coverage_set" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
@@ -423,3 +428,5 @@ ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("gender") REFERENCES "gende
 ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
 ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("source") REFERENCES "source" ("id");
 ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("demographic_statistic_type") REFERENCES "demographic_statistic_type" ("id");
+ALTER TABLE "touchstone_demographic_source" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
+ALTER TABLE "touchstone_demographic_source" ADD FOREIGN KEY ("source") REFERENCES "source" ("id");

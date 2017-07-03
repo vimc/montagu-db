@@ -253,7 +253,7 @@
 <part>version</part>
 </key>
 </table>
-<table x="50" y="390" name="touchstone">
+<table x="50" y="291" name="touchstone">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -276,10 +276,6 @@
 </row>
 <row name="year_end" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-</row>
-<row name="source" null="0" autoincrement="0">
-<datatype>TEXT</datatype>
-<relation table="source" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -488,7 +484,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="50" y="640" name="touchstone_status">
+<table x="48" y="517" name="touchstone_status">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -592,7 +588,7 @@
 <part>permission</part>
 </key>
 </table>
-<table x="50" y="290" name="touchstone_name">
+<table x="51" y="188" name="touchstone_name">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -885,12 +881,28 @@
 <part>id</part>
 </key>
 </table>
-<table x="54" y="766" name="source">
+<table x="72" y="779" name="source">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
 <row name="name" null="0" autoincrement="0">
 <datatype>VARCHAR</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="42" y="622" name="touchstone_demographic_source">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="touchstone" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="touchstone" row="id" />
+</row>
+<row name="source" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="source" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
