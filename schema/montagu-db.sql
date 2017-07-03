@@ -94,7 +94,7 @@ CREATE TABLE "touchstone" (
 "status" TEXT NOT NULL ,
 "year_start" INTEGER NOT NULL ,
 "year_end" INTEGER NOT NULL ,
-"source" INTEGER NOT NULL ,
+"source" TEXT NOT NULL ,
 PRIMARY KEY ("id"),
 UNIQUE ("touchstone_name", "version")
 );
@@ -339,28 +339,27 @@ PRIMARY KEY ("id")
 CREATE TABLE "demographic_statistic" (
 "id"  SERIAL ,
 "age_from" INTEGER NOT NULL ,
-"age_to" INTEGER NOT NULL ,
-"value" INTEGER NOT NULL ,
+"age_to" INTEGER ,
+"value" DECIMAL NOT NULL ,
 "date_start" DATE NOT NULL ,
 "date_end" DATE NOT NULL ,
 "projection_variant" INTEGER ,
 "gender" TEXT NOT NULL ,
 "country" TEXT NOT NULL ,
-"source" INTEGER NOT NULL ,
-"demographic_type" INTEGER NOT NULL ,
+"source" TEXT NOT NULL ,
+"demographic_statistic_type" TEXT NOT NULL ,
 PRIMARY KEY ("id")
 );
 
 CREATE TABLE "demographic_statistic_type" (
-"id"  SERIAL ,
-"code" TEXT NOT NULL ,
+"id" TEXT NOT NULL ,
 "age_interpretation" TEXT NOT NULL ,
 "name" VARCHAR NOT NULL ,
 PRIMARY KEY ("id")
 );
 
 CREATE TABLE "source" (
-"id"  SERIAL ,
+"id" TEXT NOT NULL ,
 "name" VARCHAR NOT NULL ,
 PRIMARY KEY ("id")
 );
@@ -423,4 +422,4 @@ ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("projection_variant") REFER
 ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("gender") REFERENCES "gender" ("id");
 ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
 ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("source") REFERENCES "source" ("id");
-ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("demographic_type") REFERENCES "demographic_statistic_type" ("id");
+ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("demographic_statistic_type") REFERENCES "demographic_statistic_type" ("id");
