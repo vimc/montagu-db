@@ -278,7 +278,7 @@
 <datatype>INTEGER</datatype>
 </row>
 <row name="source" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
+<datatype>TEXT</datatype>
 <relation table="source" row="id" />
 </row>
 <key type="PRIMARY" name="">
@@ -835,11 +835,11 @@
 <row name="age_from" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 </row>
-<row name="age_to" null="0" autoincrement="0">
+<row name="age_to" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 </row>
 <row name="value" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
+<datatype>DECIMAL</datatype>
 </row>
 <row name="date_start" null="0" autoincrement="0">
 <datatype>DATE</datatype>
@@ -860,11 +860,11 @@
 <relation table="country" row="id" />
 </row>
 <row name="source" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
+<datatype>TEXT</datatype>
 <relation table="source" row="id" />
 </row>
-<row name="demographic_type" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
+<row name="demographic_statistic_type" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
 <relation table="demographic_statistic_type" row="id" />
 </row>
 <key type="PRIMARY" name="">
@@ -872,10 +872,7 @@
 </key>
 </table>
 <table x="53" y="1241" name="demographic_statistic_type">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="code" null="0" autoincrement="0">
+<row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
 <row name="age_interpretation" null="0" autoincrement="0">
@@ -889,9 +886,9 @@
 </key>
 </table>
 <table x="54" y="766" name="source">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
+<row name="id" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
 <row name="name" null="0" autoincrement="0">
 <datatype>VARCHAR</datatype>
 </row>
