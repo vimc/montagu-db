@@ -117,6 +117,7 @@ CREATE TABLE "scenario" (
 "id"  SERIAL ,
 "touchstone" TEXT NOT NULL DEFAULT 'NULL' ,
 "scenario_description" TEXT NOT NULL ,
+"focal_coverage_set" INTEGER ,
 PRIMARY KEY ("id"),
 UNIQUE ("touchstone", "scenario_description")
 );
@@ -251,6 +252,8 @@ CREATE TABLE "impact_estimate_recipe" (
 "support_type" TEXT NOT NULL ,
 "disease" TEXT NOT NULL ,
 "vaccine" TEXT NOT NULL ,
+"focal_ingredient" INTEGER ,
+"current_impact_estimate_set" INTEGER ,
 PRIMARY KEY ("id")
 );
 
@@ -285,6 +288,8 @@ CREATE TABLE "impact_estimate_set" (
 "id"  SERIAL ,
 "impact_estimate_recipe" INTEGER NOT NULL ,
 "computed_on" TIMESTAMP NOT NULL DEFAULT 'current_timestamp' ,
+"recipe_touchstone" TEXT NOT NULL ,
+"coverage_touchstone" TEXT ,
 PRIMARY KEY ("id")
 );
 
@@ -385,6 +390,7 @@ ALTER TABLE "touchstone" ADD FOREIGN KEY ("touchstone_name") REFERENCES "touchst
 ALTER TABLE "touchstone" ADD FOREIGN KEY ("status") REFERENCES "touchstone_status" ("id");
 ALTER TABLE "scenario" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "scenario" ADD FOREIGN KEY ("scenario_description") REFERENCES "scenario_description" ("id");
+ALTER TABLE "scenario" ADD FOREIGN KEY ("focal_coverage_set") REFERENCES "coverage_set" ("id");
 ALTER TABLE "coverage_set" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "coverage_set" ADD FOREIGN KEY ("vaccine") REFERENCES "vaccine" ("id");
 ALTER TABLE "coverage_set" ADD FOREIGN KEY ("gavi_support_level") REFERENCES "gavi_support_level" ("id");
@@ -411,6 +417,8 @@ ALTER TABLE "impact_estimate_recipe" ADD FOREIGN KEY ("activity_type") REFERENCE
 ALTER TABLE "impact_estimate_recipe" ADD FOREIGN KEY ("support_type") REFERENCES "support_type" ("id");
 ALTER TABLE "impact_estimate_recipe" ADD FOREIGN KEY ("disease") REFERENCES "disease" ("id");
 ALTER TABLE "impact_estimate_recipe" ADD FOREIGN KEY ("vaccine") REFERENCES "vaccine" ("id");
+ALTER TABLE "impact_estimate_recipe" ADD FOREIGN KEY ("focal_ingredient") REFERENCES "impact_estimate_ingredient" ("id");
+ALTER TABLE "impact_estimate_recipe" ADD FOREIGN KEY ("current_impact_estimate_set") REFERENCES "impact_estimate_set" ("id");
 ALTER TABLE "impact_estimate_ingredient" ADD FOREIGN KEY ("impact_estimate_recipe") REFERENCES "impact_estimate_recipe" ("id");
 ALTER TABLE "impact_estimate_ingredient" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
 ALTER TABLE "impact_estimate_ingredient" ADD FOREIGN KEY ("burden_outcome") REFERENCES "burden_outcome" ("id");
@@ -420,6 +428,8 @@ ALTER TABLE "impact_estimate_set_ingredient" ADD FOREIGN KEY ("impact_estimate_s
 ALTER TABLE "impact_estimate_set_ingredient" ADD FOREIGN KEY ("impact_estimate_ingredient") REFERENCES "impact_estimate_ingredient" ("id");
 ALTER TABLE "impact_estimate_set_ingredient" ADD FOREIGN KEY ("burden_estimate_set") REFERENCES "burden_estimate_set" ("id");
 ALTER TABLE "impact_estimate_set" ADD FOREIGN KEY ("impact_estimate_recipe") REFERENCES "impact_estimate_recipe" ("id");
+ALTER TABLE "impact_estimate_set" ADD FOREIGN KEY ("recipe_touchstone") REFERENCES "touchstone" ("id");
+ALTER TABLE "impact_estimate_set" ADD FOREIGN KEY ("coverage_touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "burden_estimate_set_problem" ADD FOREIGN KEY ("burden_estimate_set") REFERENCES "burden_estimate_set" ("id");
 ALTER TABLE "disability_weight" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "disability_weight" ADD FOREIGN KEY ("disease") REFERENCES "disease" ("id");

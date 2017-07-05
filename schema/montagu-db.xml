@@ -322,6 +322,10 @@
 <datatype>TEXT</datatype>
 <relation table="scenario_description" row="id" />
 </row>
+<row name="focal_coverage_set" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="coverage_set" row="id" />
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -330,7 +334,7 @@
 <part>scenario_description</part>
 </key>
 </table>
-<table x="750" y="740" name="coverage_set">
+<table x="729" y="675" name="coverage_set">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -599,7 +603,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="700" y="30" name="impact_estimate_recipe">
+<table x="701" y="10" name="impact_estimate_recipe">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -639,11 +643,19 @@
 <datatype>TEXT</datatype>
 <relation table="vaccine" row="id" />
 </row>
+<row name="focal_ingredient" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="impact_estimate_ingredient" row="id" />
+</row>
+<row name="current_impact_estimate_set" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="impact_estimate_set" row="id" />
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="950" y="130" name="impact_estimate_ingredient">
+<table x="976" y="152" name="impact_estimate_ingredient">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -714,7 +726,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1190" y="20" name="impact_estimate_set">
+<table x="1197" y="7" name="impact_estimate_set">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -725,11 +737,19 @@
 <row name="computed_on" null="0" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
 <default>'current_timestamp'</default></row>
+<row name="recipe_touchstone" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="touchstone" row="id" />
+</row>
+<row name="coverage_touchstone" null="1" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>NULL</default><relation table="touchstone" row="id" />
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="700" y="300" name="impact_outcome">
+<table x="702" y="310" name="impact_outcome">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
