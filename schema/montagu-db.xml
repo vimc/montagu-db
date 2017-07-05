@@ -148,7 +148,7 @@
 </key>
 <comment>With the self-referencing "current" field; we consider a model to be the current one if current is null.  See comment about recursion in modelling_group</comment>
 </table>
-<table x="1430" y="245" name="burden_outcome">
+<table x="1429" y="245" name="burden_outcome">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -165,7 +165,7 @@
 <part>code</part>
 </key>
 </table>
-<table x="1385" y="565" name="country">
+<table x="1452" y="424" name="country">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -253,7 +253,7 @@
 <part>version</part>
 </key>
 </table>
-<table x="50" y="390" name="touchstone">
+<table x="50" y="291" name="touchstone">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -322,6 +322,10 @@
 <datatype>TEXT</datatype>
 <relation table="scenario_description" row="id" />
 </row>
+<row name="focal_coverage_set" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="coverage_set" row="id" />
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -330,7 +334,7 @@
 <part>scenario_description</part>
 </key>
 </table>
-<table x="750" y="740" name="coverage_set">
+<table x="729" y="675" name="coverage_set">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -484,7 +488,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="50" y="640" name="touchstone_status">
+<table x="48" y="517" name="touchstone_status">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -588,7 +592,7 @@
 <part>permission</part>
 </key>
 </table>
-<table x="50" y="290" name="touchstone_name">
+<table x="51" y="188" name="touchstone_name">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -599,7 +603,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="700" y="30" name="impact_estimate_recipe">
+<table x="701" y="10" name="impact_estimate_recipe">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -639,11 +643,19 @@
 <datatype>TEXT</datatype>
 <relation table="vaccine" row="id" />
 </row>
+<row name="focal_ingredient" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="impact_estimate_ingredient" row="id" />
+</row>
+<row name="current_impact_estimate_set" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="impact_estimate_set" row="id" />
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="950" y="130" name="impact_estimate_ingredient">
+<table x="976" y="152" name="impact_estimate_ingredient">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -714,7 +726,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1190" y="20" name="impact_estimate_set">
+<table x="1197" y="7" name="impact_estimate_set">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -725,11 +737,19 @@
 <row name="computed_on" null="0" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
 <default>'current_timestamp'</default></row>
+<row name="recipe_touchstone" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="touchstone" row="id" />
+</row>
+<row name="coverage_touchstone" null="1" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>NULL</default><relation table="touchstone" row="id" />
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="700" y="300" name="impact_outcome">
+<table x="702" y="310" name="impact_outcome">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -774,7 +794,7 @@
 <part>token</part>
 </key>
 </table>
-<table x="282" y="892" name="disability_weight">
+<table x="459" y="1052" name="disability_weight">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -802,26 +822,107 @@
 <part>id</part>
 </key>
 </table>
-<table x="73" y="787" name="population_size">
-<row name="id" null="0" autoincrement="1">
-<datatype>INTEGER</datatype>
-</row>
-<row name="touchstone" null="0" autoincrement="0">
+<table x="282" y="1132" name="gender">
+<row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
-<relation table="touchstone" row="id" />
 </row>
-<row name="year" null="0" autoincrement="0">
+<row name="name" null="0" autoincrement="0">
+<datatype>VARCHAR(6)</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="294" y="916" name="projection_variant">
+<row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="name" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+<default>'NULL'</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="51" y="893" name="demographic_statistic">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="age_from" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="age_to" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="value" null="0" autoincrement="0">
+<datatype>DECIMAL</datatype>
+</row>
+<row name="date_start" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<row name="date_end" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
+<row name="projection_variant" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="projection_variant" row="id" />
+</row>
+<row name="gender" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="gender" row="id" />
 </row>
 <row name="country" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 <relation table="country" row="id" />
 </row>
-<row name="age" null="1" autoincrement="0">
+<row name="source" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="source" row="id" />
+</row>
+<row name="demographic_statistic_type" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="demographic_statistic_type" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="53" y="1241" name="demographic_statistic_type">
+<row name="id" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="age_interpretation" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="name" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="72" y="779" name="source">
+<row name="id" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="name" null="0" autoincrement="0">
+<datatype>VARCHAR</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="42" y="622" name="touchstone_demographic_source">
+<row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="population" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
+<row name="touchstone" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="touchstone" row="id" />
+</row>
+<row name="source" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="source" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
