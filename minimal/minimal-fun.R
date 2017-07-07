@@ -3,7 +3,7 @@ import_minimal <- function(host = NULL, port = NULL) {
     host <- Sys.getenv("MONTAGU_DB_HOST", "localhost")
   }
   if (is.null(port)) {
-    as.integer(Sys.getenv("MONTAGU_DB_PORT", 8888))
+    port <- as.integer(Sys.getenv("MONTAGU_DB_PORT", 8888))
   }
 
   con <- montagu_connection(host, port)
