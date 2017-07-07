@@ -63,6 +63,13 @@ CONTAINER_ID=$(docker run --rm -d -p 8888:5432 docker.montagu.dide.ic.ac.uk:5000
 docker attach $CONTAINER_ID
 ```
 
+## Use the empty container for testing
+
+```
+docker run -p 5432:5432 docker.montagu.dide.ic.ac.uk:5000/montagu-db:master
+psql -h localhost -p 5432 -U vimc -d montagu -c "\dt"
+```
+
 ## Accessing the dump from R
 
 Install the `RPostgres` package.  On windows, run:
@@ -97,15 +104,7 @@ con <- DBI::dbConnect(RPostgres::Postgres(),
                  user = "vimc")
 ```
 
-Or change host to `montagu.dide.ic.ac.uk` to run a copy running on our server.
-
-## Data lifecycle
-
-At the moment we're thinking of things as totally disposable (create the database structure, import legacy data, point the API at it, throw it all away when done).  This allows us to change the data model pretty freely but it's not going to be appropriate for anything but that because once we have data from users we will need to be doing something more clever if we want to update the data model (e.g., create a second database, run an import script, check that everything works, swap it over.
-
-So we need support here for building the database.
-
-This repo will contain information only on setting the database up in the first place, and for doing a backup and restore.  It will also contain some scripts for filling the database with synthetic data for testing purposes.
+Or change host to `science.montagu.dide.ic.ac.uk` to run a copy running on our server.
 
 ## Scripts
 
@@ -118,26 +117,3 @@ The database *process* container is disposable; it's just the [official postgres
 The database *data volume* containers are persistent and we'll need to be able to do a few things to these.
 
 Docker seems to be moving fairly rapidly in terms of data volumes (which we'll be making use of) so I'm going to assume fairly recent docker throughout
-
-### Build the postgres server container vimc/montagu-db
-
-This contains the support scripts here and a few environment variables set up, *plus the schema*
-
-```
-docker build --tag montagu-db .
-```
-
-On the CI system there is a script that wraps this and pushes to the registry so that
-
-```
-docker run docker.montagu.dide.ic.ac.uk:5000/montagu-db:<id>
-```
-
-will pull the container (`<id>` can be either a short git SHA or branch name).
-
-### Use the empty container for testing
-
-```
-docker run -p 5432:5432 docker.montagu.dide.ic.ac.uk:5000/montagu-db:i228
-psql -h localhost -p 5432 -U vimc -d montagu -c "\dt"
-```
