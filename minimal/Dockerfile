@@ -11,7 +11,8 @@ RUN install.r \
   remotes \
   yaml
 
-RUN Rscript -e 'remotes::install_github("rstats-db/RPostgres")'
+RUN Rscript -e 'remotes::install_github("rstats-db/RPostgres")' && \
+  Rscript -e 'remotes::install_github("richfitz/cleanr")'
 
 ## This will strip out a bunch of weight that we don't need in the
 ## final version.
