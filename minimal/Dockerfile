@@ -8,7 +8,9 @@ RUN apt-get update && apt-get -y install \
 
 RUN install.r \
   DBI \
+  cellranger \
   remotes \
+  tidyr \
   yaml
 
 RUN Rscript -e 'remotes::install_github("rstats-db/RPostgres")' && \
