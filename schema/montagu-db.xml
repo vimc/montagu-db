@@ -822,9 +822,9 @@
 <part>id</part>
 </key>
 </table>
-<table x="282" y="1132" name="gender">
+<table x="281" y="1048" name="gender">
 <row name="id" null="0" autoincrement="0">
-<datatype>TEXT</datatype>
+<datatype>INTEGER</datatype>
 </row>
 <row name="name" null="0" autoincrement="0">
 <datatype>VARCHAR(6)</datatype>
@@ -868,19 +868,19 @@
 <default>NULL</default><relation table="projection_variant" row="id" />
 </row>
 <row name="gender" null="0" autoincrement="0">
-<datatype>TEXT</datatype>
+<datatype>INTEGER</datatype>
 <relation table="gender" row="id" />
 </row>
 <row name="country" null="0" autoincrement="0">
-<datatype>TEXT</datatype>
-<relation table="country" row="id" />
+<datatype>INTEGER</datatype>
+<relation table="iso3166" row="id" />
 </row>
 <row name="source" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 <relation table="source" row="id" />
 </row>
 <row name="demographic_statistic_type" null="0" autoincrement="0">
-<datatype>TEXT</datatype>
+<datatype>INTEGER</datatype>
 <relation table="demographic_statistic_type" row="id" />
 </row>
 <key type="PRIMARY" name="">
@@ -889,7 +889,7 @@
 </table>
 <table x="53" y="1241" name="demographic_statistic_type">
 <row name="id" null="0" autoincrement="0">
-<datatype>TEXT</datatype>
+<datatype>INTEGER</datatype>
 </row>
 <row name="age_interpretation" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
@@ -927,5 +927,24 @@
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
+</table>
+<table x="321" y="1234" name="iso3166">
+<row name="id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="c3" null="0" autoincrement="0">
+<datatype>VARCHAR(3)</datatype>
+<default>'NULL'</default><relation table="country" row="id" />
+</row>
+<row name="name" null="0" autoincrement="0">
+<datatype>VARCHAR(255)</datatype>
+<default>'NULL'</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+<key type="INDEX" name="">
+<part>c3</part>
+</key>
+<comment>Country lookup table</comment>
 </table>
 </sql>
