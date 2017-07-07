@@ -1,5 +1,2 @@
-source("minimal-fun.R")
-montagu_db_host <- Sys.getenv("MONTAGU_DB_HOST", "localhost")
-montagu_db_port <- as.integer(Sys.getenv("MONTAGU_DB_PORT", 8888))
-con <- montagu_connection(montagu_db_host, montagu_db_port)
-import_minimal(con, read_common())
+source("minimal-fun.R", local = TRUE)
+import_minimal()

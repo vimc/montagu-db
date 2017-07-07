@@ -1,3 +1,19 @@
+import_minimal <- function(host = NULL, port = NULL) {
+  if (is.null(host)) {
+    host <- Sys.getenv("MONTAGU_DB_HOST", "localhost")
+  }
+  if (is.null(port)) {
+    as.integer(Sys.getenv("MONTAGU_DB_PORT", 8888))
+  }
+
+  con <- montagu_connection(montagu_db_host, montagu_db_port)
+  common <- read_common()
+  for (x in setdiff(names(common), "role_permission")) {
+    import_data_frame(con, x, common[[x]])
+  }
+  import_role_permission(con, common$role_permission)
+}
+
 montagu_connection <- function(host = "localhost", port = 5432) {
   DBI::dbConnect(RPostgres::Postgres(),
                  dbname = "montagu",
@@ -32,13 +48,6 @@ read_common <- function() {
   common <- lapply(files, read_csv)
   names(common) <- sub("\\.csv$", "", basename(files))
   common
-}
-
-import_minimal <- function(con, common) {
-  for (x in setdiff(names(common), "role_permission")) {
-    import_data_frame(con, x, common[[x]])
-  }
-  import_role_permission(con, common$role_permission)
 }
 
 import_role_permission <- function(con, dat) {
