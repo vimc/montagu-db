@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
 
 set -x
-if [ "$#" -lt 1 ]; then
-    echo "Expected at least one argument (the db tag)"
-    exit 1
-fi
-MONTAGU_DB_TAG=$1
+
+MONTAGU_DB_TAG=$(git rev-parse --short HEAD)
 
 WORKDIR=/minimal
 
