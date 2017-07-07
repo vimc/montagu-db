@@ -14,6 +14,7 @@ MONTAGU_DB_NETWORK=montagu-db-import-nw
 
 NETWORK=$(docker network create $MONTAGU_DB_NETWORK)
 docker pull $MONTAGU_DB_IMAGE || exit 1
+docker pull $MONTAGU_IMPORT_IMAGE || exit 1
 
 docker run -d --rm \
        --name $MONTAGU_DB_HOST \
@@ -29,7 +30,7 @@ docker run --rm \
        --network $MONTAGU_DB_NETWORK \
        -e MONTAGU_DB_HOST=$MONTAGU_DB_HOST \
        -e MONTAGU_DB_PORT=5432 \
-       -v ${PWD}/minimal:${WORKDIR} \
+       -v ${PWD}:${WORKDIR} \
        -w ${WORKDIR} \
        ${MONTAGU_IMPORT_IMAGE} \
        Rscript minimal.R
