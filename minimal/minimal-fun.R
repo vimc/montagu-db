@@ -66,3 +66,19 @@ import_role_permission <- function(con, dat) {
   dat$role <- match(dat$match_on, role$match_on)
   import_data_frame(con, "role_permission", dat[c("role", "permission")])
 }
+
+download_countries <- function() {
+  orig <- read.csv("common/country.csv", stringsAsFactors = FALSE)
+  dat <- xml2::read_xml("https://mrcdata.dide.ic.ac.uk/resources/iso3166.xml")
+  countries <- xml2::xml_find_all(dat, "//c")
+  id <- c(xml2::xml_attr(countries, "c3"), "XK")
+  name <- c(xml2::xml_attr(countries, "n"), "Kosovo")
+  tbl <- data.frame(id = id, name = name, stringsAsFactors = FALSE)
+
+  msg <- setdiff(orig$id, tbl$id)
+  if (length(msg) > 0L) {
+    stop("This will remove entries")
+  }
+
+  write.csv(tbl, "common/country.csv", row.names = FALSE)
+}
