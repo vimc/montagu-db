@@ -1,6 +1,7 @@
 FROM r-base:3.3.1
 
 RUN apt-get update && apt-get -y install \
+  gnumeric \
   libpq-dev \
   libssl-dev \
   pkg-config \
