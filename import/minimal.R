@@ -1,7 +1,0 @@
-source("R/common.R")
-source("R/permissions.R")
-montagu_db_host <- Sys.getenv("MONTAGU_DB_HOST", "localhost")
-montagu_db_port <- as.integer(Sys.getenv("MONTAGU_DB_PORT", 8888))
-con <- montagu_connection(montagu_db_host, montagu_db_port)
-import_common(con)
-import_role_permission(con)
