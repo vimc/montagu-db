@@ -170,7 +170,7 @@
 <datatype>TEXT</datatype>
 </row>
 <row name="name" null="0" autoincrement="0">
-<datatype>VARCHAR(32)</datatype>
+<datatype>TEXT</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -853,7 +853,7 @@
 </row>
 <row name="age_to" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-</row>
+<default>NULL</default></row>
 <row name="value" null="0" autoincrement="0">
 <datatype>DECIMAL</datatype>
 </row>

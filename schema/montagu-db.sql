@@ -50,7 +50,7 @@ UNIQUE ("code")
 
 CREATE TABLE "country" (
 "id" TEXT NOT NULL ,
-"name" VARCHAR(32) NOT NULL ,
+"name" TEXT NOT NULL ,
 PRIMARY KEY ("id")
 );
 
