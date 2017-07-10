@@ -8,6 +8,19 @@ CREATE OR REPLACE FUNCTION
        WHERE burden_estimate_set = set_id AND burden_outcome = outcome_id'
   LANGUAGE SQL;
 CREATE OR REPLACE FUNCTION
+  select_burden_data1(set1 int, outcome1 int)
+  RETURNS TABLE(country TEXT, year INTEGER,
+                value1 DECIMAL)
+  AS $$
+    SELECT
+      vals_1.country,
+      vals_1.year,
+      vals_1.value AS value1
+    FROM
+      (SELECT * FROM select_burden_data_col(set1, outcome1)) AS vals_1
+  $$
+  LANGUAGE SQL;
+CREATE OR REPLACE FUNCTION
   select_burden_data2(set1 int, outcome1 int,
                       set2 int, outcome2 int)
   RETURNS TABLE(country TEXT, year INTEGER,

@@ -54,7 +54,7 @@ create_impact_functions <- function() {
   }
 
   c(sql_sub_fn,
-    vapply(2:8, select_burden_data_fun, character(1)))
+    vapply(1:8, select_burden_data_fun, character(1)))
 }
 
 dir.create("functions", FALSE, TRUE)
