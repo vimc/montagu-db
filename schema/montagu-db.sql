@@ -335,7 +335,7 @@ PRIMARY KEY ("id")
 );
 
 CREATE TABLE "projection_variant" (
-"id"  SERIAL ,
+"id" TEXT NOT NULL DEFAULT 'NULL' ,
 "name" VARCHAR NOT NULL DEFAULT 'NULL' ,
 PRIMARY KEY ("id")
 );
@@ -347,7 +347,7 @@ CREATE TABLE "demographic_statistic" (
 "value" DECIMAL NOT NULL ,
 "date_start" DATE NOT NULL ,
 "date_end" DATE NOT NULL ,
-"projection_variant" INTEGER ,
+"projection_variant" TEXT ,
 "gender" TEXT NOT NULL ,
 "country" TEXT NOT NULL ,
 "source" TEXT NOT NULL ,

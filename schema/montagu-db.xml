@@ -834,9 +834,9 @@
 </key>
 </table>
 <table x="294" y="916" name="projection_variant">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
+<row name="id" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>'NULL'</default></row>
 <row name="name" null="0" autoincrement="0">
 <datatype>VARCHAR</datatype>
 <default>'NULL'</default></row>
@@ -844,7 +844,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="51" y="893" name="demographic_statistic">
+<table x="58" y="915" name="demographic_statistic">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -864,7 +864,7 @@
 <datatype>DATE</datatype>
 </row>
 <row name="projection_variant" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
+<datatype>TEXT</datatype>
 <default>NULL</default><relation table="projection_variant" row="id" />
 </row>
 <row name="gender" null="0" autoincrement="0">
