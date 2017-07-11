@@ -392,6 +392,7 @@ PRIMARY KEY ("id")
 
 CREATE TABLE "country_metadata" (
 "id"  SERIAL ,
+"touchstone" TEXT NOT NULL ,
 "country" TEXT NOT NULL ,
 "gavi73" BOOLEAN NOT NULL ,
 "who_region" TEXT NOT NULL ,
@@ -471,4 +472,5 @@ ALTER TABLE "gavi_focal_model" ADD FOREIGN KEY ("touchstone") REFERENCES "touchs
 ALTER TABLE "country_vaccine_metadata" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "country_vaccine_metadata" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
 ALTER TABLE "country_vaccine_metadata" ADD FOREIGN KEY ("vaccine") REFERENCES "vaccine" ("id");
+ALTER TABLE "country_metadata" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "country_metadata" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");

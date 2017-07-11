@@ -970,6 +970,10 @@
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
+<row name="touchstone" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="touchstone" row="id" />
+</row>
 <row name="country" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 <relation table="country" row="id" />
