@@ -980,9 +980,6 @@
 <row name="who_region" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
-<row name="wuenic" null="0" autoincrement="0">
-<datatype>BOOLEAN</datatype>
-</row>
 <row name="wuenic_coverage" null="0" autoincrement="0">
 <datatype>BOOLEAN</datatype>
 </row>

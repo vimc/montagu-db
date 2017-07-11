@@ -395,7 +395,6 @@ CREATE TABLE "country_metadata" (
 "country" TEXT NOT NULL ,
 "gavi73" BOOLEAN NOT NULL ,
 "who_region" TEXT NOT NULL ,
-"wuenic" BOOLEAN NOT NULL ,
 "wuenic_coverage" BOOLEAN NOT NULL ,
 PRIMARY KEY ("id")
 );
