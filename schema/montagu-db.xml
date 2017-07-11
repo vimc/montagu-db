@@ -956,12 +956,12 @@
 <row name="year_vaccine_intro" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 </row>
-<row name="year_support_first" null="0" autoincrement="0">
+<row name="year_support_first" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-</row>
-<row name="year_support_last" null="0" autoincrement="0">
+<default>NULL</default></row>
+<row name="year_support_last" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-</row>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>

@@ -385,8 +385,8 @@ CREATE TABLE "country_vaccine_metadata" (
 "country" TEXT NOT NULL ,
 "vaccine" TEXT NOT NULL ,
 "year_vaccine_intro" INTEGER ,
-"year_support_first" INTEGER NOT NULL ,
-"year_support_last" INTEGER NOT NULL ,
+"year_support_first" INTEGER ,
+"year_support_last" INTEGER ,
 PRIMARY KEY ("id")
 );
 
