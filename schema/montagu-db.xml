@@ -948,4 +948,48 @@
 <part>id</part>
 </key>
 </table>
+<table x="1695" y="601" name="country_vaccine_metadata">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="touchstone" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="touchstone" row="id" />
+</row>
+<row name="country" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="country" row="id" />
+</row>
+<row name="vaccine" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="vaccine" row="id" />
+</row>
+<row name="year_vaccine_intro" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="year_support_first" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="year_support_last" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1742" y="451.7777786254883" name="country_metadata">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="country" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="country" row="id" />
+</row>
+<row name="gavi73" null="0" autoincrement="0">
+<datatype>BOOLEAN</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
 </sql>

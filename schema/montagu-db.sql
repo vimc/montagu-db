@@ -383,6 +383,24 @@ CREATE TABLE "gavi_focal_model" (
 PRIMARY KEY ("id")
 );
 
+CREATE TABLE "country_vaccine_metadata" (
+"id"  SERIAL ,
+"touchstone" TEXT NOT NULL ,
+"country" TEXT NOT NULL ,
+"vaccine" TEXT NOT NULL ,
+"year_vaccine_intro" INTEGER ,
+"year_support_first" INTEGER NOT NULL ,
+"year_support_last" INTEGER NOT NULL ,
+PRIMARY KEY ("id")
+);
+
+CREATE TABLE "country_metadata" (
+"id"  SERIAL ,
+"country" TEXT NOT NULL ,
+"gavi73" BOOLEAN NOT NULL ,
+PRIMARY KEY ("id")
+);
+
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("model_version") REFERENCES "model_version" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("uploaded_by") REFERENCES "app_user" ("username");
@@ -451,3 +469,7 @@ ALTER TABLE "touchstone_demographic_source" ADD FOREIGN KEY ("source") REFERENCE
 ALTER TABLE "gavi_focal_model" ADD FOREIGN KEY ("model") REFERENCES "model" ("id");
 ALTER TABLE "gavi_focal_model" ADD FOREIGN KEY ("disease") REFERENCES "disease" ("id");
 ALTER TABLE "gavi_focal_model" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
+ALTER TABLE "country_vaccine_metadata" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
+ALTER TABLE "country_vaccine_metadata" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
+ALTER TABLE "country_vaccine_metadata" ADD FOREIGN KEY ("vaccine") REFERENCES "vaccine" ("id");
+ALTER TABLE "country_metadata" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
