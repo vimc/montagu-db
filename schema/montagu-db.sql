@@ -64,8 +64,6 @@ CREATE TABLE "coverage" (
 "age_range_verbatim" TEXT ,
 "coverage" DECIMAL ,
 "target" DECIMAL /* This field is valid only for campaign coverage */,
-"gavi_support" BOOLEAN NOT NULL ,
-"activity" TEXT ,
 PRIMARY KEY ("id")
 );
 COMMENT ON COLUMN "coverage"."target" IS 'This field is valid only for campaign coverage';
@@ -178,9 +176,7 @@ CREATE TABLE "touchstone_country" (
 "id"  SERIAL ,
 "touchstone" TEXT NOT NULL ,
 "country" TEXT NOT NULL ,
-"who_region" TEXT NOT NULL DEFAULT 'NULL' ,
-"gavi73" BOOLEAN NOT NULL ,
-"wuenic" BOOLEAN NOT NULL ,
+"disease" TEXT NOT NULL ,
 PRIMARY KEY ("id")
 );
 
@@ -398,6 +394,9 @@ CREATE TABLE "country_metadata" (
 "id"  SERIAL ,
 "country" TEXT NOT NULL ,
 "gavi73" BOOLEAN NOT NULL ,
+"who_region" TEXT NOT NULL ,
+"wuenic" BOOLEAN NOT NULL ,
+"wuenic_coverage" BOOLEAN NOT NULL ,
 PRIMARY KEY ("id")
 );
 
@@ -433,6 +432,7 @@ ALTER TABLE "scenario_coverage_set" ADD FOREIGN KEY ("scenario") REFERENCES "sce
 ALTER TABLE "scenario_coverage_set" ADD FOREIGN KEY ("coverage_set") REFERENCES "coverage_set" ("id");
 ALTER TABLE "touchstone_country" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "touchstone_country" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
+ALTER TABLE "touchstone_country" ADD FOREIGN KEY ("disease") REFERENCES "disease" ("id");
 ALTER TABLE "user_role" ADD FOREIGN KEY ("username") REFERENCES "app_user" ("username");
 ALTER TABLE "user_role" ADD FOREIGN KEY ("role") REFERENCES "role" ("id");
 ALTER TABLE "role_permission" ADD FOREIGN KEY ("role") REFERENCES "role" ("id");

@@ -207,12 +207,6 @@
 <datatype>DECIMAL</datatype>
 <default>NULL</default><comment>This field is valid only for campaign coverage</comment>
 </row>
-<row name="gavi_support" null="0" autoincrement="0">
-<datatype>BOOLEAN</datatype>
-</row>
-<row name="activity" null="1" autoincrement="0">
-<datatype>TEXT</datatype>
-<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -463,7 +457,7 @@
 <part>order</part>
 </key>
 </table>
-<table x="363" y="357" name="touchstone_country">
+<table x="372" y="372" name="touchstone_country">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -475,14 +469,9 @@
 <datatype>TEXT</datatype>
 <relation table="country" row="id" />
 </row>
-<row name="who_region" null="0" autoincrement="0">
+<row name="disease" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
-<default>'NULL'</default></row>
-<row name="gavi73" null="0" autoincrement="0">
-<datatype>BOOLEAN</datatype>
-</row>
-<row name="wuenic" null="0" autoincrement="0">
-<datatype>BOOLEAN</datatype>
+<relation table="disease" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -977,7 +966,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1742" y="451.7777786254883" name="country_metadata">
+<table x="1744" y="427.7777786254883" name="country_metadata">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -986,6 +975,15 @@
 <relation table="country" row="id" />
 </row>
 <row name="gavi73" null="0" autoincrement="0">
+<datatype>BOOLEAN</datatype>
+</row>
+<row name="who_region" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="wuenic" null="0" autoincrement="0">
+<datatype>BOOLEAN</datatype>
+</row>
+<row name="wuenic_coverage" null="0" autoincrement="0">
 <datatype>BOOLEAN</datatype>
 </row>
 <key type="PRIMARY" name="">
