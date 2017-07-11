@@ -375,6 +375,14 @@ CREATE TABLE "touchstone_demographic_source" (
 PRIMARY KEY ("id")
 );
 
+CREATE TABLE "gavi_focal_model" (
+"id"  SERIAL ,
+"model" TEXT NOT NULL ,
+"disease" TEXT NOT NULL ,
+"touchstone" TEXT NOT NULL ,
+PRIMARY KEY ("id")
+);
+
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("model_version") REFERENCES "model_version" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("uploaded_by") REFERENCES "app_user" ("username");
@@ -440,3 +448,6 @@ ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("source") REFERENCES "sourc
 ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("demographic_statistic_type") REFERENCES "demographic_statistic_type" ("id");
 ALTER TABLE "touchstone_demographic_source" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "touchstone_demographic_source" ADD FOREIGN KEY ("source") REFERENCES "source" ("id");
+ALTER TABLE "gavi_focal_model" ADD FOREIGN KEY ("model") REFERENCES "model" ("id");
+ALTER TABLE "gavi_focal_model" ADD FOREIGN KEY ("disease") REFERENCES "disease" ("id");
+ALTER TABLE "gavi_focal_model" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
