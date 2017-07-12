@@ -247,7 +247,7 @@
 <part>version</part>
 </key>
 </table>
-<table x="113" y="408" name="touchstone">
+<table x="115" y="416" name="touchstone">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -264,12 +264,6 @@
 <row name="status" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 <relation table="touchstone_status" row="id" />
-</row>
-<row name="year_start" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
-</row>
-<row name="year_end" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -371,7 +365,7 @@
 </key>
 <comment>With the self-referencing "current" field; we consider a modelling group to be the current one if current is null.  This is not recursive; if we move a modelling group to a new id then every modelling group that has current pointing at the old id must be updated to point at the new one.  This means that no `current` points at an `id` that does not have `current` as `null`.</comment>
 </table>
-<table x="597" y="558" name="responsibility">
+<table x="577" y="538" name="responsibility">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -410,7 +404,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="363" y="557" name="responsibility_set">
+<table x="364" y="618" name="responsibility_set">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -457,7 +451,7 @@
 <part>order</part>
 </key>
 </table>
-<table x="372" y="372" name="touchstone_country">
+<table x="364" y="318" name="touchstone_country">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -489,7 +483,7 @@
 </key>
 <comment>Valid values: {in-preparation, open, finished}</comment>
 </table>
-<table x="563" y="707" name="responsibility_set_status">
+<table x="565" y="725" name="responsibility_set_status">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -917,7 +911,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="561" y="67" name="gavi_focal_model">
+<table x="556" y="67" name="gavi_focal_model">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -986,6 +980,28 @@
 </row>
 <row name="wuenic_coverage" null="0" autoincrement="0">
 <datatype>BOOLEAN</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="365" y="462" name="touchstone_years">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="touchstone" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="touchstone" row="id" />
+</row>
+<row name="disease" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="disease" row="id" />
+</row>
+<row name="year_first" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="year_last" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>

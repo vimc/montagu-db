@@ -90,8 +90,6 @@ CREATE TABLE "touchstone" (
 "version" INTEGER NOT NULL ,
 "description" TEXT NOT NULL ,
 "status" TEXT NOT NULL ,
-"year_start" INTEGER NOT NULL ,
-"year_end" INTEGER NOT NULL ,
 PRIMARY KEY ("id"),
 UNIQUE ("touchstone_name", "version")
 );
@@ -400,6 +398,15 @@ CREATE TABLE "country_metadata" (
 PRIMARY KEY ("id")
 );
 
+CREATE TABLE "touchstone_years" (
+"id"  SERIAL ,
+"touchstone" TEXT NOT NULL ,
+"disease" TEXT NOT NULL ,
+"year_first" INTEGER NOT NULL ,
+"year_last" INTEGER NOT NULL ,
+PRIMARY KEY ("id")
+);
+
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("model_version") REFERENCES "model_version" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("uploaded_by") REFERENCES "app_user" ("username");
@@ -474,3 +481,5 @@ ALTER TABLE "country_vaccine_metadata" ADD FOREIGN KEY ("country") REFERENCES "c
 ALTER TABLE "country_vaccine_metadata" ADD FOREIGN KEY ("vaccine") REFERENCES "vaccine" ("id");
 ALTER TABLE "country_metadata" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "country_metadata" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
+ALTER TABLE "touchstone_years" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
+ALTER TABLE "touchstone_years" ADD FOREIGN KEY ("disease") REFERENCES "disease" ("id");
