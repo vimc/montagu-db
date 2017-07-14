@@ -132,7 +132,7 @@ CREATE TABLE "modelling_group" (
 "id" TEXT NOT NULL ,
 "institution" TEXT NOT NULL ,
 "pi" TEXT NOT NULL ,
-"comment" TEXT NOT NULL ,
+"comment" TEXT ,
 "current" TEXT ,
 PRIMARY KEY ("id")
 );

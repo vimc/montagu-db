@@ -359,9 +359,9 @@
 <row name="pi" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
-<row name="comment" null="0" autoincrement="0">
+<row name="comment" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
-</row>
+<default>NULL</default></row>
 <row name="current" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>NULL</default><relation table="modelling_group" row="id" />
