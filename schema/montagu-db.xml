@@ -125,7 +125,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="368" y="172" name="model">
+<table x="368" y="144" name="model">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -349,11 +349,17 @@
 <part>id</part>
 </key>
 </table>
-<table x="117" y="170" name="modelling_group">
+<table x="110" y="132" name="modelling_group">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
-<row name="description" null="0" autoincrement="0">
+<row name="institution" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="pi" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="comment" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
 <row name="current" null="1" autoincrement="0">

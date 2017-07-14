@@ -130,7 +130,9 @@ PRIMARY KEY ("id")
 
 CREATE TABLE "modelling_group" (
 "id" TEXT NOT NULL ,
-"description" TEXT NOT NULL ,
+"institution" TEXT NOT NULL ,
+"pi" TEXT NOT NULL ,
+"comment" TEXT NOT NULL ,
 "current" TEXT ,
 PRIMARY KEY ("id")
 );
