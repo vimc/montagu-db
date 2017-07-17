@@ -34,7 +34,7 @@ CREATE TABLE "model" (
 "id" TEXT NOT NULL ,
 "modelling_group" TEXT NOT NULL DEFAULT 'NULL' ,
 "description" TEXT NOT NULL ,
-"citation" TEXT NOT NULL ,
+"citation" TEXT ,
 "current" TEXT ,
 PRIMARY KEY ("id")
 );

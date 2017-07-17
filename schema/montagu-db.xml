@@ -136,9 +136,9 @@
 <row name="description" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
-<row name="citation" null="0" autoincrement="0">
+<row name="citation" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
-</row>
+<default>NULL</default></row>
 <row name="current" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>NULL</default><relation table="model" row="id" />
@@ -955,7 +955,7 @@
 </row>
 <row name="year_vaccine_intro" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-</row>
+<default>NULL</default></row>
 <row name="year_support_first" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -966,7 +966,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1744" y="427.7777786254883" name="country_metadata">
+<table x="1744" y="427" name="country_metadata">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
