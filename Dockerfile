@@ -9,8 +9,10 @@ ENV POSTGRES_PASSWORD changeme
 ENV PGDATA /pgdata
 COPY schema/montagu-db.sql montagu-db.sql
 COPY functions functions
+COPY postgresql.conf postgresql.conf
 RUN sed "s/'current_timestamp'/CURRENT_TIMESTAMP/" montagu-db.sql > \
       /docker-entrypoint-initdb.d/montagu.sql && \
     cat functions/*.sql >> /docker-entrypoint-initdb.d/montagu.sql && \
     ./docker-entrypoint.sh --version && \
-    rm -f /docker-entrypoint-initdb.d/montagu.sql
+    rm -f /docker-entrypoint-initdb.d/montagu.sql && \
+    mv postgresql.conf /pgdata
