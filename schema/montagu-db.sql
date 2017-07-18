@@ -325,13 +325,15 @@ PRIMARY KEY ("id")
 );
 
 CREATE TABLE "gender" (
-"id" TEXT NOT NULL ,
+"id"  SERIAL NOT NULL ,
+"code" TEXT NOT NULL ,
 "name" VARCHAR(6) NOT NULL ,
 PRIMARY KEY ("id")
 );
 
 CREATE TABLE "projection_variant" (
-"id" TEXT NOT NULL DEFAULT 'NULL' ,
+"id"  SERIAL NOT NULL ,
+"code" TEXT NOT NULL ,
 "name" VARCHAR NOT NULL DEFAULT 'NULL' ,
 PRIMARY KEY ("id")
 );
@@ -343,23 +345,25 @@ CREATE TABLE "demographic_statistic" (
 "value" DECIMAL NOT NULL ,
 "date_start" DATE NOT NULL ,
 "date_end" DATE NOT NULL ,
-"projection_variant" TEXT ,
-"gender" TEXT NOT NULL ,
+"projection_variant" INTEGER ,
+"gender" INTEGER NOT NULL ,
 "country" TEXT NOT NULL ,
-"source" TEXT NOT NULL ,
-"demographic_statistic_type" TEXT NOT NULL ,
+"source" INTEGER NOT NULL ,
+"demographic_statistic_type" INTEGER NOT NULL ,
 PRIMARY KEY ("id")
 );
 
 CREATE TABLE "demographic_statistic_type" (
-"id" TEXT NOT NULL ,
+"id"  SERIAL NOT NULL ,
+"code" TEXT NOT NULL ,
 "age_interpretation" TEXT NOT NULL ,
 "name" VARCHAR NOT NULL ,
 PRIMARY KEY ("id")
 );
 
 CREATE TABLE "source" (
-"id" TEXT NOT NULL ,
+"id"  SERIAL NOT NULL ,
+"code" TEXT NOT NULL ,
 "name" VARCHAR NOT NULL ,
 PRIMARY KEY ("id")
 );
@@ -367,7 +371,7 @@ PRIMARY KEY ("id")
 CREATE TABLE "touchstone_demographic_source" (
 "id"  SERIAL ,
 "touchstone" TEXT NOT NULL ,
-"source" TEXT NOT NULL ,
+"source" INTEGER NOT NULL ,
 PRIMARY KEY ("id")
 );
 
