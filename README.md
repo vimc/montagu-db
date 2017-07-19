@@ -60,7 +60,12 @@ This will delete all data in the database for the running container and import a
 ```
 CONTAINER_ID=$(docker run --rm -d -p 8888:5432 docker.montagu.dide.ic.ac.uk:5000/montagu-db:master)
 ./scripts/load-dump-into-container.sh montagu.dump $CONTAINER_ID
-docker attach $CONTAINER_ID
+```
+
+Loading the demograph information takes considerably longer!  Run
+
+```
+./scripts/load-dump-into-container.sh demography.dump $CONTAINER_ID
 ```
 
 ## Use the empty container for testing
