@@ -4,6 +4,7 @@ RUN apt-get update && apt-get -y install \
   gnumeric \
   libpq-dev \
   libssl-dev \
+  libxml2-dev \
   pkg-config \
   postgresql-client
 
