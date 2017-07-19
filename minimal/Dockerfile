@@ -13,6 +13,7 @@ RUN install.r \
   readxl \
   remotes \
   tidyr \
+  xml2 \
   yaml
 
 RUN Rscript -e 'remotes::install_github("rstats-db/RPostgres")' && \
