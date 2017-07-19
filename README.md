@@ -65,7 +65,7 @@ CONTAINER_ID=$(docker run --rm -d -p 8888:5432 docker.montagu.dide.ic.ac.uk:5000
 Loading the demograph information takes considerably longer!  Run
 
 ```
-./scripts/load-dump-into-container.sh demography.dump $CONTAINER_ID
+./scripts/load-demography.sh demography.dump $CONTAINER_ID
 ```
 
 ## Use the empty container for testing
