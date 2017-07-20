@@ -235,6 +235,7 @@ PRIMARY KEY ("role", "permission")
 CREATE TABLE "touchstone_name" (
 "id" TEXT NOT NULL ,
 "description" TEXT NOT NULL ,
+"comment" TEXT NOT NULL ,
 PRIMARY KEY ("id")
 );
 

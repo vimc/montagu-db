@@ -594,6 +594,9 @@
 <row name="description" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
+<row name="comment" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
