@@ -90,6 +90,7 @@ CREATE TABLE "touchstone" (
 "version" INTEGER NOT NULL ,
 "description" TEXT NOT NULL ,
 "status" TEXT NOT NULL ,
+"comment" TEXT NOT NULL ,
 PRIMARY KEY ("id"),
 UNIQUE ("touchstone_name", "version")
 );
@@ -132,6 +133,7 @@ CREATE TABLE "modelling_group" (
 "id" TEXT NOT NULL ,
 "institution" TEXT NOT NULL ,
 "pi" TEXT NOT NULL ,
+"description" TEXT NOT NULL ,
 "comment" TEXT ,
 "current" TEXT ,
 PRIMARY KEY ("id")
