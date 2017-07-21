@@ -377,7 +377,7 @@
 </key>
 <comment>With the self-referencing "current" field; we consider a modelling group to be the current one if current is null.  This is not recursive; if we move a modelling group to a new id then every modelling group that has current pointing at the old id must be updated to point at the new one.  This means that no `current` points at an `id` that does not have `current` as `null`.</comment>
 </table>
-<table x="577" y="538" name="responsibility">
+<table x="603" y="560" name="responsibility">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -653,7 +653,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1039" y="269" name="impact_estimate_ingredient">
+<table x="1060" y="273" name="impact_estimate_ingredient">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -820,7 +820,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="345" y="1249" name="gender">
+<table x="351" y="1239" name="gender">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -834,7 +834,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="357" y="1033" name="projection_variant">
+<table x="345" y="1096" name="demographic_variant">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -861,15 +861,12 @@
 <row name="value" null="0" autoincrement="0">
 <datatype>DECIMAL</datatype>
 </row>
-<row name="date_start" null="0" autoincrement="0">
-<datatype>DATE</datatype>
-</row>
-<row name="date_end" null="0" autoincrement="0">
-<datatype>DATE</datatype>
-</row>
-<row name="projection_variant" null="1" autoincrement="0">
+<row name="year" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="projection_variant" row="id" />
+</row>
+<row name="demographic_variant" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="demographic_variant" row="id" />
 </row>
 <row name="gender" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
@@ -879,9 +876,9 @@
 <datatype>TEXT</datatype>
 <relation table="country" row="id" />
 </row>
-<row name="source" null="0" autoincrement="0">
+<row name="demographic_source" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<relation table="source" row="id" />
+<relation table="demographic_source" row="id" />
 </row>
 <row name="demographic_statistic_type" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
@@ -891,7 +888,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="116" y="1358" name="demographic_statistic_type">
+<table x="125" y="1338" name="demographic_statistic_type">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -904,11 +901,17 @@
 <row name="name" null="0" autoincrement="0">
 <datatype>VARCHAR</datatype>
 </row>
+<row name="year_step_size" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<row name="reference_date" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="135" y="896" name="source">
+<table x="135" y="896" name="demographic_source">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -932,7 +935,7 @@
 </row>
 <row name="source" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<relation table="source" row="id" />
+<relation table="demographic_source" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>

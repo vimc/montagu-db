@@ -334,7 +334,7 @@ CREATE TABLE "gender" (
 PRIMARY KEY ("id")
 );
 
-CREATE TABLE "projection_variant" (
+CREATE TABLE "demographic_variant" (
 "id"  SERIAL NOT NULL ,
 "code" TEXT NOT NULL ,
 "name" VARCHAR NOT NULL DEFAULT 'NULL' ,
@@ -346,12 +346,11 @@ CREATE TABLE "demographic_statistic" (
 "age_from" INTEGER NOT NULL ,
 "age_to" INTEGER ,
 "value" DECIMAL NOT NULL ,
-"date_start" DATE NOT NULL ,
-"date_end" DATE NOT NULL ,
-"projection_variant" INTEGER ,
+"year" INTEGER NOT NULL ,
+"demographic_variant" INTEGER ,
 "gender" INTEGER NOT NULL ,
 "country" TEXT NOT NULL ,
-"source" INTEGER NOT NULL ,
+"demographic_source" INTEGER NOT NULL ,
 "demographic_statistic_type" INTEGER NOT NULL ,
 PRIMARY KEY ("id")
 );
@@ -361,10 +360,12 @@ CREATE TABLE "demographic_statistic_type" (
 "code" TEXT NOT NULL ,
 "age_interpretation" TEXT NOT NULL ,
 "name" VARCHAR NOT NULL ,
+"year_step_size" INTEGER NOT NULL ,
+"reference_date" DATE NOT NULL ,
 PRIMARY KEY ("id")
 );
 
-CREATE TABLE "source" (
+CREATE TABLE "demographic_source" (
 "id"  SERIAL NOT NULL ,
 "code" TEXT NOT NULL ,
 "name" VARCHAR NOT NULL ,
@@ -475,13 +476,13 @@ ALTER TABLE "impact_estimate_set" ADD FOREIGN KEY ("coverage_touchstone") REFERE
 ALTER TABLE "burden_estimate_set_problem" ADD FOREIGN KEY ("burden_estimate_set") REFERENCES "burden_estimate_set" ("id");
 ALTER TABLE "disability_weight" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "disability_weight" ADD FOREIGN KEY ("disease") REFERENCES "disease" ("id");
-ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("projection_variant") REFERENCES "projection_variant" ("id");
+ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("demographic_variant") REFERENCES "demographic_variant" ("id");
 ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("gender") REFERENCES "gender" ("id");
 ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
-ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("source") REFERENCES "source" ("id");
+ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("demographic_source") REFERENCES "demographic_source" ("id");
 ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("demographic_statistic_type") REFERENCES "demographic_statistic_type" ("id");
 ALTER TABLE "touchstone_demographic_source" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
-ALTER TABLE "touchstone_demographic_source" ADD FOREIGN KEY ("source") REFERENCES "source" ("id");
+ALTER TABLE "touchstone_demographic_source" ADD FOREIGN KEY ("source") REFERENCES "demographic_source" ("id");
 ALTER TABLE "gavi_focal_model" ADD FOREIGN KEY ("model") REFERENCES "model" ("id");
 ALTER TABLE "gavi_focal_model" ADD FOREIGN KEY ("disease") REFERENCES "disease" ("id");
 ALTER TABLE "gavi_focal_model" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
