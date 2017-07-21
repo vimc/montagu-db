@@ -5,7 +5,9 @@ touchstone-reviewer,null,Review touchstones before marking as 'open'
 coverage-provider,null,Upload coverage data
 user-manager,null,Manage users and permissions
 estimates-reviewer,null,Review uploaded burden estimates
+reports-reviewer,null,Choose which reports to publish (and can view unpublished reports)
 member,modelling-group,Member of the group
 uploader,modelling-group,Upload burden estimates
 submitter,modelling-group,Mark burden estimates as complete
 user-manager,modelling-group,Manage group members and permissions
+model-manager,modelling-group,Add new models and model versions
