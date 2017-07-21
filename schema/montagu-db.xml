@@ -933,7 +933,7 @@
 <datatype>TEXT</datatype>
 <relation table="touchstone" row="id" />
 </row>
-<row name="source" null="0" autoincrement="0">
+<row name="demographic_source" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <relation table="demographic_source" row="id" />
 </row>

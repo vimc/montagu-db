@@ -375,7 +375,7 @@ PRIMARY KEY ("id")
 CREATE TABLE "touchstone_demographic_source" (
 "id"  SERIAL ,
 "touchstone" TEXT NOT NULL ,
-"source" INTEGER NOT NULL ,
+"demographic_source" INTEGER NOT NULL ,
 PRIMARY KEY ("id")
 );
 
@@ -482,7 +482,7 @@ ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("country") REFERENCES "coun
 ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("demographic_source") REFERENCES "demographic_source" ("id");
 ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("demographic_statistic_type") REFERENCES "demographic_statistic_type" ("id");
 ALTER TABLE "touchstone_demographic_source" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
-ALTER TABLE "touchstone_demographic_source" ADD FOREIGN KEY ("source") REFERENCES "demographic_source" ("id");
+ALTER TABLE "touchstone_demographic_source" ADD FOREIGN KEY ("demographic_source") REFERENCES "demographic_source" ("id");
 ALTER TABLE "gavi_focal_model" ADD FOREIGN KEY ("model") REFERENCES "model" ("id");
 ALTER TABLE "gavi_focal_model" ADD FOREIGN KEY ("disease") REFERENCES "disease" ("id");
 ALTER TABLE "gavi_focal_model" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");

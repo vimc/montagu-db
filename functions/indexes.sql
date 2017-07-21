@@ -11,4 +11,4 @@ CREATE INDEX ON demographic_statistic (demographic_variant);
 CREATE INDEX ON demographic_statistic (gender);
 CREATE INDEX ON demographic_statistic (country);
 CREATE INDEX ON demographic_statistic (demographic_statistic_type);
-CREATE INDEX ON demographic_statistic (source);
+CREATE INDEX ON demographic_statistic (demographic_source);
