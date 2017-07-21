@@ -417,6 +417,13 @@ CREATE TABLE "touchstone_years" (
 PRIMARY KEY ("id")
 );
 
+CREATE TABLE "vaccine_routine_age" (
+"id"  SERIAL ,
+"vaccine" TEXT NOT NULL ,
+"age" INTEGER ,
+PRIMARY KEY ("id")
+);
+
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("model_version") REFERENCES "model_version" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("uploaded_by") REFERENCES "app_user" ("username");
@@ -493,3 +500,4 @@ ALTER TABLE "country_metadata" ADD FOREIGN KEY ("touchstone") REFERENCES "touchs
 ALTER TABLE "country_metadata" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
 ALTER TABLE "touchstone_years" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "touchstone_years" ADD FOREIGN KEY ("disease") REFERENCES "disease" ("id");
+ALTER TABLE "vaccine_routine_age" ADD FOREIGN KEY ("vaccine") REFERENCES "vaccine" ("id");

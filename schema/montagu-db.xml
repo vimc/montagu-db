@@ -1037,4 +1037,19 @@
 <part>id</part>
 </key>
 </table>
+<table x="1001" y="1317.3333435058594" name="vaccine_routine_age">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="vaccine" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="vaccine" row="id" />
+</row>
+<row name="age" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
 </sql>
