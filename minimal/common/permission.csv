@@ -14,12 +14,14 @@ modelling-groups.manage-members
 modelling-groups.read
 modelling-groups.write
 models.read
+models.write
 responsibilities.read
 responsibilities.write
 roles.read
 roles.write
 scenarios.read
 scenarios.write
+touchstones.finish
 touchstones.open
 touchstones.prepare
 touchstones.read
@@ -27,3 +29,5 @@ users.create
 users.edit-all
 users.read
 vaccines.write
+reports.read
+reports.review
