@@ -377,7 +377,7 @@
 </key>
 <comment>With the self-referencing "current" field; we consider a modelling group to be the current one if current is null.  This is not recursive; if we move a modelling group to a new id then every modelling group that has current pointing at the old id must be updated to point at the new one.  This means that no `current` points at an `id` that does not have `current` as `null`.</comment>
 </table>
-<table x="603" y="560" name="responsibility">
+<table x="596" y="591" name="responsibility">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -653,7 +653,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1060" y="273" name="impact_estimate_ingredient">
+<table x="1079" y="274" name="impact_estimate_ingredient">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -758,7 +758,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="763" y="507" name="support_type">
+<table x="770" y="515" name="support_type">
 <row name="id" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 </row>
@@ -990,7 +990,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1744" y="427" name="country_metadata">
+<table x="1749" y="370" name="country_metadata">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -1010,6 +1010,12 @@
 </row>
 <row name="wuenic_coverage" null="0" autoincrement="0">
 <datatype>BOOLEAN</datatype>
+</row>
+<row name="continent" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="region" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
