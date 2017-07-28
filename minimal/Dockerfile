@@ -10,6 +10,7 @@ RUN apt-get update && apt-get -y install \
 
 RUN install.r \
   DBI \
+  RcppRoll \
   cellranger \
   readxl \
   remotes \
