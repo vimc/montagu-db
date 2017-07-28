@@ -289,6 +289,8 @@ CREATE TABLE "impact_estimate_set" (
 "computed_on" TIMESTAMP NOT NULL DEFAULT 'current_timestamp' ,
 "recipe_touchstone" TEXT NOT NULL ,
 "coverage_touchstone" TEXT ,
+"focal_coverage_set" INTEGER NOT NULL ,
+"focal_burden_estimate_set" INTEGER NOT NULL ,
 PRIMARY KEY ("id")
 );
 
@@ -498,6 +500,8 @@ ALTER TABLE "impact_estimate_set_ingredient" ADD FOREIGN KEY ("burden_estimate_s
 ALTER TABLE "impact_estimate_set" ADD FOREIGN KEY ("impact_estimate_recipe") REFERENCES "impact_estimate_recipe" ("id");
 ALTER TABLE "impact_estimate_set" ADD FOREIGN KEY ("recipe_touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "impact_estimate_set" ADD FOREIGN KEY ("coverage_touchstone") REFERENCES "touchstone" ("id");
+ALTER TABLE "impact_estimate_set" ADD FOREIGN KEY ("focal_coverage_set") REFERENCES "coverage_set" ("id");
+ALTER TABLE "impact_estimate_set" ADD FOREIGN KEY ("focal_burden_estimate_set") REFERENCES "burden_estimate_set" ("id");
 ALTER TABLE "burden_estimate_set_problem" ADD FOREIGN KEY ("burden_estimate_set") REFERENCES "burden_estimate_set" ("id");
 ALTER TABLE "disability_weight" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "disability_weight" ADD FOREIGN KEY ("disease") REFERENCES "disease" ("id");
