@@ -362,6 +362,8 @@ CREATE TABLE "demographic_statistic_type" (
 "name" VARCHAR NOT NULL ,
 "year_step_size" INTEGER NOT NULL ,
 "reference_date" DATE NOT NULL ,
+"gender_is_applicable" BOOLEAN NOT NULL ,
+"demographic_value_unit" INTEGER NOT NULL ,
 PRIMARY KEY ("id")
 );
 
@@ -425,6 +427,19 @@ CREATE TABLE "vaccine_routine_age" (
 "age" INTEGER ,
 PRIMARY KEY ("id")
 );
+
+CREATE TABLE "demographic_statistic_type_variant" (
+"demographic_statistic_type" INTEGER NOT NULL ,
+"demographic_variant" INTEGER NOT NULL ,
+PRIMARY KEY ()
+);
+
+CREATE TABLE "demographic_value_unit" (
+"id"  SERIAL ,
+"name" TEXT NOT NULL /* A free text description */,
+PRIMARY KEY ("id")
+);
+COMMENT ON COLUMN "demographic_value_unit"."name" IS 'A free text description';
 
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("model_version") REFERENCES "model_version" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
@@ -490,6 +505,7 @@ ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("gender") REFERENCES "gende
 ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
 ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("demographic_source") REFERENCES "demographic_source" ("id");
 ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("demographic_statistic_type") REFERENCES "demographic_statistic_type" ("id");
+ALTER TABLE "demographic_statistic_type" ADD FOREIGN KEY ("demographic_value_unit") REFERENCES "demographic_value_unit" ("id");
 ALTER TABLE "touchstone_demographic_source" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "touchstone_demographic_source" ADD FOREIGN KEY ("demographic_source") REFERENCES "demographic_source" ("id");
 ALTER TABLE "gavi_focal_model" ADD FOREIGN KEY ("model") REFERENCES "model" ("id");
@@ -503,3 +519,5 @@ ALTER TABLE "country_metadata" ADD FOREIGN KEY ("country") REFERENCES "country" 
 ALTER TABLE "touchstone_years" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "touchstone_years" ADD FOREIGN KEY ("disease") REFERENCES "disease" ("id");
 ALTER TABLE "vaccine_routine_age" ADD FOREIGN KEY ("vaccine") REFERENCES "vaccine" ("id");
+ALTER TABLE "demographic_statistic_type_variant" ADD FOREIGN KEY ("demographic_statistic_type") REFERENCES "demographic_statistic_type" ("id");
+ALTER TABLE "demographic_statistic_type_variant" ADD FOREIGN KEY ("demographic_variant") REFERENCES "demographic_variant" ("id");
