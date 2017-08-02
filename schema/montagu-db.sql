@@ -431,7 +431,7 @@ PRIMARY KEY ("id")
 CREATE TABLE "demographic_statistic_type_variant" (
 "demographic_statistic_type" INTEGER NOT NULL ,
 "demographic_variant" INTEGER NOT NULL ,
-PRIMARY KEY ()
+PRIMARY KEY ("demographic_statistic_type", "demographic_variant")
 );
 
 CREATE TABLE "demographic_value_unit" (

@@ -1075,6 +1075,8 @@
 <relation table="demographic_variant" row="id" />
 </row>
 <key type="PRIMARY" name="">
+<part>demographic_statistic_type</part>
+<part>demographic_variant</part>
 </key>
 </table>
 <table x="84" y="1655" name="demographic_value_unit">
