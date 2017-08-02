@@ -364,6 +364,7 @@ CREATE TABLE "demographic_statistic_type" (
 "reference_date" DATE NOT NULL ,
 "gender_is_applicable" BOOLEAN NOT NULL ,
 "demographic_value_unit" INTEGER NOT NULL ,
+"default_variant" INTEGER NOT NULL ,
 PRIMARY KEY ("id")
 );
 
@@ -506,6 +507,7 @@ ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("country") REFERENCES "coun
 ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("demographic_source") REFERENCES "demographic_source" ("id");
 ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("demographic_statistic_type") REFERENCES "demographic_statistic_type" ("id");
 ALTER TABLE "demographic_statistic_type" ADD FOREIGN KEY ("demographic_value_unit") REFERENCES "demographic_value_unit" ("id");
+ALTER TABLE "demographic_statistic_type" ADD FOREIGN KEY ("default_variant") REFERENCES "demographic_variant" ("id");
 ALTER TABLE "touchstone_demographic_source" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 ALTER TABLE "touchstone_demographic_source" ADD FOREIGN KEY ("demographic_source") REFERENCES "demographic_source" ("id");
 ALTER TABLE "gavi_focal_model" ADD FOREIGN KEY ("model") REFERENCES "model" ("id");
