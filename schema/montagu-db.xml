@@ -820,7 +820,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="351" y="1239" name="gender">
+<table x="413" y="1272" name="gender">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -834,7 +834,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="345" y="1096" name="demographic_variant">
+<table x="442" y="1534" name="demographic_variant">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -888,7 +888,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="125" y="1338" name="demographic_statistic_type">
+<table x="112" y="1375" name="demographic_statistic_type">
 <row name="id" null="0" autoincrement="1">
 <datatype>INTEGER</datatype>
 </row>
@@ -906,6 +906,13 @@
 </row>
 <row name="reference_date" null="0" autoincrement="0">
 <datatype>DATE</datatype>
+</row>
+<row name="gender_is_applicable" null="0" autoincrement="0">
+<datatype>BOOLEAN</datatype>
+</row>
+<row name="demographic_value_unit" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="demographic_value_unit" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -1043,7 +1050,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="1001" y="1317.3333435058594" name="vaccine_routine_age">
+<table x="1001" y="1317" name="vaccine_routine_age">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -1053,6 +1060,32 @@
 </row>
 <row name="age" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="526" y="1414" name="demographic_statistic_type_variant">
+<row name="demographic_statistic_type" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="demographic_statistic_type" row="id" />
+</row>
+<row name="demographic_variant" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="demographic_variant" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>demographic_statistic_type</part>
+<part>demographic_variant</part>
+</key>
+</table>
+<table x="84" y="1655" name="demographic_value_unit">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="name" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<comment>A free text description</comment>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
