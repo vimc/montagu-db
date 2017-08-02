@@ -914,6 +914,10 @@
 <datatype>INTEGER</datatype>
 <relation table="demographic_value_unit" row="id" />
 </row>
+<row name="default_variant" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<relation table="demographic_variant" row="id" />
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
