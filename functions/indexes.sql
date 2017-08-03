@@ -12,3 +12,4 @@ CREATE INDEX ON demographic_statistic (gender);
 CREATE INDEX ON demographic_statistic (country);
 CREATE INDEX ON demographic_statistic (demographic_statistic_type);
 CREATE INDEX ON demographic_statistic (demographic_source);
+CREATE INDEX ON touchstone_demographic_source(touchstone);
