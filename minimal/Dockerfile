@@ -18,7 +18,7 @@ RUN install.r \
   xml2 \
   yaml
 
-RUN Rscript -e 'remotes::install_github("rstats-db/RPostgres")' && \
+RUN Rscript -e 'remotes::install_github("rstats-db/RPostgres@v0.1-4")' && \
   Rscript -e 'remotes::install_github("richfitz/cleanr")'
 
 ## This will strip out a bunch of weight that we don't need in the
