@@ -1103,4 +1103,22 @@
 <part>id</part>
 </key>
 </table>
+<table x="1680" y="1008" name="api_access_log">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="who" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<relation table="app_user" row="username" />
+</row>
+<row name="when" null="0" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
+</row>
+<row name="what" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
 </sql>
