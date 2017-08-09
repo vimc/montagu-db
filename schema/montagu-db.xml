@@ -1107,7 +1107,7 @@
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="who" null="0" autoincrement="0">
+<row name="who" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
 <relation table="app_user" row="username" />
 </row>
@@ -1119,6 +1119,15 @@
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
+</key>
+<key type="INDEX" name="who">
+<part>who</part>
+</key>
+<key type="INDEX" name="when">
+<part>when</part>
+</key>
+<key type="INDEX" name="what">
+<part>what</part>
 </key>
 </table>
 </sql>

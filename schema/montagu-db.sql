@@ -446,10 +446,13 @@ COMMENT ON COLUMN "demographic_value_unit"."name" IS 'A free text description';
 
 CREATE TABLE "api_access_log" (
 "id"  SERIAL ,
-"who" TEXT NOT NULL ,
+"who" TEXT ,
 "when" TIMESTAMP NOT NULL ,
 "what" TEXT NOT NULL ,
-PRIMARY KEY ("id")
+PRIMARY KEY ("id"),
+KEY ("who"),
+KEY ("when"),
+KEY ("what")
 );
 
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("model_version") REFERENCES "model_version" ("id");
