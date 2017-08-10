@@ -8,7 +8,6 @@ user,null,touchstones.read
 user,null,responsibilities.read
 user,null,users.read
 user,null,estimates.read
-user,null,reports.read
 touchstone-preparer,null,diseases.write
 touchstone-preparer,null,vaccines.write
 touchstone-preparer,null,scenarios.write
@@ -27,6 +26,7 @@ user-manager,null,roles.write
 user-manager,null,modelling-groups.write
 estimates-reviewer,null,estimates.review
 estimates-reviewer,null,estimates.read-unfinished
+reports-reader,null,reports.read
 reports-reviewer,null,reports.read
 reports-reviewer,null,reports.review
 member,modelling-group,estimates.read-unfinished
