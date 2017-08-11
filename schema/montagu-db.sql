@@ -449,11 +449,13 @@ CREATE TABLE "api_access_log" (
 "who" TEXT ,
 "when" TIMESTAMP NOT NULL ,
 "what" TEXT NOT NULL ,
+"result" INTEGER /* The HTTP status code returned by the API */,
 PRIMARY KEY ("id"),
 KEY ("who"),
 KEY ("when"),
 KEY ("what")
 );
+COMMENT ON COLUMN "api_access_log"."result" IS 'The HTTP status code returned by the API';
 
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("model_version") REFERENCES "model_version" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");

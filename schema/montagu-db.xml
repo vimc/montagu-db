@@ -1109,13 +1109,17 @@
 <default>NULL</default></row>
 <row name="who" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
-<relation table="app_user" row="username" />
+<default>NULL</default><relation table="app_user" row="username" />
 </row>
 <row name="when" null="0" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
 </row>
 <row name="what" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
+</row>
+<row name="result" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><comment>The HTTP status code returned by the API</comment>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
