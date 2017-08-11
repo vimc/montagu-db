@@ -1124,14 +1124,5 @@
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
-<key type="INDEX" name="who">
-<part>who</part>
-</key>
-<key type="INDEX" name="when">
-<part>when</part>
-</key>
-<key type="INDEX" name="what">
-<part>what</part>
-</key>
 </table>
 </sql>
