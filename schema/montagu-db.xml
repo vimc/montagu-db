@@ -1122,7 +1122,7 @@
 <default>NULL</default><comment>The HTTP status code returned by the API</comment>
 </row>
 <row name="ip_address" null="1" autoincrement="0">
-<datatype>INET</datatype>
+<datatype>TEXT</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
