@@ -1111,7 +1111,7 @@
 <datatype>TEXT</datatype>
 <default>NULL</default><relation table="app_user" row="username" />
 </row>
-<row name="when" null="0" autoincrement="0">
+<row name="timestamp" null="0" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
 </row>
 <row name="what" null="0" autoincrement="0">

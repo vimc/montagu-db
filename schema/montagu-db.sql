@@ -447,7 +447,7 @@ COMMENT ON COLUMN "demographic_value_unit"."name" IS 'A free text description';
 CREATE TABLE "api_access_log" (
 "id"  SERIAL ,
 "who" TEXT ,
-"when" TIMESTAMP NOT NULL ,
+"timestamp" TIMESTAMP NOT NULL ,
 "what" TEXT NOT NULL ,
 "result" INTEGER /* The HTTP status code returned by the API */,
 "ip_address" TEXT ,
