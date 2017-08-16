@@ -450,6 +450,7 @@ CREATE TABLE "api_access_log" (
 "when" TIMESTAMP NOT NULL ,
 "what" TEXT NOT NULL ,
 "result" INTEGER /* The HTTP status code returned by the API */,
+"ip_address" INET ,
 PRIMARY KEY ("id")
 );
 COMMENT ON COLUMN "api_access_log"."result" IS 'The HTTP status code returned by the API';
