@@ -1103,4 +1103,29 @@
 <part>id</part>
 </key>
 </table>
+<table x="1680" y="1008" name="api_access_log">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="who" null="1" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>NULL</default><relation table="app_user" row="username" />
+</row>
+<row name="timestamp" null="0" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
+</row>
+<row name="what" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+</row>
+<row name="result" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><comment>The HTTP status code returned by the API</comment>
+</row>
+<row name="ip_address" null="1" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
 </sql>

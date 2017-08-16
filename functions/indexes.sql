@@ -13,3 +13,10 @@ CREATE INDEX ON demographic_statistic (country);
 CREATE INDEX ON demographic_statistic (demographic_statistic_type);
 CREATE INDEX ON demographic_statistic (demographic_source);
 CREATE INDEX ON touchstone_demographic_source(touchstone);
+
+-- api_access_log
+CREATE INDEX ON api_access_log (who);
+CREATE INDEX ON api_access_log (what);
+CREATE INDEX ON api_access_log (timestamp);
+CREATE INDEX ON api_access_log (result);
+CREATE INDEX ON api_access_log (ip_address);

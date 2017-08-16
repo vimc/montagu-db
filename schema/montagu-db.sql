@@ -444,6 +444,17 @@ PRIMARY KEY ("id")
 );
 COMMENT ON COLUMN "demographic_value_unit"."name" IS 'A free text description';
 
+CREATE TABLE "api_access_log" (
+"id"  SERIAL ,
+"who" TEXT ,
+"timestamp" TIMESTAMP NOT NULL ,
+"what" TEXT NOT NULL ,
+"result" INTEGER /* The HTTP status code returned by the API */,
+"ip_address" TEXT ,
+PRIMARY KEY ("id")
+);
+COMMENT ON COLUMN "api_access_log"."result" IS 'The HTTP status code returned by the API';
+
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("model_version") REFERENCES "model_version" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("responsibility") REFERENCES "responsibility" ("id");
 ALTER TABLE "burden_estimate_set" ADD FOREIGN KEY ("uploaded_by") REFERENCES "app_user" ("username");
@@ -527,3 +538,4 @@ ALTER TABLE "touchstone_years" ADD FOREIGN KEY ("disease") REFERENCES "disease" 
 ALTER TABLE "vaccine_routine_age" ADD FOREIGN KEY ("vaccine") REFERENCES "vaccine" ("id");
 ALTER TABLE "demographic_statistic_type_variant" ADD FOREIGN KEY ("demographic_statistic_type") REFERENCES "demographic_statistic_type" ("id");
 ALTER TABLE "demographic_statistic_type_variant" ADD FOREIGN KEY ("demographic_variant") REFERENCES "demographic_variant" ("id");
+ALTER TABLE "api_access_log" ADD FOREIGN KEY ("who") REFERENCES "app_user" ("username");
