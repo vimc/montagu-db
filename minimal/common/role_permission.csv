@@ -8,6 +8,7 @@ user,null,touchstones.read
 user,null,responsibilities.read
 user,null,users.read
 user,null,estimates.read
+user,null,demographics.read
 touchstone-preparer,null,diseases.write
 touchstone-preparer,null,vaccines.write
 touchstone-preparer,null,scenarios.write
