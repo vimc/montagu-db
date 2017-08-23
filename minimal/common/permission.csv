@@ -5,6 +5,7 @@ countries.write
 coverage.read
 coverage.write
 diseases.write
+demographics.read
 estimates.read
 estimates.read-unfinished
 estimates.review
