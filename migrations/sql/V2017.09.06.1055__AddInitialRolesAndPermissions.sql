@@ -45,6 +45,7 @@ INSERT INTO role VALUES (10, 'uploader', 'modelling-group', 'Upload burden estim
 INSERT INTO role VALUES (11, 'submitter', 'modelling-group', 'Mark burden estimates as complete');
 INSERT INTO role VALUES (12, 'user-manager', 'modelling-group', 'Manage group members and permissions');
 INSERT INTO role VALUES (13, 'model-manager', 'modelling-group', 'Add new models and model versions');
+ALTER SEQUENCE role_id_seq RESTART WITH 14;
 
 INSERT INTO role_permission VALUES (1, 'can-login');
 INSERT INTO role_permission VALUES (1, 'scenarios.read');
