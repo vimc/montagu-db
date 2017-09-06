@@ -274,22 +274,6 @@ INSERT INTO country VALUES ('ZMB', 'Zambia');
 INSERT INTO country VALUES ('ZWE', 'Zimbabwe');
 INSERT INTO country VALUES ('XK', 'Kosovo');
 
-INSERT INTO vaccine VALUES ('none', 'No vaccination');
-INSERT INTO vaccine VALUES ('HepB_BD', 'Hepatitis B birth dose');
-INSERT INTO vaccine VALUES ('HepB', 'Hepatitis B');
-INSERT INTO vaccine VALUES ('Hib3', 'Hib3');
-INSERT INTO vaccine VALUES ('HPV', 'HPV');
-INSERT INTO vaccine VALUES ('JE', 'JE');
-INSERT INTO vaccine VALUES ('MCV1', 'Measles 1');
-INSERT INTO vaccine VALUES ('MCV2', 'Measles 2');
-INSERT INTO vaccine VALUES ('Measles', 'Measles (used in campaigns only)');
-INSERT INTO vaccine VALUES ('MenA', 'MenA');
-INSERT INTO vaccine VALUES ('PCV3', 'PCV3');
-INSERT INTO vaccine VALUES ('Rota', 'Rota');
-INSERT INTO vaccine VALUES ('Rubella', 'Rubella');
-INSERT INTO vaccine VALUES ('YF', 'Yellow fever vaccine');
-INSERT INTO vaccine VALUES ('MR_Measles', 'Measles (sdf6/7 only)');
-
 INSERT INTO gavi_support_level VALUES ('none', 'No vaccination');
 INSERT INTO gavi_support_level VALUES ('without', 'Vaccination without GAVI support');
 INSERT INTO gavi_support_level VALUES ('with', 'Vaccination with GAVI support');
@@ -309,17 +293,6 @@ INSERT INTO demographic_value_unit VALUES (10, 'Number of people');
 INSERT INTO demographic_value_unit VALUES (11, 'Number of survivors');
 INSERT INTO demographic_value_unit VALUES (12, 'Probability');
 INSERT INTO demographic_value_unit VALUES (13, 'Years');
-
-INSERT INTO disease VALUES ('HepB', 'HepB');
-INSERT INTO disease VALUES ('Hib', 'Hib');
-INSERT INTO disease VALUES ('HPV', 'HPV');
-INSERT INTO disease VALUES ('JE', 'JE');
-INSERT INTO disease VALUES ('Measles', 'Measles');
-INSERT INTO disease VALUES ('MenA', 'MenA');
-INSERT INTO disease VALUES ('PCV', 'PCV');
-INSERT INTO disease VALUES ('Rota', 'Rotavirus');
-INSERT INTO disease VALUES ('Rubella', 'Rubella');
-INSERT INTO disease VALUES ('YF', 'Yellow fever');
 
 INSERT INTO responsibility_set_status VALUES ('incomplete', 'There are responsibilities left to upload');
 INSERT INTO responsibility_set_status VALUES ('submitted', 'All resonsibilities have been submitted');
