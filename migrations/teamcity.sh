@@ -18,8 +18,8 @@ docker build \
 
 docker network create migration_test
 docker run --rm --network=migration_test -d --name db $DB
-docker run --rm --network=migration_test $COMMIT_TAG baseline -baselineVersion=0
-docker run --rm --network=migration_test $COMMIT_TAG migrate
+docker run --rm --network=migration_test $COMMIT_TAG \
+    migrate -baselineOnMigrate=true -baselineVersion=0
 docker stop db
 docker network rm migration_test
 
