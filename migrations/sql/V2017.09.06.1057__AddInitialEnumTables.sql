@@ -332,3 +332,7 @@ INSERT INTO impact_outcome VALUES ('da_rate', 'da_rate (LEGACY ONLY - perhaps)')
 
 INSERT INTO support_type VALUES ('total', 'Difference between no vaccination and best estimate (in gavi_support_level)');
 INSERT INTO support_type VALUES ('gavi', 'Difference between no gavi and best estimate (in gavi_support_level)');
+
+INSERT INTO touchstone_status VALUES ('in-preparation', 'In preparation; not available to modellers');
+INSERT INTO touchstone_status VALUES ('open', 'Ready for modeller submission');
+INSERT INTO touchstone_status VALUES ('finished', 'Closed to modeller submission');
