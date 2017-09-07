@@ -1,15 +1,15 @@
 # Montagu Database
+## View the documentation
+You can view the full documentation [here](docs/index.html). 
+
+The closest equivalent to the old diagram is [here](docs/relationships.html), 
+which you can also navigate to by clicking the "Relationships tab". But I 
+encourage you to explore the full documentation. In particular, if you click on 
+any one table you will get a mini diagram explaining its relationships to other 
+tables, which is often clearer.
 
 ## Updating the data model
-
-The montagu-db.sql script is generated directly from the [online generator](http://ondras.zarovi.cz/sql/demo/).
-
-1. Copy the contents of [`schema/montagu-db.xml`](schema/montagu-db.xml) into the [online generator](http://ondras.zarovi.cz/sql/demo/)
-2. Make your changes
-3. Save the xml to `schema/montagu-db.xml`
-4. Save the postgres output to `schema/montagu-db.sql`
-
-We do not reformat either file and be sure to update both if you update either.  The xml file will be taken as the canonical form here.
+See [migrations](migrations/README.md).
 
 ## Setting up docker for use with montagu
 
