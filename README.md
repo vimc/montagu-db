@@ -1,6 +1,7 @@
 # Montagu Database
 ## View the documentation
-You can view the full documentation [here](docs/index.html). 
+You can view the full documentation for the master branch
+[here](https://rawgit.com/vimc/montagu-db/master/docs/index.html).
 
 The closest equivalent to the old diagram is [here](docs/diagrams/summary/relationships.real.compact.png), 
 which you can also navigate to by clicking the "Relationships tab". But I 
