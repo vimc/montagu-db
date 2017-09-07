@@ -280,6 +280,10 @@ INSERT INTO gavi_support_level VALUES ('with', 'Vaccination with GAVI support');
 INSERT INTO gavi_support_level VALUES ('hold2010', 'Vaccination levels held at 2010 levels (SDF8 only)');
 INSERT INTO gavi_support_level VALUES ('bestminus', 'Best minus no vaccination (sdf6/7 only)');
 
+INSERT INTO gender (code, name) VALUES ('both', 'Both');
+INSERT INTO gender (code, name) VALUES ('male', 'Male');
+INSERT INTO gender (code, name) VALUES ('female', 'Female');
+
 INSERT INTO demographic_value_unit (name) VALUES ('Births per person in population');
 INSERT INTO demographic_value_unit (name) VALUES ('Births per woman in age band');
 INSERT INTO demographic_value_unit (name) VALUES ('Births per woman');
