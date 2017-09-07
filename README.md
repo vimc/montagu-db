@@ -2,7 +2,7 @@
 ## View the documentation
 You can view the full documentation [here](docs/index.html). 
 
-The closest equivalent to the old diagram is [here](docs/relationships.html), 
+The closest equivalent to the old diagram is [here](docs/diagrams/summary/relationships.real.compact.png), 
 which you can also navigate to by clicking the "Relationships tab". But I 
 encourage you to explore the full documentation. In particular, if you click on 
 any one table you will get a mini diagram explaining its relationships to other 
