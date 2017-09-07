@@ -1,7 +1,19 @@
 # Database migrations
 We are using [Flyway](https://flywaydb.org/) for database migrations.
 
-Because we started without migrations, I am going to create a number of 
+## Write a new migration
+Add a new file to `sql`. This should be named following this scheme:
+
+```
+Vyear.month.day.hour.minute__Description.sql
+```
+
+These migrations can be applied by running the `montagu-migrate` image that gets
+built from this repository by TeamCity. They will automatically be applied to
+real systems as part of the deploy process.
+
+## Baselining
+Because we started without migrations, I have created a number of 
 migrations that get from an empty database to one that has essential data in it
 (like roles and permissions, and the various enum types). These will produce
 identical data to that which is in production, but we will never actually run
@@ -11,7 +23,7 @@ We can manage this with Flyway's baseline feature. Once I have written this
 initial suite of migrations we can run:
 
 ```
-./flyway.sh baseline -baselineVersion=2017.08.24.1639
+./flyway.sh baseline -baselineVersion=2017.09.06.1055
 ```
 
 on live, where the version will equal to or greater than the last of these 
