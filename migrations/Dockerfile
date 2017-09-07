@@ -13,8 +13,8 @@ RUN wget https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/${FLYWAY
   && sed -i 's/bash/sh/' /flyway/flyway \
   && ln -s /flyway/flyway /usr/local/bin/flyway
 
-COPY sql /sql
-COPY flyway.conf /flyway/conf/flyway.conf
+COPY migrations/sql /sql
+COPY migrations/flyway.conf /flyway/conf/flyway.conf
 
 ENTRYPOINT ["flyway"]
 CMD ["migrate", "-baselineOnMigrate=true", "-baselineVersion=0"]
