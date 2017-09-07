@@ -12,6 +12,17 @@ These migrations can be applied by running the `montagu-migrate` image that gets
 built from this repository by TeamCity. They will automatically be applied to
 real systems as part of the deploy process.
 
+The `montagu-migrate` image expects the database to be running and accessible 
+at:
+
+* host: `db`
+* port: `5432`
+* user: `vimc`
+* password: `changeme`
+
+You can override these by passing in command line options. Please see the Flyway
+docs for more details.
+
 ## Baselining
 Because we started without migrations, I have created a number of 
 migrations that get from an empty database to one that has essential data in it
