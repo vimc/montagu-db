@@ -8,7 +8,7 @@ CREATE TABLE "burden_estimate_set" (
 "interpolated" BOOLEAN NOT NULL ,
 "complete" BOOLEAN NOT NULL DEFAULT 'False' ,
 "uploaded_by" TEXT NOT NULL ,
-"uploaded_on" TIMESTAMP NOT NULL DEFAULT 'current_timestamp' ,
+"uploaded_on" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
 PRIMARY KEY ("id")
 );
 
@@ -286,7 +286,7 @@ PRIMARY KEY ("id")
 CREATE TABLE "impact_estimate_set" (
 "id"  SERIAL ,
 "impact_estimate_recipe" INTEGER NOT NULL ,
-"computed_on" TIMESTAMP NOT NULL DEFAULT 'current_timestamp' ,
+"computed_on" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
 "recipe_touchstone" TEXT NOT NULL ,
 "coverage_touchstone" TEXT ,
 "focal_coverage_set" INTEGER NOT NULL ,
