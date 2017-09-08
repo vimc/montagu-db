@@ -17,4 +17,4 @@ COPY migrations/sql /sql
 COPY migrations/flyway.conf /flyway/conf/flyway.conf
 
 ENTRYPOINT ["flyway"]
-CMD ["migrate", "-baselineOnMigrate=true", "-baselineVersion=0"]
+CMD ["migrate"]
