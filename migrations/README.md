@@ -34,8 +34,8 @@ We can manage this with Flyway's baseline feature. Once I have written this
 initial suite of migrations we can run:
 
 ```
-docker run docker.montagu.dide.ic.ac.uk:5000/montagu-migrate \
-    --network=montagu_default \
+docker run --network=montagu_default \
+    docker.montagu.dide.ic.ac.uk:5000/montagu-migrate:master \
     baseline -baselineVersion=2017.09.06.1055
 ```
 
