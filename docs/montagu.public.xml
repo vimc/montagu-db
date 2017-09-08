@@ -1,0 +1,997 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="montagu" schema="public" type="PostgreSQL - 9.6.2">
+   <tables>
+      <table name="activity_type" numRows="4" remarks="This is mostly &quot;none&quot;, &quot;routine&quot; or &quot;campaign&quot; but with a few extras" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="'NULL'::text" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text">
+            <child column="activity_type" foreignKey="coverage_set_activity_type_fkey" implied="false" onDeleteCascade="false" schema="public" table="coverage_set"/>
+            <child column="activity_type" foreignKey="impact_estimate_recipe_activity_type_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_recipe"/>
+         </column>
+         <column autoUpdated="false" defaultValue="'NULL'::character varying" digits="0" id="1" name="name" nullable="false" remarks="" size="255" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="activity_type_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="api_access_log" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('api_access_log_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="who" nullable="true" remarks="" size="2147483647" type="text">
+            <parent column="username" foreignKey="api_access_log_who_fkey" implied="false" onDeleteCascade="false" schema="public" table="app_user"/>
+         </column>
+         <column autoUpdated="false" digits="6" id="2" name="timestamp" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="3" name="what" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="result" nullable="true" remarks="The HTTP status code returned by the API" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="ip_address" nullable="true" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="api_access_log_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="api_access_log_ip_address_idx" unique="false">
+            <column ascending="true" name="ip_address"/>
+         </index>
+         <index name="api_access_log_result_idx" unique="false">
+            <column ascending="true" name="result"/>
+         </index>
+         <index name="api_access_log_timestamp_idx" unique="false">
+            <column ascending="true" name="timestamp"/>
+         </index>
+         <index name="api_access_log_what_idx" unique="false">
+            <column ascending="true" name="what"/>
+         </index>
+         <index name="api_access_log_who_idx" unique="false">
+            <column ascending="true" name="who"/>
+         </index>
+      </table>
+      <table name="app_user" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="username" nullable="false" remarks="" size="2147483647" type="text">
+            <child column="who" foreignKey="api_access_log_who_fkey" implied="false" onDeleteCascade="false" schema="public" table="api_access_log"/>
+            <child column="uploaded_by" foreignKey="burden_estimate_set_uploaded_by_fkey" implied="false" onDeleteCascade="false" schema="public" table="burden_estimate_set"/>
+            <child column="username" foreignKey="user_role_username_fkey" implied="false" onDeleteCascade="false" schema="public" table="user_role"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="true" remarks="" size="2147483647" type="text">
+            <parent column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="permission"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="email" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="password_hash" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="salt" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="6" id="5" name="last_logged_in" nullable="true" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="username" sequenceNumberInPK="1"/>
+         <index name="app_user_pkey" unique="true">
+            <column ascending="true" name="username"/>
+         </index>
+         <index name="idx_user_email_unique" unique="true"/>
+         <index name="idx_user_username_unique" unique="true"/>
+      </table>
+      <table name="burden_estimate" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('burden_estimate_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="burden_estimate_set" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="burden_estimate_burden_estimate_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="burden_estimate_set"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="country" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="burden_estimate_country_fkey" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="year" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="burden_outcome" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="burden_estimate_burden_outcome_fkey" implied="false" onDeleteCascade="false" schema="public" table="burden_outcome"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="stochastic" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="6" name="value" nullable="true" remarks="" size="131089" type="numeric"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="burden_estimate_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="burden_estimate_burden_estimate_set_country_year_burden_out_key" unique="true">
+            <column ascending="true" name="burden_estimate_set"/>
+            <column ascending="true" name="country"/>
+            <column ascending="true" name="year"/>
+            <column ascending="true" name="burden_outcome"/>
+         </index>
+      </table>
+      <table name="burden_estimate_set" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('burden_estimate_set_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="burden_estimate_set" foreignKey="burden_estimate_burden_estimate_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="burden_estimate"/>
+            <child column="burden_estimate_set" foreignKey="burden_estimate_set_problem_burden_estimate_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="burden_estimate_set_problem"/>
+            <child column="focal_burden_estimate_set" foreignKey="impact_estimate_set_focal_burden_estimate_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_set"/>
+            <child column="burden_estimate_set" foreignKey="impact_estimate_set_ingredient_burden_estimate_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_set_ingredient"/>
+            <child column="current_burden_estimate_set" foreignKey="responsibility_current_burden_estimate_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="responsibility"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="model_version" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="burden_estimate_set_model_version_fkey" implied="false" onDeleteCascade="false" schema="public" table="model_version"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="responsibility" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="burden_estimate_set_responsibility_fkey" implied="false" onDeleteCascade="false" schema="public" table="responsibility"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="run_info" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="validation" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="comment" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="6" name="interpolated" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="7" name="complete" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="8" name="uploaded_by" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="username" foreignKey="burden_estimate_set_uploaded_by_fkey" implied="false" onDeleteCascade="false" schema="public" table="app_user"/>
+         </column>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="9" name="uploaded_on" nullable="false" remarks="" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="burden_estimate_set_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="burden_estimate_set_problem" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('burden_estimate_set_problem_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="burden_estimate_set" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="burden_estimate_set_problem_burden_estimate_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="burden_estimate_set"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="problem" nullable="false" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="burden_estimate_set_problem_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="burden_outcome" numRows="18" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('burden_outcome_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="burden_outcome" foreignKey="burden_estimate_burden_outcome_fkey" implied="false" onDeleteCascade="false" schema="public" table="burden_estimate"/>
+            <child column="burden_outcome" foreignKey="impact_estimate_ingredient_burden_outcome_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_ingredient"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="code" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="2" name="name" nullable="false" remarks="" size="32" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="burden_outcome_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="burden_outcome_code_key" unique="true">
+            <column ascending="true" name="code"/>
+         </index>
+      </table>
+      <table name="country" numRows="251" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text">
+            <child column="country" foreignKey="burden_estimate_country_fkey" implied="false" onDeleteCascade="false" schema="public" table="burden_estimate"/>
+            <child column="country" foreignKey="country_metadata_country_fkey" implied="false" onDeleteCascade="false" schema="public" table="country_metadata"/>
+            <child column="country" foreignKey="country_vaccine_metadata_country_fkey" implied="false" onDeleteCascade="false" schema="public" table="country_vaccine_metadata"/>
+            <child column="country" foreignKey="coverage_country_fkey" implied="false" onDeleteCascade="false" schema="public" table="coverage"/>
+            <child column="country" foreignKey="demographic_statistic_country_fkey" implied="false" onDeleteCascade="false" schema="public" table="demographic_statistic"/>
+            <child column="country" foreignKey="impact_estimate_country_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate"/>
+            <child column="country" foreignKey="touchstone_country_country_fkey" implied="false" onDeleteCascade="false" schema="public" table="touchstone_country"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="permission"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="country_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="country_metadata" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('country_metadata_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="touchstone" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="country_metadata_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="touchstone"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="country" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="country_metadata_country_fkey" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="gavi73" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="4" name="who_region" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="wuenic_coverage" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="6" name="continent" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="7" name="region" nullable="false" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="country_metadata_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="country_vaccine_metadata" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('country_vaccine_metadata_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="touchstone" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="country_vaccine_metadata_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="touchstone"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="country" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="country_vaccine_metadata_country_fkey" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="vaccine" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="country_vaccine_metadata_vaccine_fkey" implied="false" onDeleteCascade="false" schema="public" table="vaccine"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="year_vaccine_intro" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="year_support_first" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="6" name="year_support_last" nullable="true" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="country_vaccine_metadata_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="coverage" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('coverage_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="coverage_set" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="coverage_coverage_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="coverage_set"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="year" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="country" nullable="true" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="coverage_country_fkey" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="age_from" nullable="false" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="5" name="age_to" nullable="false" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="6" name="age_range_verbatim" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="7" name="coverage" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="8" name="target" nullable="true" remarks="This field is valid only for campaign coverage" size="131089" type="numeric"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="coverage_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="coverage_set" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('coverage_set_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="coverage_set" foreignKey="coverage_coverage_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="coverage"/>
+            <child column="focal_coverage_set" foreignKey="impact_estimate_set_focal_coverage_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_set"/>
+            <child column="focal_coverage_set" foreignKey="scenario_focal_coverage_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="scenario"/>
+            <child column="coverage_set" foreignKey="scenario_coverage_set_coverage_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="scenario_coverage_set"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="permission"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="touchstone" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="coverage_set_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="touchstone"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="vaccine" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="coverage_set_vaccine_fkey" implied="false" onDeleteCascade="false" schema="public" table="vaccine"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="gavi_support_level" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="coverage_set_gavi_support_level_fkey" implied="false" onDeleteCascade="false" schema="public" table="gavi_support_level"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="activity_type" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="coverage_set_activity_type_fkey" implied="false" onDeleteCascade="false" schema="public" table="activity_type"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="coverage_set_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="demographic_source" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('demographic_source_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="demographic_source" foreignKey="demographic_statistic_demographic_source_fkey" implied="false" onDeleteCascade="false" schema="public" table="demographic_statistic"/>
+            <child column="demographic_source" foreignKey="touchstone_demographic_source_demographic_source_fkey" implied="false" onDeleteCascade="false" schema="public" table="touchstone_demographic_source"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="code" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="2" name="name" nullable="false" remarks="" size="2147483647" type="varchar">
+            <parent column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="permission"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="demographic_source_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="demographic_statistic" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('demographic_statistic_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="age_from" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="age_to" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="value" nullable="false" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="4" name="year" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="demographic_variant" nullable="true" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="demographic_statistic_demographic_variant_fkey" implied="false" onDeleteCascade="false" schema="public" table="demographic_variant"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="6" name="gender" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="demographic_statistic_gender_fkey" implied="false" onDeleteCascade="false" schema="public" table="gender"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="7" name="country" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="demographic_statistic_country_fkey" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="8" name="demographic_source" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="demographic_statistic_demographic_source_fkey" implied="false" onDeleteCascade="false" schema="public" table="demographic_source"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="9" name="demographic_statistic_type" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="demographic_statistic_demographic_statistic_type_fkey" implied="false" onDeleteCascade="false" schema="public" table="demographic_statistic_type"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="demographic_statistic_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="demographic_statistic_country_idx" unique="false">
+            <column ascending="true" name="country"/>
+         </index>
+         <index name="demographic_statistic_demographic_source_idx" unique="false">
+            <column ascending="true" name="demographic_source"/>
+         </index>
+         <index name="demographic_statistic_demographic_statistic_type_idx" unique="false">
+            <column ascending="true" name="demographic_statistic_type"/>
+         </index>
+         <index name="demographic_statistic_demographic_variant_idx" unique="false">
+            <column ascending="true" name="demographic_variant"/>
+         </index>
+         <index name="demographic_statistic_gender_idx" unique="false">
+            <column ascending="true" name="gender"/>
+         </index>
+      </table>
+      <table name="demographic_statistic_type" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('demographic_statistic_type_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="demographic_statistic_type" foreignKey="demographic_statistic_demographic_statistic_type_fkey" implied="false" onDeleteCascade="false" schema="public" table="demographic_statistic"/>
+            <child column="demographic_statistic_type" foreignKey="demographic_statistic_type_vari_demographic_statistic_type_fkey" implied="false" onDeleteCascade="false" schema="public" table="demographic_statistic_type_variant"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="code" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="2" name="age_interpretation" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="name" nullable="false" remarks="" size="2147483647" type="varchar">
+            <parent column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="permission"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="year_step_size" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="reference_date" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="6" name="gender_is_applicable" nullable="false" remarks="" size="1" type="bool"/>
+         <column autoUpdated="false" digits="0" id="7" name="demographic_value_unit" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="demographic_statistic_type_demographic_value_unit_fkey" implied="false" onDeleteCascade="false" schema="public" table="demographic_value_unit"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="8" name="default_variant" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="demographic_statistic_type_default_variant_fkey" implied="false" onDeleteCascade="false" schema="public" table="demographic_variant"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="demographic_statistic_type_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="demographic_statistic_type_variant" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="demographic_statistic_type" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="demographic_statistic_type_vari_demographic_statistic_type_fkey" implied="false" onDeleteCascade="false" schema="public" table="demographic_statistic_type"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="demographic_variant" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="demographic_statistic_type_variant_demographic_variant_fkey" implied="false" onDeleteCascade="false" schema="public" table="demographic_variant"/>
+         </column>
+         <primaryKey column="demographic_statistic_type" sequenceNumberInPK="1"/>
+         <primaryKey column="demographic_variant" sequenceNumberInPK="2"/>
+         <index name="demographic_statistic_type_variant_pkey" unique="true">
+            <column ascending="true" name="demographic_statistic_type"/>
+            <column ascending="true" name="demographic_variant"/>
+         </index>
+      </table>
+      <table name="demographic_value_unit" numRows="13" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('demographic_value_unit_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="demographic_value_unit" foreignKey="demographic_statistic_type_demographic_value_unit_fkey" implied="false" onDeleteCascade="false" schema="public" table="demographic_statistic_type"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="A free text description" size="2147483647" type="text">
+            <parent column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="permission"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="demographic_value_unit_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="demographic_variant" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('demographic_variant_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="demographic_variant" foreignKey="demographic_statistic_demographic_variant_fkey" implied="false" onDeleteCascade="false" schema="public" table="demographic_statistic"/>
+            <child column="default_variant" foreignKey="demographic_statistic_type_default_variant_fkey" implied="false" onDeleteCascade="false" schema="public" table="demographic_statistic_type"/>
+            <child column="demographic_variant" foreignKey="demographic_statistic_type_variant_demographic_variant_fkey" implied="false" onDeleteCascade="false" schema="public" table="demographic_statistic_type_variant"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="code" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="'NULL'::character varying" digits="0" id="2" name="name" nullable="false" remarks="" size="2147483647" type="varchar">
+            <parent column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="permission"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="demographic_variant_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="disability_weight" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('disability_weight_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="touchstone" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="disability_weight_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="touchstone"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="disease" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="disability_weight_disease_fkey" implied="false" onDeleteCascade="false" schema="public" table="disease"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="sequela" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="disability_weight" nullable="false" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="5" name="disability_weight_min" nullable="true" remarks="" size="131089" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="6" name="disability_weight_max" nullable="true" remarks="" size="131089" type="numeric"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="disability_weight_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="disease" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text">
+            <child column="disease" foreignKey="disability_weight_disease_fkey" implied="false" onDeleteCascade="false" schema="public" table="disability_weight"/>
+            <child column="disease" foreignKey="gavi_focal_model_disease_fkey" implied="false" onDeleteCascade="false" schema="public" table="gavi_focal_model"/>
+            <child column="disease" foreignKey="impact_estimate_recipe_disease_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_recipe"/>
+            <child column="disease" foreignKey="scenario_description_disease_fkey" implied="false" onDeleteCascade="false" schema="public" table="scenario_description"/>
+            <child column="disease" foreignKey="touchstone_country_disease_fkey" implied="false" onDeleteCascade="false" schema="public" table="touchstone_country"/>
+            <child column="disease" foreignKey="touchstone_years_disease_fkey" implied="false" onDeleteCascade="false" schema="public" table="touchstone_years"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="2147483647" type="varchar">
+            <parent column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="permission"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="disease_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="gavi_focal_model" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('gavi_focal_model_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="model" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="gavi_focal_model_model_fkey" implied="false" onDeleteCascade="false" schema="public" table="model"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="disease" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="gavi_focal_model_disease_fkey" implied="false" onDeleteCascade="false" schema="public" table="disease"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="touchstone" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="gavi_focal_model_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="touchstone"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="gavi_focal_model_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="gavi_support_level" numRows="5" remarks="Enum table. Possible values: none (No vaccination), without (Vaccination without GAVI support), with (Vaccination with GAVI support)" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text">
+            <child column="gavi_support_level" foreignKey="coverage_set_gavi_support_level_fkey" implied="false" onDeleteCascade="false" schema="public" table="coverage_set"/>
+         </column>
+         <column autoUpdated="false" defaultValue="'NULL'::character varying" digits="0" id="1" name="name" nullable="false" remarks="" size="255" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="gavi_support_level_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="gender" numRows="3" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('gender_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="gender" foreignKey="demographic_statistic_gender_fkey" implied="false" onDeleteCascade="false" schema="public" table="demographic_statistic"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="code" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="2" name="name" nullable="false" remarks="" size="6" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="gender_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="impact_estimate" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('impact_estimate_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="impact_estimate_set" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="impact_estimate_impact_estimate_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_set"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="year" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="country" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="impact_estimate_country_fkey" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="value" nullable="true" remarks="" size="131089" type="numeric"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="impact_estimate_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="impact_estimate_ingredient" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('impact_estimate_ingredient_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="focal_ingredient" foreignKey="impact_estimate_recipe_focal_ingredient_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_recipe"/>
+            <child column="impact_estimate_ingredient" foreignKey="impact_estimate_set_ingredient_impact_estimate_ingredient_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_set_ingredient"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="impact_estimate_recipe" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="impact_estimate_ingredient_impact_estimate_recipe_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_recipe"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="responsibility" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="impact_estimate_ingredient_responsibility_fkey" implied="false" onDeleteCascade="false" schema="public" table="responsibility"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="burden_outcome" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="impact_estimate_ingredient_burden_outcome_fkey" implied="false" onDeleteCascade="false" schema="public" table="burden_outcome"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="name" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="permission"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="impact_estimate_ingredient_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="impact_estimate_ingredient_responsibility_impact_estimate_r_key" unique="true">
+            <column ascending="true" name="responsibility"/>
+            <column ascending="true" name="impact_estimate_recipe"/>
+            <column ascending="true" name="burden_outcome"/>
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="impact_estimate_recipe" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('impact_estimate_recipe_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="impact_estimate_recipe" foreignKey="impact_estimate_ingredient_impact_estimate_recipe_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_ingredient"/>
+            <child column="impact_estimate_recipe" foreignKey="impact_estimate_set_impact_estimate_recipe_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_set"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="version" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="2" name="responsibility_set" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="impact_estimate_recipe_responsibility_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="responsibility_set"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="name" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="permission"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="script" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="comment" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="6" name="impact_outcome" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="impact_estimate_recipe_impact_outcome_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_outcome"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="7" name="activity_type" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="impact_estimate_recipe_activity_type_fkey" implied="false" onDeleteCascade="false" schema="public" table="activity_type"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="8" name="support_type" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="impact_estimate_recipe_support_type_fkey" implied="false" onDeleteCascade="false" schema="public" table="support_type"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="9" name="disease" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="impact_estimate_recipe_disease_fkey" implied="false" onDeleteCascade="false" schema="public" table="disease"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="10" name="vaccine" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="impact_estimate_recipe_vaccine_fkey" implied="false" onDeleteCascade="false" schema="public" table="vaccine"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="11" name="focal_ingredient" nullable="true" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="impact_estimate_recipe_focal_ingredient_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_ingredient"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="12" name="current_impact_estimate_set" nullable="true" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="impact_estimate_recipe_current_impact_estimate_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_set"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="impact_estimate_recipe_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="impact_estimate_set" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('impact_estimate_set_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="impact_estimate_set" foreignKey="impact_estimate_impact_estimate_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate"/>
+            <child column="current_impact_estimate_set" foreignKey="impact_estimate_recipe_current_impact_estimate_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_recipe"/>
+            <child column="impact_estimate_set" foreignKey="impact_estimate_set_ingredient_impact_estimate_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_set_ingredient"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="impact_estimate_recipe" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="impact_estimate_set_impact_estimate_recipe_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_recipe"/>
+         </column>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="2" name="computed_on" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="3" name="recipe_touchstone" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="impact_estimate_set_recipe_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="touchstone"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="coverage_touchstone" nullable="true" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="impact_estimate_set_coverage_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="touchstone"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="focal_coverage_set" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="impact_estimate_set_focal_coverage_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="coverage_set"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="6" name="focal_burden_estimate_set" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="impact_estimate_set_focal_burden_estimate_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="burden_estimate_set"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="impact_estimate_set_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="impact_estimate_set_ingredient" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('impact_estimate_set_ingredient_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="impact_estimate_set" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="impact_estimate_set_ingredient_impact_estimate_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_set"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="impact_estimate_ingredient" nullable="true" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="impact_estimate_set_ingredient_impact_estimate_ingredient_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_ingredient"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="burden_estimate_set" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="impact_estimate_set_ingredient_burden_estimate_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="burden_estimate_set"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="impact_estimate_set_ingredient_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="impact_outcome" numRows="4" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text">
+            <child column="impact_outcome" foreignKey="impact_estimate_recipe_impact_outcome_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_recipe"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="permission"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="impact_outcome_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="model" numRows="0" remarks="With the self-referencing &quot;current&quot; field; we consider a model to be the current one if current is null.  See comment about recursion in modelling_group" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text">
+            <child column="model" foreignKey="gavi_focal_model_model_fkey" implied="false" onDeleteCascade="false" schema="public" table="gavi_focal_model"/>
+            <child column="current" foreignKey="model_current_fkey" implied="false" onDeleteCascade="false" schema="public" table="model"/>
+            <child column="model" foreignKey="model_version_model_fkey" implied="false" onDeleteCascade="false" schema="public" table="model_version"/>
+         </column>
+         <column autoUpdated="false" defaultValue="'NULL'::text" digits="0" id="1" name="modelling_group" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="model_modelling_group_fkey" implied="false" onDeleteCascade="false" schema="public" table="modelling_group"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="description" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="citation" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="current" nullable="true" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="model_current_fkey" implied="false" onDeleteCascade="false" schema="public" table="model"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="model_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="model_version" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('model_version_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="model_version" foreignKey="burden_estimate_set_model_version_fkey" implied="false" onDeleteCascade="false" schema="public" table="burden_estimate_set"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="model" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="model_version_model_fkey" implied="false" onDeleteCascade="false" schema="public" table="model"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="version" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="note" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="fingerprint" nullable="true" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="model_version_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="model_version_model_version_key" unique="true">
+            <column ascending="true" name="model"/>
+            <column ascending="true" name="version"/>
+         </index>
+      </table>
+      <table name="modelling_group" numRows="0" remarks="With the self-referencing &quot;current&quot; field; we consider a modelling group to be the current one if current is null.  This is not recursive; if we move a modelling group to a new id then every modelling group that has current pointing at the old id must be updated to point at the new one.  This means that no `current` points at an `id` that does not have `current` as `null`." schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text">
+            <child column="modelling_group" foreignKey="model_modelling_group_fkey" implied="false" onDeleteCascade="false" schema="public" table="model"/>
+            <child column="current" foreignKey="modelling_group_current_fkey" implied="false" onDeleteCascade="false" schema="public" table="modelling_group"/>
+            <child column="modelling_group" foreignKey="responsibility_set_modelling_group_fkey" implied="false" onDeleteCascade="false" schema="public" table="responsibility_set"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="institution" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="2" name="pi" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="description" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="comment" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="current" nullable="true" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="modelling_group_current_fkey" implied="false" onDeleteCascade="false" schema="public" table="modelling_group"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="modelling_group_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="onetime_token" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="token" nullable="false" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="token" sequenceNumberInPK="1"/>
+         <index name="onetime_token_pkey" unique="true">
+            <column ascending="true" name="token"/>
+         </index>
+      </table>
+      <table name="permission" numRows="33" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="name" nullable="false" remarks="" size="2147483647" type="text">
+            <child column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="app_user"/>
+            <child column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="country"/>
+            <child column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="coverage_set"/>
+            <child column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="demographic_source"/>
+            <child column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="demographic_statistic_type"/>
+            <child column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="demographic_value_unit"/>
+            <child column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="demographic_variant"/>
+            <child column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="disease"/>
+            <child column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="impact_estimate_ingredient"/>
+            <child column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="impact_estimate_recipe"/>
+            <child column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="impact_outcome"/>
+            <child column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="responsibility_set_status"/>
+            <child column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="role"/>
+            <child column="permission" foreignKey="role_permission_permission_fkey" implied="false" onDeleteCascade="false" schema="public" table="role_permission"/>
+            <child column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="support_type"/>
+            <child column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="touchstone_status"/>
+            <child column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="vaccine"/>
+         </column>
+         <primaryKey column="name" sequenceNumberInPK="1"/>
+         <index name="permission_pkey" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table name="responsibility" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('responsibility_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="responsibility" foreignKey="burden_estimate_set_responsibility_fkey" implied="false" onDeleteCascade="false" schema="public" table="burden_estimate_set"/>
+            <child column="responsibility" foreignKey="impact_estimate_ingredient_responsibility_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_ingredient"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="responsibility_set" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="responsibility_responsibility_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="responsibility_set"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="scenario" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="responsibility_scenario_fkey" implied="false" onDeleteCascade="false" schema="public" table="scenario"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="current_burden_estimate_set" nullable="true" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="responsibility_current_burden_estimate_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="burden_estimate_set"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="responsibility_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="responsibility_responsibility_set_scenario_key" unique="true">
+            <column ascending="true" name="responsibility_set"/>
+            <column ascending="true" name="scenario"/>
+         </index>
+      </table>
+      <table name="responsibility_set" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('responsibility_set_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="responsibility_set" foreignKey="impact_estimate_recipe_responsibility_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_recipe"/>
+            <child column="responsibility_set" foreignKey="responsibility_responsibility_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="responsibility"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="modelling_group" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="responsibility_set_modelling_group_fkey" implied="false" onDeleteCascade="false" schema="public" table="modelling_group"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="touchstone" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="responsibility_set_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="touchstone"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="status" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="responsibility_set_status_fkey" implied="false" onDeleteCascade="false" schema="public" table="responsibility_set_status"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="responsibility_set_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="responsibility_set_modelling_group_touchstone_key" unique="true">
+            <column ascending="true" name="modelling_group"/>
+            <column ascending="true" name="touchstone"/>
+         </index>
+      </table>
+      <table name="responsibility_set_status" numRows="3" remarks="Possible values {incomplete, submitted, approved}" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text">
+            <child column="status" foreignKey="responsibility_set_status_fkey" implied="false" onDeleteCascade="false" schema="public" table="responsibility_set"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="permission"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="responsibility_set_status_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="role" numRows="13" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('role_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="role" foreignKey="role_permission_role_fkey" implied="false" onDeleteCascade="false" schema="public" table="role_permission"/>
+            <child column="role" foreignKey="user_role_role_fkey" implied="false" onDeleteCascade="false" schema="public" table="user_role"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="permission"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="scope_prefix" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="description" nullable="false" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="role_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="role_permission" numRows="39" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="role" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="role_permission_role_fkey" implied="false" onDeleteCascade="false" schema="public" table="role"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="permission" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="name" foreignKey="role_permission_permission_fkey" implied="false" onDeleteCascade="false" schema="public" table="permission"/>
+         </column>
+         <primaryKey column="role" sequenceNumberInPK="1"/>
+         <primaryKey column="permission" sequenceNumberInPK="2"/>
+         <index name="role_permission_pkey" unique="true">
+            <column ascending="true" name="role"/>
+            <column ascending="true" name="permission"/>
+         </index>
+      </table>
+      <table name="scenario" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('scenario_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="scenario" foreignKey="responsibility_scenario_fkey" implied="false" onDeleteCascade="false" schema="public" table="responsibility"/>
+            <child column="scenario" foreignKey="scenario_coverage_set_scenario_fkey" implied="false" onDeleteCascade="false" schema="public" table="scenario_coverage_set"/>
+         </column>
+         <column autoUpdated="false" defaultValue="'NULL'::text" digits="0" id="1" name="touchstone" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="scenario_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="touchstone"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="scenario_description" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="scenario_scenario_description_fkey" implied="false" onDeleteCascade="false" schema="public" table="scenario_description"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="focal_coverage_set" nullable="true" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="scenario_focal_coverage_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="coverage_set"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="scenario_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="scenario_touchstone_scenario_description_key" unique="true">
+            <column ascending="true" name="touchstone"/>
+            <column ascending="true" name="scenario_description"/>
+         </index>
+      </table>
+      <table name="scenario_coverage_set" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('scenario_coverage_set_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="scenario" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="scenario_coverage_set_scenario_fkey" implied="false" onDeleteCascade="false" schema="public" table="scenario"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="coverage_set" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="scenario_coverage_set_coverage_set_fkey" implied="false" onDeleteCascade="false" schema="public" table="coverage_set"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="order" nullable="false" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="scenario_coverage_set_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="scenario_coverage_set_scenario_order_key" unique="true">
+            <column ascending="true" name="scenario"/>
+            <column ascending="true" name="order"/>
+         </index>
+      </table>
+      <table name="scenario_description" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text">
+            <child column="scenario_description" foreignKey="scenario_scenario_description_fkey" implied="false" onDeleteCascade="false" schema="public" table="scenario"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="description" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="2" name="disease" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="scenario_description_disease_fkey" implied="false" onDeleteCascade="false" schema="public" table="disease"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="scenario_description_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="schema_version" numRows="6" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="installed_rank" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="1" name="version" nullable="true" remarks="" size="50" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="description" nullable="false" remarks="" size="200" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="type" nullable="false" remarks="" size="20" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="script" nullable="false" remarks="" size="1000" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="5" name="checksum" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="6" name="installed_by" nullable="false" remarks="" size="100" type="varchar"/>
+         <column autoUpdated="false" defaultValue="now()" digits="6" id="7" name="installed_on" nullable="false" remarks="" size="29" type="timestamp"/>
+         <column autoUpdated="false" digits="0" id="8" name="execution_time" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="9" name="success" nullable="false" remarks="" size="1" type="bool"/>
+         <primaryKey column="installed_rank" sequenceNumberInPK="1"/>
+         <index name="schema_version_pk" unique="true">
+            <column ascending="true" name="installed_rank"/>
+         </index>
+         <index name="schema_version_s_idx" unique="false">
+            <column ascending="true" name="success"/>
+         </index>
+      </table>
+      <table name="support_type" numRows="2" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text">
+            <child column="support_type" foreignKey="impact_estimate_recipe_support_type_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_recipe"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="permission"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="support_type_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="touchstone" numRows="0" remarks="This is the top-level categorization. It refers to an Operational Forecast from GAVI, a WUENIC July update, or some other data set against which impact estimates are going to be done" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text">
+            <child column="touchstone" foreignKey="country_metadata_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="country_metadata"/>
+            <child column="touchstone" foreignKey="country_vaccine_metadata_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="country_vaccine_metadata"/>
+            <child column="touchstone" foreignKey="coverage_set_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="coverage_set"/>
+            <child column="touchstone" foreignKey="disability_weight_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="disability_weight"/>
+            <child column="touchstone" foreignKey="gavi_focal_model_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="gavi_focal_model"/>
+            <child column="coverage_touchstone" foreignKey="impact_estimate_set_coverage_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_set"/>
+            <child column="recipe_touchstone" foreignKey="impact_estimate_set_recipe_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_set"/>
+            <child column="touchstone" foreignKey="responsibility_set_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="responsibility_set"/>
+            <child column="touchstone" foreignKey="scenario_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="scenario"/>
+            <child column="touchstone" foreignKey="touchstone_country_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="touchstone_country"/>
+            <child column="touchstone" foreignKey="touchstone_demographic_source_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="touchstone_demographic_source"/>
+            <child column="touchstone" foreignKey="touchstone_years_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="touchstone_years"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="touchstone_name" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="touchstone_touchstone_name_fkey" implied="false" onDeleteCascade="false" schema="public" table="touchstone_name"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="version" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="3" name="description" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="status" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="touchstone_status_fkey" implied="false" onDeleteCascade="false" schema="public" table="touchstone_status"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="comment" nullable="false" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="touchstone_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="touchstone_touchstone_name_version_key" unique="true">
+            <column ascending="true" name="touchstone_name"/>
+            <column ascending="true" name="version"/>
+         </index>
+      </table>
+      <table name="touchstone_country" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('touchstone_country_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="touchstone" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="touchstone_country_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="touchstone"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="country" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="touchstone_country_country_fkey" implied="false" onDeleteCascade="false" schema="public" table="country"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="disease" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="touchstone_country_disease_fkey" implied="false" onDeleteCascade="false" schema="public" table="disease"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="touchstone_country_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="touchstone_demographic_source" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('touchstone_demographic_source_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="touchstone" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="touchstone_demographic_source_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="touchstone"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="demographic_source" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="touchstone_demographic_source_demographic_source_fkey" implied="false" onDeleteCascade="false" schema="public" table="demographic_source"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="touchstone_demographic_source_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="touchstone_demographic_source_touchstone_idx" unique="false">
+            <column ascending="true" name="touchstone"/>
+         </index>
+      </table>
+      <table name="touchstone_name" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text">
+            <child column="touchstone_name" foreignKey="touchstone_touchstone_name_fkey" implied="false" onDeleteCascade="false" schema="public" table="touchstone"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="description" nullable="false" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="2" name="comment" nullable="false" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="touchstone_name_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="touchstone_status" numRows="3" remarks="Valid values: {in-preparation, open, finished}" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text">
+            <child column="status" foreignKey="touchstone_status_fkey" implied="false" onDeleteCascade="false" schema="public" table="touchstone"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="permission"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="touchstone_status_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="touchstone_years" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('touchstone_years_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="touchstone" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="touchstone_years_touchstone_fkey" implied="false" onDeleteCascade="false" schema="public" table="touchstone"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="disease" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="touchstone_years_disease_fkey" implied="false" onDeleteCascade="false" schema="public" table="disease"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="year_first" nullable="false" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="4" name="year_last" nullable="false" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="touchstone_years_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="user_role" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="username" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="username" foreignKey="user_role_username_fkey" implied="false" onDeleteCascade="false" schema="public" table="app_user"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="role" nullable="false" remarks="" size="10" type="int4">
+            <parent column="id" foreignKey="user_role_role_fkey" implied="false" onDeleteCascade="false" schema="public" table="role"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="scope_id" nullable="false" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="username" sequenceNumberInPK="1"/>
+         <primaryKey column="role" sequenceNumberInPK="2"/>
+         <primaryKey column="scope_id" sequenceNumberInPK="3"/>
+         <index name="user_role_pkey" unique="true">
+            <column ascending="true" name="username"/>
+            <column ascending="true" name="role"/>
+            <column ascending="true" name="scope_id"/>
+         </index>
+      </table>
+      <table name="v_coverage_info" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" SELECT scenario.touchstone,&#10;    scenario.scenario_description,&#10;    scenario_description.disease,&#10;    coverage_set.vaccine,&#10;    coverage_set.gavi_support_level,&#10;    coverage_set.activity_type,&#10;    coverage_set.id AS coverage_set_id&#10;   FROM ((((coverage_set&#10;     JOIN touchstone ON ((coverage_set.touchstone = touchstone.id)))&#10;     JOIN scenario_coverage_set ON ((scenario_coverage_set.coverage_set = coverage_set.id)))&#10;     JOIN scenario ON ((scenario_coverage_set.scenario = scenario.id)))&#10;     JOIN scenario_description ON ((scenario.scenario_description = scenario_description.id)));">
+         <column autoUpdated="false" digits="0" id="0" name="touchstone" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="1" name="scenario_description" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="2" name="disease" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="vaccine" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="gavi_support_level" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="activity_type" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="6" name="coverage_set_id" nullable="true" remarks="" size="10" type="int4"/>
+      </table>
+      <table name="v_responsibility_info" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" SELECT responsibility_set.touchstone,&#10;    responsibility_set.status,&#10;    scenario.scenario_description,&#10;    scenario_description.disease,&#10;    responsibility.id AS responsibility_id,&#10;    responsibility.current_burden_estimate_set&#10;   FROM (((responsibility_set&#10;     JOIN responsibility ON ((responsibility.responsibility_set = responsibility_set.id)))&#10;     JOIN scenario ON ((responsibility.scenario = scenario.id)))&#10;     JOIN scenario_description ON ((scenario.scenario_description = scenario_description.id)));">
+         <column autoUpdated="false" digits="0" id="0" name="touchstone" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="1" name="status" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="2" name="scenario_description" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="3" name="disease" nullable="true" remarks="" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="responsibility_id" nullable="true" remarks="" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="current_burden_estimate_set" nullable="true" remarks="" size="10" type="int4"/>
+      </table>
+      <table name="vaccine" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="'NULL'::text" digits="0" id="0" name="id" nullable="false" remarks="" size="2147483647" type="text">
+            <child column="vaccine" foreignKey="country_vaccine_metadata_vaccine_fkey" implied="false" onDeleteCascade="false" schema="public" table="country_vaccine_metadata"/>
+            <child column="vaccine" foreignKey="coverage_set_vaccine_fkey" implied="false" onDeleteCascade="false" schema="public" table="coverage_set"/>
+            <child column="vaccine" foreignKey="impact_estimate_recipe_vaccine_fkey" implied="false" onDeleteCascade="false" schema="public" table="impact_estimate_recipe"/>
+            <child column="vaccine" foreignKey="vaccine_routine_age_vaccine_fkey" implied="false" onDeleteCascade="false" schema="public" table="vaccine_routine_age"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="name" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="permission"/>
+         </column>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="vaccine_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="vaccine_routine_age" numRows="0" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('vaccine_routine_age_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial"/>
+         <column autoUpdated="false" digits="0" id="1" name="vaccine" nullable="false" remarks="" size="2147483647" type="text">
+            <parent column="id" foreignKey="vaccine_routine_age_vaccine_fkey" implied="false" onDeleteCascade="false" schema="public" table="vaccine"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="age" nullable="true" remarks="" size="10" type="int4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="vaccine_routine_age_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+   </tables>
+</database>

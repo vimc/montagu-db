@@ -7,15 +7,9 @@ ENV POSTGRES_PASSWORD changeme
 # This is needed to override the loss of data that happens if you
 # don't mount a persistent volume at the mount point.
 ENV PGDATA /pgdata
-COPY schema/montagu-db.sql montagu-db.sql
-COPY functions functions
 
 COPY postgresql.conf postgresql.conf
 COPY postgresql.test.conf postgresql.test.conf
 COPY start-with-config.sh /montagu-bin/start-with-config.sh
 
-RUN sed "s/'current_timestamp'/CURRENT_TIMESTAMP/" montagu-db.sql > \
-      /docker-entrypoint-initdb.d/montagu.sql && \
-    cat functions/*.sql >> /docker-entrypoint-initdb.d/montagu.sql && \
-    ./docker-entrypoint.sh --version && \
-    rm -f /docker-entrypoint-initdb.d/montagu.sql
+RUN ./docker-entrypoint.sh --version
