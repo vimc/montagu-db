@@ -123,6 +123,14 @@
 					</td>
 				   </tr>
 				   <tr>
+					<td title="burden_outcome.name&#39;s name implies that it&#39;s a child of permission.name, but it doesn&#39;t reference that column.">
+						<a href='burden_outcome.html'>burden_outcome</a><span class='relatedKey'>.name</span>
+					</td>
+					<td class="constraint detail">
+						Implied Constraint <span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span>
+					</td>
+				   </tr>
+				   <tr>
 					<td title="country.name&#39;s name implies that it&#39;s a child of permission.name, but it doesn&#39;t reference that column.">
 						<a href='country.html'>country</a><span class='relatedKey'>.name</span>
 					</td>
@@ -338,75 +346,76 @@
 				</div>
 				<div class="chart tab-pane " id="oneimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">					
 					<map id="oneDegreeRelationshipsDiagramImplied" name="oneDegreeRelationshipsDiagramImplied">
-<area shape="rect" id="node1" href="app_user.html" title="app_user" alt="" coords="420,5,607,152">
-<area shape="rect" id="node2" href="permission.html" title="permission" alt="" coords="5,1056,311,1155">
-<area shape="rect" id="node3" href="country.html" title="country" alt="" coords="425,169,601,292">
-<area shape="rect" id="node4" href="coverage_set.html" title="coverage_set" alt="" coords="765,240,981,480">
-<area shape="rect" id="node5" href="vaccine.html" title="vaccine" alt="" coords="435,521,591,644">
-<area shape="rect" id="node6" href="demographic_source.html" title="demographic_source" alt="" coords="384,1169,643,1316">
-<area shape="rect" id="node7" href="demographic_statistic_type.html" title="demographic_statistic_type" alt="" coords="716,1311,1031,1516">
-<area shape="rect" id="node8" href="demographic_variant.html" title="demographic_variant" alt="" coords="383,1509,644,1656">
-<area shape="rect" id="node9" href="demographic_value_unit.html" title="demographic_value_unit" alt="" coords="370,1369,657,1492">
-<area shape="rect" id="node10" href="disease.html" title="disease" alt="" coords="435,1029,591,1152">
-<area shape="rect" id="node11" href="impact_estimate_ingredient.html" title="impact_estimate_ingredient" alt="" coords="355,661,672,872">
-<area shape="rect" id="node12" href="impact_estimate_recipe.html" title="impact_estimate_recipe" alt="" coords="719,497,1027,879">
-<area shape="rect" id="node13" href="impact_outcome.html" title="impact_outcome" alt="" coords="400,381,627,504">
-<area shape="rect" id="node14" href="support_type.html" title="support_type" alt="" coords="414,889,613,1012">
-<area shape="rect" id="node15" href="responsibility_set_status.html" title="responsibility_set_status" alt="" coords="367,1673,659,1796">
-<area shape="rect" id="node16" href="role.html" title="role" alt="" coords="431,1813,596,1960">
-<area shape="rect" id="node17" href="role_permission.html" title="role_permission" alt="" coords="764,1860,983,1983">
-<area shape="rect" id="node18" href="touchstone_status.html" title="touchstone_status" alt="" coords="392,2013,635,2136">
+<area shape="rect" id="node1" href="app_user.html" title="app_user" alt="" coords="407,5,594,152">
+<area shape="rect" id="node2" href="permission.html" title="permission" alt="" coords="5,1045,311,1144">
+<area shape="rect" id="node3" href="burden_outcome.html" title="burden_outcome" alt="" coords="735,1312,961,1464">
+<area shape="rect" id="node4" href="country.html" title="country" alt="" coords="413,205,589,328">
+<area shape="rect" id="node5" href="coverage_set.html" title="coverage_set" alt="" coords="740,832,956,1072">
+<area shape="rect" id="node6" href="vaccine.html" title="vaccine" alt="" coords="423,929,579,1052">
+<area shape="rect" id="node7" href="demographic_source.html" title="demographic_source" alt="" coords="371,625,630,772">
+<area shape="rect" id="node8" href="demographic_statistic_type.html" title="demographic_statistic_type" alt="" coords="691,1089,1005,1295">
+<area shape="rect" id="node9" href="demographic_variant.html" title="demographic_variant" alt="" coords="370,1281,631,1428">
+<area shape="rect" id="node10" href="demographic_value_unit.html" title="demographic_value_unit" alt="" coords="357,1141,644,1264">
+<area shape="rect" id="node11" href="disease.html" title="disease" alt="" coords="423,789,579,912">
+<area shape="rect" id="node12" href="impact_estimate_ingredient.html" title="impact_estimate_ingredient" alt="" coords="1049,947,1367,1157">
+<area shape="rect" id="node13" href="impact_estimate_recipe.html" title="impact_estimate_recipe" alt="" coords="694,433,1002,815">
+<area shape="rect" id="node14" href="impact_outcome.html" title="impact_outcome" alt="" coords="387,345,614,468">
+<area shape="rect" id="node15" href="support_type.html" title="support_type" alt="" coords="401,485,600,608">
+<area shape="rect" id="node16" href="responsibility_set_status.html" title="responsibility_set_status" alt="" coords="355,1517,647,1640">
+<area shape="rect" id="node17" href="role.html" title="role" alt="" coords="418,1657,583,1804">
+<area shape="rect" id="node18" href="role_permission.html" title="role_permission" alt="" coords="739,1705,957,1828">
+<area shape="rect" id="node19" href="touchstone_status.html" title="touchstone_status" alt="" coords="379,1857,622,1980">
 </map>
 
 					<a name='diagram'><img id='oneimpliedDegreeImg' src='../diagrams/permission.implied1degrees.png' usemap='#oneDegreeRelationshipsDiagramImplied' class='diagram' border='0' alt='' align='left'></a>							
 				</div>
 				<div class="chart tab-pane " id="twoimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">					
 					<map id="twoDegreesRelationshipsDiagramImplied" name="twoDegreesRelationshipsDiagramImplied">
-<area shape="rect" id="node1" href="api_access_log.html" title="api_access_log" alt="" coords="743,1521,953,1609">
-<area shape="rect" id="node2" href="app_user.html" title="app_user" alt="" coords="407,1452,594,1599">
-<area shape="rect" id="node3" href="permission.html" title="permission" alt="" coords="5,1264,311,1363">
-<area shape="rect" id="node4" href="burden_estimate.html" title="burden_estimate" alt="" coords="2421,616,2649,704">
-<area shape="rect" id="node5" href="burden_estimate_set.html" title="burden_estimate_set" alt="" coords="2069,689,2332,777">
-<area shape="rect" id="node6" href="burden_outcome.html" title="burden_outcome" alt="" coords="2087,513,2314,601">
-<area shape="rect" id="node7" href="country.html" title="country" alt="" coords="760,1345,936,1468">
-<area shape="rect" id="node8" href="responsibility.html" title="responsibility" alt="" coords="1788,548,1987,636">
-<area shape="rect" id="node31" href="responsibility_set.html" title="responsibility_set" alt="" coords="1473,504,1705,592">
-<area shape="rect" id="node34" href="scenario.html" title="scenario" alt="" coords="1510,791,1669,879">
-<area shape="rect" id="node9" href="country_metadata.html" title="country_metadata" alt="" coords="1119,1507,1360,1595">
-<area shape="rect" id="node10" href="touchstone.html" title="touchstone" alt="" coords="757,1240,939,1328">
-<area shape="rect" id="node40" href="touchstone_status.html" title="touchstone_status" alt="" coords="379,1237,622,1360">
-<area shape="rect" id="node11" href="country_vaccine_metadata.html" title="country_vaccine_metadata" alt="" coords="1084,1172,1395,1260">
-<area shape="rect" id="node12" href="vaccine.html" title="vaccine" alt="" coords="770,509,926,632">
-<area shape="rect" id="node13" href="coverage.html" title="coverage" alt="" coords="1507,975,1672,1063">
-<area shape="rect" id="node14" href="coverage_set.html" title="coverage_set" alt="" coords="1131,493,1347,733">
-<area shape="rect" id="node15" href="activity_type.html" title="activity_type" alt="" coords="751,360,945,448">
-<area shape="rect" id="node16" href="gavi_support_level.html" title="gavi_support_level" alt="" coords="729,685,967,773">
-<area shape="rect" id="node17" href="demographic_source.html" title="demographic_source" alt="" coords="719,1872,977,2019">
-<area shape="rect" id="node18" href="demographic_statistic.html" title="demographic_statistic" alt="" coords="1104,1956,1375,2044">
-<area shape="rect" id="node19" href="demographic_statistic_type.html" title="demographic_statistic_type" alt="" coords="691,2036,1005,2241">
-<area shape="rect" id="node20" href="demographic_variant.html" title="demographic_variant" alt="" coords="370,2171,631,2317">
-<area shape="rect" id="node21" href="demographic_value_unit.html" title="demographic_value_unit" alt="" coords="357,2020,644,2143">
-<area shape="rect" id="node22" href="demographic_statistic_type_variant.html" title="demographic_statistic_type_variant" alt="" coords="1049,2148,1429,2236">
-<area shape="rect" id="node23" href="disability_weight.html" title="disability_weight" alt="" coords="1127,856,1352,944">
-<area shape="rect" id="node24" href="disease.html" title="disease" alt="" coords="770,959,926,1081">
-<area shape="rect" id="node25" href="gavi_focal_model.html" title="gavi_focal_model" alt="" coords="1125,961,1354,1049">
-<area shape="rect" id="node26" href="impact_estimate.html" title="impact_estimate" alt="" coords="2799,1271,3026,1359">
-<area shape="rect" id="node27" href="impact_estimate_set.html" title="impact_estimate_set" alt="" coords="2404,757,2665,845">
-<area shape="rect" id="node29" href="impact_estimate_recipe.html" title="impact_estimate_recipe" alt="" coords="2759,93,3067,475">
-<area shape="rect" id="node28" href="impact_estimate_ingredient.html" title="impact_estimate_ingredient" alt="" coords="2376,388,2693,599">
-<area shape="rect" id="node30" href="impact_outcome.html" title="impact_outcome" alt="" coords="2087,104,2314,227">
-<area shape="rect" id="node32" href="support_type.html" title="support_type" alt="" coords="1788,104,1987,227">
-<area shape="rect" id="node35" href="responsibility_set_status.html" title="responsibility_set_status" alt="" coords="355,313,647,436">
-<area shape="rect" id="node33" href="impact_estimate_set_ingredient.html" title="impact_estimate_set_ingredient" alt="" coords="2737,684,3088,772">
-<area shape="rect" id="node38" href="scenario_description.html" title="scenario_description" alt="" coords="1111,751,1368,839">
-<area shape="rect" id="node36" href="role.html" title="role" alt="" coords="418,1624,583,1771">
-<area shape="rect" id="node37" href="role_permission.html" title="role_permission" alt="" coords="739,1732,957,1855">
-<area shape="rect" id="node39" href="scenario_coverage_set.html" title="scenario_coverage_set" alt="" coords="1749,653,2025,741">
-<area shape="rect" id="node41" href="touchstone_country.html" title="touchstone_country" alt="" coords="1113,1401,1366,1489">
-<area shape="rect" id="node42" href="touchstone_demographic_source.html" title="touchstone_demographic_source" alt="" coords="1060,1612,1419,1700">
-<area shape="rect" id="node43" href="touchstone_years.html" title="touchstone_years" alt="" coords="1121,1067,1357,1155">
-<area shape="rect" id="node44" href="user_role.html" title="user_role" alt="" coords="765,1627,931,1715">
-<area shape="rect" id="node45" href="vaccine_routine_age.html" title="vaccine_routine_age" alt="" coords="1112,352,1367,440">
+<area shape="rect" id="node1" href="api_access_log.html" title="api_access_log" alt="" coords="743,1588,953,1676">
+<area shape="rect" id="node2" href="app_user.html" title="app_user" alt="" coords="407,1586,594,1733">
+<area shape="rect" id="node3" href="permission.html" title="permission" alt="" coords="5,1389,311,1488">
+<area shape="rect" id="node4" href="burden_estimate.html" title="burden_estimate" alt="" coords="2421,1500,2649,1588">
+<area shape="rect" id="node5" href="burden_estimate_set.html" title="burden_estimate_set" alt="" coords="2069,617,2332,705">
+<area shape="rect" id="node6" href="burden_outcome.html" title="burden_outcome" alt="" coords="2087,1497,2314,1649">
+<area shape="rect" id="node7" href="country.html" title="country" alt="" coords="760,1412,936,1534">
+<area shape="rect" id="node8" href="responsibility.html" title="responsibility" alt="" coords="1788,577,1987,665">
+<area shape="rect" id="node31" href="responsibility_set.html" title="responsibility_set" alt="" coords="1473,389,1705,477">
+<area shape="rect" id="node34" href="scenario.html" title="scenario" alt="" coords="1510,682,1669,770">
+<area shape="rect" id="node9" href="country_metadata.html" title="country_metadata" alt="" coords="1119,1441,1360,1529">
+<area shape="rect" id="node10" href="touchstone.html" title="touchstone" alt="" coords="757,1280,939,1368">
+<area shape="rect" id="node40" href="touchstone_status.html" title="touchstone_status" alt="" coords="379,1296,622,1418">
+<area shape="rect" id="node11" href="country_vaccine_metadata.html" title="country_vaccine_metadata" alt="" coords="1084,1106,1395,1194">
+<area shape="rect" id="node12" href="vaccine.html" title="vaccine" alt="" coords="770,281,926,404">
+<area shape="rect" id="node13" href="coverage.html" title="coverage" alt="" coords="1507,1037,1672,1125">
+<area shape="rect" id="node14" href="coverage_set.html" title="coverage_set" alt="" coords="1131,428,1347,668">
+<area shape="rect" id="node15" href="activity_type.html" title="activity_type" alt="" coords="751,140,945,228">
+<area shape="rect" id="node16" href="gavi_support_level.html" title="gavi_support_level" alt="" coords="729,548,967,636">
+<area shape="rect" id="node17" href="demographic_source.html" title="demographic_source" alt="" coords="719,1974,977,2121">
+<area shape="rect" id="node18" href="demographic_statistic.html" title="demographic_statistic" alt="" coords="1104,2058,1375,2146">
+<area shape="rect" id="node19" href="demographic_statistic_type.html" title="demographic_statistic_type" alt="" coords="691,2138,1005,2344">
+<area shape="rect" id="node20" href="demographic_variant.html" title="demographic_variant" alt="" coords="370,2241,631,2388">
+<area shape="rect" id="node21" href="demographic_value_unit.html" title="demographic_value_unit" alt="" coords="357,2092,644,2214">
+<area shape="rect" id="node22" href="demographic_statistic_type_variant.html" title="demographic_statistic_type_variant" alt="" coords="1049,2250,1429,2338">
+<area shape="rect" id="node23" href="disability_weight.html" title="disability_weight" alt="" coords="1127,790,1352,878">
+<area shape="rect" id="node24" href="disease.html" title="disease" alt="" coords="770,893,926,1016">
+<area shape="rect" id="node25" href="gavi_focal_model.html" title="gavi_focal_model" alt="" coords="1125,1001,1354,1089">
+<area shape="rect" id="node26" href="impact_estimate.html" title="impact_estimate" alt="" coords="2799,1204,3026,1292">
+<area shape="rect" id="node27" href="impact_estimate_set.html" title="impact_estimate_set" alt="" coords="2404,653,2665,741">
+<area shape="rect" id="node29" href="impact_estimate_recipe.html" title="impact_estimate_recipe" alt="" coords="2759,101,3067,482">
+<area shape="rect" id="node28" href="impact_estimate_ingredient.html" title="impact_estimate_ingredient" alt="" coords="2376,389,2693,600">
+<area shape="rect" id="node30" href="impact_outcome.html" title="impact_outcome" alt="" coords="2087,104,2314,226">
+<area shape="rect" id="node32" href="support_type.html" title="support_type" alt="" coords="1788,177,1987,300">
+<area shape="rect" id="node35" href="responsibility_set_status.html" title="responsibility_set_status" alt="" coords="355,216,647,338">
+<area shape="rect" id="node33" href="impact_estimate_set_ingredient.html" title="impact_estimate_set_ingredient" alt="" coords="2737,580,3088,668">
+<area shape="rect" id="node38" href="scenario_description.html" title="scenario_description" alt="" coords="1111,685,1368,773">
+<area shape="rect" id="node36" href="role.html" title="role" alt="" coords="418,1750,583,1897">
+<area shape="rect" id="node37" href="role_permission.html" title="role_permission" alt="" coords="739,1834,957,1957">
+<area shape="rect" id="node39" href="scenario_coverage_set.html" title="scenario_coverage_set" alt="" coords="1749,682,2025,770">
+<area shape="rect" id="node41" href="touchstone_country.html" title="touchstone_country" alt="" coords="1113,1212,1366,1300">
+<area shape="rect" id="node42" href="touchstone_demographic_source.html" title="touchstone_demographic_source" alt="" coords="1060,1582,1419,1670">
+<area shape="rect" id="node43" href="touchstone_years.html" title="touchstone_years" alt="" coords="1121,896,1357,984">
+<area shape="rect" id="node44" href="user_role.html" title="user_role" alt="" coords="765,1729,931,1817">
+<area shape="rect" id="node45" href="vaccine_routine_age.html" title="vaccine_routine_age" alt="" coords="1112,214,1367,302">
 </map>
 
 					<a name='diagram'><img id='twoimpliedDegreeImg' src='../diagrams/permission.implied2degrees.png' usemap='#twoDegreesRelationshipsDiagramImplied' class='diagram' border='0' alt='' align='left'></a>							

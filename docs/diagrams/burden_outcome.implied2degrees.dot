@@ -20,20 +20,54 @@ digraph "twoDegreesRelationshipsDiagramImplied" {
   edge [
     arrowsize="0.8"
   ];
+  "app_user":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
   "burden_estimate":"burden_estimate_set":w -> "burden_estimate_set":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "burden_estimate":"burden_outcome":w -> "burden_outcome":"id.type":e [arrowhead=none dir=back arrowtail=crowodot];
   "burden_estimate":"country":w -> "country":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "burden_estimate_set":"elipses":w -> "responsibility":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "country":"elipses":w -> "permission":"elipses":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
+  "burden_estimate_set":"elipses":w -> "app_user":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "burden_outcome":"name":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
+  "country":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
+  "coverage_set":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
+  "coverage_set":"elipses":w -> "vaccine":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "demographic_source":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
+  "demographic_statistic_type":"elipses":w -> "demographic_variant":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "demographic_statistic_type":"elipses":w -> "demographic_value_unit":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "demographic_statistic_type":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
+  "demographic_value_unit":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
+  "demographic_variant":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
+  "disease":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
   "impact_estimate_ingredient":"burden_outcome":w -> "burden_outcome":"id.type":e [arrowhead=none dir=back arrowtail=crowodot];
   "impact_estimate_ingredient":"impact_estimate_recipe":w -> "impact_estimate_recipe":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "impact_estimate_ingredient":"name":w -> "permission":"elipses":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
+  "impact_estimate_ingredient":"name":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
   "impact_estimate_ingredient":"responsibility":w -> "responsibility":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "impact_estimate_recipe":"elipses":w -> "disease":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "impact_estimate_recipe":"elipses":w -> "impact_estimate_ingredient":"id":e [arrowhead=none dir=back arrowtail=crowodot];
-  "impact_estimate_recipe":"elipses":w -> "permission":"elipses":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
+  "impact_estimate_recipe":"elipses":w -> "impact_outcome":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "impact_estimate_recipe":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
+  "impact_estimate_recipe":"elipses":w -> "support_type":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "impact_estimate_recipe":"elipses":w -> "vaccine":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "impact_estimate_set_ingredient":"elipses":w -> "burden_estimate_set":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "impact_estimate_set_ingredient":"elipses":w -> "impact_estimate_ingredient":"id":e [arrowhead=none dir=back arrowtail=crowodot];
+  "impact_outcome":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
   "responsibility":"elipses":w -> "burden_estimate_set":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "responsibility_set_status":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
+  "role":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
+  "role_permission":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot];
+  "role_permission":"elipses":w -> "role":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "support_type":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
+  "touchstone_status":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
+  "vaccine":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
+  "app_user" [
+   label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT"><B>app_user</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">3 &gt;</TD></TR>
+    </TABLE>>
+    URL="app_user.html"
+    tooltip="app_user"
+  ];
   "burden_estimate" [
    label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
@@ -43,6 +77,7 @@ digraph "twoDegreesRelationshipsDiagramImplied" {
       <TR><TD PORT="country" COLSPAN="3" BGCOLOR="#ffffff" ALIGN="LEFT"><TABLE BORDER="0" CELLSPACING="0" ALIGN="LEFT"><TR ALIGN="LEFT"><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="15" HEIGHT="16"><IMG SRC="/output/images/foreignKeys.png"/></TD><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="140" HEIGHT="16">country</TD></TR></TABLE></TD></TR>
       <TR><TD PORT="year" COLSPAN="3" BGCOLOR="#ffffff" ALIGN="LEFT"><TABLE BORDER="0" CELLSPACING="0" ALIGN="LEFT"><TR ALIGN="LEFT"><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="15" HEIGHT="16"></TD><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="140" HEIGHT="16">year</TD></TR></TABLE></TD></TR>
       <TR><TD PORT="burden_outcome" COLSPAN="3" BGCOLOR="#ffffff" ALIGN="LEFT"><TABLE BORDER="0" CELLSPACING="0" ALIGN="LEFT"><TR ALIGN="LEFT"><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="15" HEIGHT="16"><IMG SRC="/output/images/foreignKeys.png"/></TD><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="140" HEIGHT="16">burden_outcome</TD></TR></TABLE></TD></TR>
+      <TR><TD PORT="age" COLSPAN="3" BGCOLOR="#ffffff" ALIGN="LEFT"><TABLE BORDER="0" CELLSPACING="0" ALIGN="LEFT"><TR ALIGN="LEFT"><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="15" HEIGHT="16"></TD><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="140" HEIGHT="16">age</TD></TR></TABLE></TD></TR>
       <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
       <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 3</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">  </TD></TR>
     </TABLE>>
@@ -65,8 +100,8 @@ digraph "twoDegreesRelationshipsDiagramImplied" {
       <TR><TD COLSPAN="4"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT"><B>burden_outcome</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
       <TR><TD PORT="id" COLSPAN="2" ALIGN="LEFT"><TABLE BORDER="0" CELLSPACING="0" ALIGN="LEFT"><TR ALIGN="LEFT"><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="15" HEIGHT="16"><IMG SRC="/output/images/primaryKeys.png"/></TD><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="112" HEIGHT="16">id</TD></TR></TABLE></TD><TD PORT="id.type" ALIGN="LEFT">serial[10]</TD></TR>
       <TR><TD PORT="code" COLSPAN="2" BGCOLOR="#ffffff" ALIGN="LEFT"><TABLE BORDER="0" CELLSPACING="0" ALIGN="LEFT"><TR ALIGN="LEFT"><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="15" HEIGHT="16"></TD><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="112" HEIGHT="16">code</TD></TR></TABLE></TD><TD PORT="code.type" ALIGN="LEFT">text[2147483647]</TD></TR>
-      <TR><TD PORT="name" COLSPAN="2" ALIGN="LEFT"><TABLE BORDER="0" CELLSPACING="0" ALIGN="LEFT"><TR ALIGN="LEFT"><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="15" HEIGHT="16"></TD><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="112" HEIGHT="16">name</TD></TR></TABLE></TD><TD PORT="name.type" ALIGN="LEFT">varchar[32]</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 0</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">18 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">2 &gt;</TD></TR>
+      <TR><TD PORT="name" COLSPAN="2" ALIGN="LEFT"><TABLE BORDER="0" CELLSPACING="0" ALIGN="LEFT"><TR ALIGN="LEFT"><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="15" HEIGHT="16"><IMG SRC="/output/images/foreignKeys.png"/></TD><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="112" HEIGHT="16">name</TD></TR></TABLE></TD><TD PORT="name.type" ALIGN="LEFT">text[2147483647]</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">27 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">2 &gt;</TD></TR>
     </TABLE>>
     URL="burden_outcome.html"
     tooltip="burden_outcome"
@@ -80,6 +115,66 @@ digraph "twoDegreesRelationshipsDiagramImplied" {
     </TABLE>>
     URL="country.html"
     tooltip="country"
+  ];
+  "coverage_set" [
+   label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT"><B>coverage_set</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 5</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">4 &gt;</TD></TR>
+    </TABLE>>
+    URL="coverage_set.html"
+    tooltip="coverage_set"
+  ];
+  "demographic_source" [
+   label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT"><B>demographic_source</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">2 &gt;</TD></TR>
+    </TABLE>>
+    URL="demographic_source.html"
+    tooltip="demographic_source"
+  ];
+  "demographic_statistic_type" [
+   label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT"><B>demographic_statistic_type</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 3</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">2 &gt;</TD></TR>
+    </TABLE>>
+    URL="demographic_statistic_type.html"
+    tooltip="demographic_statistic_type"
+  ];
+  "demographic_value_unit" [
+   label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT"><B>demographic_value_unit</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">13 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">1 &gt;</TD></TR>
+    </TABLE>>
+    URL="demographic_value_unit.html"
+    tooltip="demographic_value_unit"
+  ];
+  "demographic_variant" [
+   label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT"><B>demographic_variant</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">3 &gt;</TD></TR>
+    </TABLE>>
+    URL="demographic_variant.html"
+    tooltip="demographic_variant"
+  ];
+  "disease" [
+   label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT"><B>disease</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">6 &gt;</TD></TR>
+    </TABLE>>
+    URL="disease.html"
+    tooltip="disease"
   ];
   "impact_estimate_ingredient" [
    label=<
@@ -115,12 +210,22 @@ digraph "twoDegreesRelationshipsDiagramImplied" {
     URL="impact_estimate_set_ingredient.html"
     tooltip="impact_estimate_set_ingredient"
   ];
+  "impact_outcome" [
+   label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT"><B>impact_outcome</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">4 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">1 &gt;</TD></TR>
+    </TABLE>>
+    URL="impact_outcome.html"
+    tooltip="impact_outcome"
+  ];
   "permission" [
    label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
       <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT"><B>permission</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
-      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">  </TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">33 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">17 &gt;</TD></TR>
+      <TR><TD PORT="name" COLSPAN="3" ALIGN="LEFT"><TABLE BORDER="0" CELLSPACING="0" ALIGN="LEFT"><TR ALIGN="LEFT"><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="15" HEIGHT="16"><IMG SRC="/output/images/primaryKeys.png"/></TD><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="74" HEIGHT="16">name</TD></TR></TABLE></TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">  </TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">33 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">18 &gt;</TD></TR>
     </TABLE>>
     URL="permission.html"
     tooltip="permission"
@@ -134,5 +239,65 @@ digraph "twoDegreesRelationshipsDiagramImplied" {
     </TABLE>>
     URL="responsibility.html"
     tooltip="responsibility"
+  ];
+  "responsibility_set_status" [
+   label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT"><B>responsibility_set_status</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">3 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">1 &gt;</TD></TR>
+    </TABLE>>
+    URL="responsibility_set_status.html"
+    tooltip="responsibility_set_status"
+  ];
+  "role" [
+   label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT"><B>role</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">13 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">2 &gt;</TD></TR>
+    </TABLE>>
+    URL="role.html"
+    tooltip="role"
+  ];
+  "role_permission" [
+   label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT"><B>role_permission</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 2</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">39 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">  </TD></TR>
+    </TABLE>>
+    URL="role_permission.html"
+    tooltip="role_permission"
+  ];
+  "support_type" [
+   label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT"><B>support_type</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">2 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">1 &gt;</TD></TR>
+    </TABLE>>
+    URL="support_type.html"
+    tooltip="support_type"
+  ];
+  "touchstone_status" [
+   label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT"><B>touchstone_status</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">3 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">1 &gt;</TD></TR>
+    </TABLE>>
+    URL="touchstone_status.html"
+    tooltip="touchstone_status"
+  ];
+  "vaccine" [
+   label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT"><B>vaccine</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">0 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">4 &gt;</TD></TR>
+    </TABLE>>
+    URL="vaccine.html"
+    tooltip="vaccine"
   ];
 }

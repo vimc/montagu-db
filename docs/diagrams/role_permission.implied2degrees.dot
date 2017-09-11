@@ -21,6 +21,7 @@ digraph "twoDegreesRelationshipsDiagramImplied" {
     arrowsize="0.8"
   ];
   "app_user":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
+  "burden_outcome":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
   "country":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
   "coverage_set":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
   "coverage_set":"elipses":w -> "vaccine":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
@@ -31,6 +32,7 @@ digraph "twoDegreesRelationshipsDiagramImplied" {
   "demographic_value_unit":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
   "demographic_variant":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
   "disease":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
+  "impact_estimate_ingredient":"elipses":w -> "burden_outcome":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "impact_estimate_ingredient":"elipses":w -> "impact_estimate_recipe":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "impact_estimate_ingredient":"elipses":w -> "permission":"name":e [arrowhead=none dir=back arrowtail=crowodot style=dashed];
   "impact_estimate_recipe":"elipses":w -> "disease":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
@@ -58,6 +60,16 @@ digraph "twoDegreesRelationshipsDiagramImplied" {
     </TABLE>>
     URL="app_user.html"
     tooltip="app_user"
+  ];
+  "burden_outcome" [
+   label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT"><B>burden_outcome</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 1</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">27 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">2 &gt;</TD></TR>
+    </TABLE>>
+    URL="burden_outcome.html"
+    tooltip="burden_outcome"
   ];
   "country" [
    label=<
@@ -164,7 +176,7 @@ digraph "twoDegreesRelationshipsDiagramImplied" {
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
       <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT"><B>permission</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
       <TR><TD PORT="name" COLSPAN="3" ALIGN="LEFT"><TABLE BORDER="0" CELLSPACING="0" ALIGN="LEFT"><TR ALIGN="LEFT"><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="15" HEIGHT="16"><IMG SRC="/output/images/primaryKeys.png"/></TD><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="74" HEIGHT="16">name</TD></TR></TABLE></TD></TR>
-      <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">  </TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">33 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">17 &gt;</TD></TR>
+      <TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">  </TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">33 rows</TD><TD ALIGN="RIGHT" BGCOLOR="#ffffff">18 &gt;</TD></TR>
     </TABLE>>
     URL="permission.html"
     tooltip="permission"

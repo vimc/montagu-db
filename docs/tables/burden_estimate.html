@@ -248,9 +248,26 @@
 				 </td>
 				 <td></td>
 				</tr>
+				<tr>
+				 <td class='indexedColumn' title='Indexed'><i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'></i><span id="age">age</span></td>
+				 <td>int4</td>
+				 <td>10</td>
+				 <td title='nullable'>√</td>
+				 <td title=''></td>
+				 <td>null</td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				  </table>				 
+				 </td>
+				 <td>
+				  <table border='0' cellspacing='0' cellpadding='0'>
+				  </table>					 
+				 </td>
+				 <td></td>
+				</tr>
 								</tbody>
 				</table>
-				<p title='7 columns'>Table contained <span id="recordNumber">0</span> rows<p/>
+				<p title='8 columns'>Table contained <span id="recordNumber">0</span> rows<p/>
 			</div>
 		</div>
 		<div class="box box-primary">		
@@ -283,10 +300,16 @@
 				  <td>id</td>
 				 </tr>				 
 				 <tr>
-				  <td class='uniqueKey' title='Unique Key'><i class='icon ion-key iconkey'></i> burden_estimate_burden_estimate_set_country_year_burden_out_key</td>
+				  <td title='Indexed'>burden_estimate_burden_estimate_set_idx</td>
+				  <td>Performance</td>
+				  <td><span title='Ascending'>Asc</span></td>
+				  <td>burden_estimate_set</td>
+				 </tr>				 
+				 <tr>
+				  <td class='uniqueKey' title='Unique Key'><i class='icon ion-key iconkey'></i> burden_estimate_unique</td>
 				  <td>Must be unique</td>
-				  <td><span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span></td>
-				  <td>burden_estimate_set + country + year + burden_outcome</td>
+				  <td><span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span></td>
+				  <td>burden_estimate_set + country + year + age + burden_outcome</td>
 				 </tr>				 
 				</tbody>
 				</table>   			  
@@ -317,9 +340,9 @@
             <div class="tab-content no-padding">            
 				<div class="chart tab-pane active" id="oneDegreeImg-chart" style="position: relative; overflow-x:auto;">					
 					<map id="oneDegreeRelationshipsDiagram" name="oneDegreeRelationshipsDiagram">
-<area shape="rect" id="node1" href="burden_estimate.html" title="burden_estimate" alt="" coords="312,167,705,441">
+<area shape="rect" id="node1" href="burden_estimate.html" title="burden_estimate" alt="" coords="312,167,705,471">
 <area shape="rect" id="node2" href="burden_estimate_set.html" title="burden_estimate_set" alt="" coords="5,5,268,211">
-<area shape="rect" id="node3" href="burden_outcome.html" title="burden_outcome" alt="" coords="23,368,250,515">
+<area shape="rect" id="node3" href="burden_outcome.html" title="burden_outcome" alt="" coords="23,368,250,520">
 <area shape="rect" id="node4" href="country.html" title="country" alt="" coords="58,228,215,351">
 </map>
 
@@ -327,32 +350,32 @@
 				</div>
 				<div class="chart tab-pane " id="twodegreesDegreeImg-chart" style="position: relative; overflow-x:auto;">					
 					<map id="twoDegreesRelationshipsDiagram" name="twoDegreesRelationshipsDiagram">
-<area shape="rect" id="node1" href="burden_estimate.html" title="burden_estimate" alt="" coords="563,252,956,527">
-<area shape="rect" id="node2" href="burden_estimate_set.html" title="burden_estimate_set" alt="" coords="256,243,519,448">
-<area shape="rect" id="node3" href="burden_outcome.html" title="burden_outcome" alt="" coords="274,79,501,225">
-<area shape="rect" id="node4" href="country.html" title="country" alt="" coords="309,788,466,911">
-<area shape="rect" id="node5" href="model_version.html" title="model_version" alt="" coords="5,275,212,363">
-<area shape="rect" id="node6" href="responsibility.html" title="responsibility" alt="" coords="9,169,208,257">
-<area shape="rect" id="node7" href="app_user.html" title="app_user" alt="" coords="27,380,191,468">
+<area shape="rect" id="node1" href="burden_estimate.html" title="burden_estimate" alt="" coords="563,252,956,556">
+<area shape="rect" id="node2" href="burden_estimate_set.html" title="burden_estimate_set" alt="" coords="256,248,519,453">
+<area shape="rect" id="node3" href="burden_outcome.html" title="burden_outcome" alt="" coords="274,79,501,231">
+<area shape="rect" id="node4" href="country.html" title="country" alt="" coords="309,817,466,940">
+<area shape="rect" id="node5" href="model_version.html" title="model_version" alt="" coords="5,280,212,368">
+<area shape="rect" id="node6" href="responsibility.html" title="responsibility" alt="" coords="9,175,208,263">
+<area shape="rect" id="node7" href="app_user.html" title="app_user" alt="" coords="27,385,191,473">
 <area shape="rect" id="node8" href="burden_estimate_set_problem.html" title="burden_estimate_set_problem" alt="" coords="591,111,928,199">
-<area shape="rect" id="node9" href="country_metadata.html" title="country_metadata" alt="" coords="639,896,880,984">
-<area shape="rect" id="node10" href="country_vaccine_metadata.html" title="country_vaccine_metadata" alt="" coords="604,1001,915,1089">
-<area shape="rect" id="node11" href="coverage.html" title="coverage" alt="" coords="677,1107,842,1195">
-<area shape="rect" id="node12" href="demographic_statistic.html" title="demographic_statistic" alt="" coords="624,649,895,737">
-<area shape="rect" id="node13" href="impact_estimate.html" title="impact_estimate" alt="" coords="1062,631,1289,719">
-<area shape="rect" id="node14" href="impact_estimate_set.html" title="impact_estimate_set" alt="" coords="629,544,890,632">
+<area shape="rect" id="node9" href="country_metadata.html" title="country_metadata" alt="" coords="639,925,880,1013">
+<area shape="rect" id="node10" href="country_vaccine_metadata.html" title="country_vaccine_metadata" alt="" coords="604,1031,915,1119">
+<area shape="rect" id="node11" href="coverage.html" title="coverage" alt="" coords="677,1136,842,1224">
+<area shape="rect" id="node12" href="demographic_statistic.html" title="demographic_statistic" alt="" coords="624,679,895,767">
+<area shape="rect" id="node13" href="impact_estimate.html" title="impact_estimate" alt="" coords="1062,660,1289,748">
+<area shape="rect" id="node14" href="impact_estimate_set.html" title="impact_estimate_set" alt="" coords="629,573,890,661">
 <area shape="rect" id="node15" href="impact_estimate_ingredient.html" title="impact_estimate_ingredient" alt="" coords="601,5,918,93">
 <area shape="rect" id="node16" href="impact_estimate_set_ingredient.html" title="impact_estimate_set_ingredient" alt="" coords="1000,179,1351,267">
-<area shape="rect" id="node17" href="touchstone_country.html" title="touchstone_country" alt="" coords="633,791,886,879">
+<area shape="rect" id="node17" href="touchstone_country.html" title="touchstone_country" alt="" coords="633,820,886,908">
 </map>
 
 					<a name='diagram'><img id='twodegreesDegreeImg' src='../diagrams/burden_estimate.2degrees.png' usemap='#twoDegreesRelationshipsDiagram' class='diagram' border='0' alt='' align='left'></a>							
 				</div>
 				<div class="chart tab-pane " id="oneimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">					
 					<map id="oneDegreeRelationshipsDiagramImplied" name="oneDegreeRelationshipsDiagramImplied">
-<area shape="rect" id="node1" href="burden_estimate.html" title="burden_estimate" alt="" coords="312,167,705,441">
+<area shape="rect" id="node1" href="burden_estimate.html" title="burden_estimate" alt="" coords="312,167,705,471">
 <area shape="rect" id="node2" href="burden_estimate_set.html" title="burden_estimate_set" alt="" coords="5,5,268,211">
-<area shape="rect" id="node3" href="burden_outcome.html" title="burden_outcome" alt="" coords="23,368,250,515">
+<area shape="rect" id="node3" href="burden_outcome.html" title="burden_outcome" alt="" coords="23,368,250,520">
 <area shape="rect" id="node4" href="country.html" title="country" alt="" coords="58,228,215,351">
 </map>
 
@@ -360,24 +383,24 @@
 				</div>
 				<div class="chart tab-pane " id="twoimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">					
 					<map id="twoDegreesRelationshipsDiagramImplied" name="twoDegreesRelationshipsDiagramImplied">
-<area shape="rect" id="node1" href="app_user.html" title="app_user" alt="" coords="249,416,413,504">
-<area shape="rect" id="node2" href="permission.html" title="permission" alt="" coords="5,416,184,504">
-<area shape="rect" id="node3" href="burden_estimate.html" title="burden_estimate" alt="" coords="785,216,1179,491">
-<area shape="rect" id="node4" href="burden_estimate_set.html" title="burden_estimate_set" alt="" coords="479,279,741,484">
-<area shape="rect" id="node5" href="burden_outcome.html" title="burden_outcome" alt="" coords="497,115,723,261">
-<area shape="rect" id="node6" href="country.html" title="country" alt="" coords="522,804,698,927">
-<area shape="rect" id="node7" href="model_version.html" title="model_version" alt="" coords="228,311,435,399">
-<area shape="rect" id="node8" href="responsibility.html" title="responsibility" alt="" coords="232,205,431,293">
-<area shape="rect" id="node9" href="burden_estimate_set_problem.html" title="burden_estimate_set_problem" alt="" coords="813,111,1151,199">
-<area shape="rect" id="node10" href="country_metadata.html" title="country_metadata" alt="" coords="861,965,1103,1053">
-<area shape="rect" id="node11" href="country_vaccine_metadata.html" title="country_vaccine_metadata" alt="" coords="827,1071,1137,1159">
-<area shape="rect" id="node12" href="coverage.html" title="coverage" alt="" coords="899,649,1065,737">
-<area shape="rect" id="node13" href="demographic_statistic.html" title="demographic_statistic" alt="" coords="847,755,1117,843">
-<area shape="rect" id="node14" href="impact_estimate.html" title="impact_estimate" alt="" coords="1285,857,1511,945">
-<area shape="rect" id="node15" href="impact_estimate_set.html" title="impact_estimate_set" alt="" coords="851,544,1113,632">
-<area shape="rect" id="node16" href="impact_estimate_ingredient.html" title="impact_estimate_ingredient" alt="" coords="823,5,1141,93">
-<area shape="rect" id="node17" href="impact_estimate_set_ingredient.html" title="impact_estimate_set_ingredient" alt="" coords="1223,471,1573,559">
-<area shape="rect" id="node18" href="touchstone_country.html" title="touchstone_country" alt="" coords="855,860,1109,948">
+<area shape="rect" id="node1" href="app_user.html" title="app_user" alt="" coords="259,267,423,355">
+<area shape="rect" id="node2" href="permission.html" title="permission" alt="" coords="5,403,184,491">
+<area shape="rect" id="node3" href="burden_estimate.html" title="burden_estimate" alt="" coords="860,288,1253,592">
+<area shape="rect" id="node4" href="burden_estimate_set.html" title="burden_estimate_set" alt="" coords="526,104,789,309">
+<area shape="rect" id="node5" href="burden_outcome.html" title="burden_outcome" alt="" coords="228,408,455,560">
+<area shape="rect" id="node6" href="country.html" title="country" alt="" coords="569,765,745,888">
+<area shape="rect" id="node7" href="model_version.html" title="model_version" alt="" coords="238,56,445,144">
+<area shape="rect" id="node8" href="responsibility.html" title="responsibility" alt="" coords="242,161,441,249">
+<area shape="rect" id="node9" href="burden_estimate_set_problem.html" title="burden_estimate_set_problem" alt="" coords="888,5,1225,93">
+<area shape="rect" id="node10" href="country_metadata.html" title="country_metadata" alt="" coords="936,1067,1177,1155">
+<area shape="rect" id="node11" href="country_vaccine_metadata.html" title="country_vaccine_metadata" alt="" coords="901,609,1212,697">
+<area shape="rect" id="node12" href="coverage.html" title="coverage" alt="" coords="974,715,1139,803">
+<area shape="rect" id="node13" href="demographic_statistic.html" title="demographic_statistic" alt="" coords="921,820,1192,908">
+<area shape="rect" id="node14" href="impact_estimate.html" title="impact_estimate" alt="" coords="1359,604,1586,692">
+<area shape="rect" id="node15" href="impact_estimate_set.html" title="impact_estimate_set" alt="" coords="926,183,1187,271">
+<area shape="rect" id="node16" href="impact_estimate_ingredient.html" title="impact_estimate_ingredient" alt="" coords="499,332,816,420">
+<area shape="rect" id="node17" href="impact_estimate_set_ingredient.html" title="impact_estimate_set_ingredient" alt="" coords="1297,109,1648,197">
+<area shape="rect" id="node18" href="touchstone_country.html" title="touchstone_country" alt="" coords="930,925,1183,1013">
 </map>
 
 					<a name='diagram'><img id='twoimpliedDegreeImg' src='../diagrams/burden_estimate.implied2degrees.png' usemap='#twoDegreesRelationshipsDiagramImplied' class='diagram' border='0' alt='' align='left'></a>							
