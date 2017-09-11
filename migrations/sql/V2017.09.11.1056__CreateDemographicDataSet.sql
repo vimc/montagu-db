@@ -175,3 +175,6 @@ UPDATE TABLE "demographic_dataset" SET demographic_dataset=43 WHERE demographic_
 
 INSERT INTO "demographic_dataset" (id, description, source, type) VALUES (44, "UNWPP_2017_1 Mortality, Under 1 IMR", 6, 22);
 UPDATE TABLE "demographic_dataset" SET demographic_dataset=44 WHERE demographic_source=6 AND demographic_statistic_type=22;
+
+/* Guessing at the syntax for this from other examples...*/
+ALTER SEQUENCE demographic_dataset_id_seq RESTART WITH 45;
