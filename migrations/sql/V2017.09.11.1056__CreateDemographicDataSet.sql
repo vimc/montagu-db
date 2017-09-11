@@ -25,7 +25,7 @@ ALTER TABLE "demographic_statistic" ADD "demographic_dataset" INTEGER;
 ALTER TABLE "demographic_statistic" ADD FOREIGN KEY (demographic_dataset") REFERENCES "demographic_dataset" ("id");
 
 ALTER TABLE "touchstone" ADD "touchstone_demographic_dataset" INTEGER;
-ALTER TABLE "touchstone" ADD FOREIGN KEY (touchstone_demographic_dataset" REFERENCES "touchstone_demographic_dataset" ("id");
+ALTER TABLE "touchstone" ADD FOREIGN KEY ("touchstone_demographic_dataset") REFERENCES "touchstone_demographic_dataset" ("id");
 
 
 /* UNWPP_2012 (source 1) has types int_pop (10), and tot_pop (20) */
@@ -100,7 +100,7 @@ UPDATE TABLE "demographic_dataset" SET demographic_dataset=21 WHERE demographic_
 INSERT INTO "demographic_dataset" (id, description, source, type) VALUES (22, "UNWPP_2017 Mortality, Under 1 IMR", 3, 22);
 UPDATE TABLE "demographic_dataset" SET demographic_dataset=22 WHERE demographic_source=3 AND demographic_statistic_type=22;
 
-/* cm_2015 (source 4) - not in a touchstone, but has these three sources
+/* cm_2015 (source 4) - not in a touchstone, but has these three sources */
 
 INSERT INTO "demographic_dataset" (id, description, source, type) VALUES (23, "CM_2015 Mortality, Under 5 U5MR", 4, 6);
 UPDATE TABLE "demographic_dataset" SET demographic_dataset=23 WHERE demographic_source=4 AND demographic_statistic_type=6;
@@ -111,7 +111,7 @@ UPDATE TABLE "demographic_dataset" SET demographic_dataset=24 WHERE demographic_
 INSERT INTO "demographic_dataset" (id, description, source, type) VALUES (25, "CM_2015 Mortality, Neonatal 28 day NMR", 4, 8);
 UPDATE TABLE "demographic_dataset" SET demographic_dataset=25 WHERE demographic_source=4 AND demographic_statistic_type=22;
 
-/* unwpp_2017_cm2-15_hybrid (source 5) - one source.
+/* unwpp_2017_cm2-15_hybrid (source 5) - one source. */
 
 INSERT INTO "demographic_dataset" (id, description, source, type) VALUES (26, "UNWPP_2017_CM_2015 Mortality Neonatal 28 day", 5, 23);
 UPDATE TABLE "demographic_dataset" SET demographic_dataset=26 WHERE demographic_source=5 AND demographic_statistic_type=23;
