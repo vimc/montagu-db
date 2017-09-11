@@ -1,0 +1,1 @@
+ALTER TABLE burden_estimate ADD COLUMN age int NULL;
