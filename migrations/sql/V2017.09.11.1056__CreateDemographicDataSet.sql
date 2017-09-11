@@ -22,7 +22,7 @@ ALTER TABLE "touchstone_demographic_dataset" ADD FOREIGN KEY ("demographic_datas
 ALTER TABLE "touchstone_demographic_dataset" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 
 ALTER TABLE "demographic_statistic" ADD "demographic_dataset" INTEGER;
-ALTER TABLE "demographic_statistic" ADD FOREIGN KEY (demographic_dataset") REFERENCES "demographic_dataset" ("id");
+ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("demographic_dataset") REFERENCES "demographic_dataset" ("id");
 
 ALTER TABLE "touchstone" ADD "touchstone_demographic_dataset" INTEGER;
 ALTER TABLE "touchstone" ADD FOREIGN KEY ("touchstone_demographic_dataset") REFERENCES "touchstone_demographic_dataset" ("id");
