@@ -1,0 +1,1 @@
+ALTER TABLE ONLY burden_estimate_set ALTER COLUMN uploaded_on SET DEFAULT date_trunc('milliseconds', now())
