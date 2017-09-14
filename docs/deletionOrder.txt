@@ -41,6 +41,7 @@ support_type
 responsibility_set_status
 impact_outcome
 demographic_value_unit
+burden_outcome
 demographic_variant
 app_user
 vaccine
@@ -48,6 +49,5 @@ disease
 touchstone_name
 gender
 gavi_support_level
-burden_outcome
 activity_type
 permission
