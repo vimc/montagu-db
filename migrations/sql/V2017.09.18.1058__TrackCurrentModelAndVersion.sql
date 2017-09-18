@@ -7,8 +7,8 @@ ALTER TABLE modelling_group
 ALTER TABLE model
     DROP COLUMN current,
     ADD COLUMN is_current boolean NOT NULL DEFAULT FALSE,
-    ADD COLUMN current_version serial REFERENCES model_version (id) DEFAULT NULL,
-    ADD COLUMN disease text REFERENCES disease (id) DEFAULT NULL;
+    ADD COLUMN current_version serial,
+    ADD COLUMN disease text;
 
 -- Add disease information to models
 UPDATE model SET disease = 'HepB' WHERE id in 
@@ -60,8 +60,11 @@ SET current_version = inserted_versions.id
 FROM inserted_versions
 WHERE model.id = inserted_versions.model;
 
--- Add not null constraint to model.disease
-ALTER TABLE model ALTER COLUMN disease SET NOT NULL;
+-- Add constraints to model
+ALTER TABLE model 
+    ALTER COLUMN disease SET NOT NULL,
+    ADD FOREIGN KEY (disease) REFERENCES disease(id)
+    ADD FOREIGN KEY (current_version) REFERENCES model_version(id);
 
 -- Add conditional unique constraint to model
 CREATE UNIQUE INDEX modelling_group_disease_unique_when_current ON
