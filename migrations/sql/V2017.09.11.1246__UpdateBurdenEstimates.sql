@@ -26,7 +26,7 @@ INSERT INTO burden_outcome (code, name) VALUES ('cohort_size', 'Cohort size');
 INSERT INTO burden_outcome (code, name) VALUES ('hepb_deaths_acute',       'Deaths due to Hep B acute infection');
 INSERT INTO burden_outcome (code, name) VALUES ('hepb_deaths_dec_cirrh',   'Deaths due to Hep B decompensated cirrhosis');
 INSERT INTO burden_outcome (code, name) VALUES ('hepb_deaths_hcc',         'Deaths due to Hep B hepatocelular cancer');
-INSERT INTO burden_outcome (code, name) VALUES ('hepb_total_cirrh',        'Deaths due to Hep B cirrhosis (compensated and decompensated)');
+INSERT INTO burden_outcome (code, name) VALUES ('hepb_deaths_total_cirrh', 'Deaths due to Hep B cirrhosis (compensated and decompensated)');
 INSERT INTO burden_outcome (code, name) VALUES ('hepb_cases_acute_severe', 'Cases of Hep B severe acute infection');
 INSERT INTO burden_outcome (code, name) VALUES ('hepb_cases_dec_cirrh',    'Cases of Hep B decompensated cirrhosis');
 INSERT INTO burden_outcome (code, name) VALUES ('hepb_cases_hcc',          'Cases of Hep B hepatocelular cancer');
