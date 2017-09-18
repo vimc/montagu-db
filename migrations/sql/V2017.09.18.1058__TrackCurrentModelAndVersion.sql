@@ -7,8 +7,8 @@ ALTER TABLE modelling_group
 ALTER TABLE model
     DROP COLUMN current,
     ADD COLUMN is_current boolean NOT NULL DEFAULT FALSE,
-    ADD COLUMN current_version serial REFERENCES model_version (id),
-    ADD COLUMN disease text REFERENCES disease (id);
+    ADD COLUMN current_version serial REFERENCES model_version (id) DEFAULT NULL,
+    ADD COLUMN disease text REFERENCES disease (id) DEFAULT NULL;
 
 -- Add disease information to models
 UPDATE model SET disease = 'HepB' WHERE id in 
