@@ -5,11 +5,11 @@ ALTER TABLE modelling_group
     RENAME COLUMN current to replaced_by;
 
 ALTER TABLE model
-    DROP COLUMN current
-    ADD COLUMN is_current boolean
-    ALTER COLUMN is_current SET DEFAULT FALSE
-    ALTER COLUMN is_current SET NOT NULL
-    ADD COLUMN current_version serial REFERENCES model_version (id)
+    DROP COLUMN current,
+    ADD COLUMN is_current boolean,
+    ALTER COLUMN is_current SET DEFAULT FALSE,
+    ALTER COLUMN is_current SET NOT NULL,
+    ADD COLUMN current_version serial REFERENCES model_version (id),
     ADD COLUMN disease text REFERENCES disease (id);
 
 -- Add disease information to models
@@ -38,7 +38,7 @@ UPDATE model SET disease = 'YF' WHERE id in
 UPDATE model SET is_current = TRUE;
 UPDATE model SET is_current = FALSE WHERE modelling_group IN 
     ('unknown', 'Harvard-Sweet', 'LSHTM-Edmunds');
-UPDATE model SET is_current = FALSE WHERE model IN 
+UPDATE model SET is_current = FALSE WHERE id IN 
     ('PATH-MenA');
 -- This is the only modelling group that has more than one model for the same
 -- disease. I've just picked one of three models at random - we need Tini on
@@ -55,7 +55,7 @@ WITH inserted_versions AS (
         'what versions the groups used in this touchstone'
     FROM model
     WHERE model.is_current
-    RETURNING model_version.id
+    RETURNING model_version.id, model_version.model
 )
 UPDATE model
 SET current_version = inserted_versions.id
