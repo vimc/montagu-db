@@ -1,5 +1,5 @@
-DELETE FROM model
-    WHERE id = 'unknown';
+DELETE FROM model_version WHERE model = 'unknown';
+DELETE FROM model WHERE id = 'unknown';
 
 ALTER TABLE modelling_group
     RENAME COLUMN current to replaced_by;
