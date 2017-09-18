@@ -1,3 +1,6 @@
+DELETE FROM model
+    WHERE id = 'unknown';
+
 ALTER TABLE modelling_group
     RENAME COLUMN current to replaced_by;
 
@@ -6,7 +9,7 @@ ALTER TABLE model
     ADD COLUMN is_current boolean
     ALTER COLUMN is_current SET DEFAULT FALSE
     ALTER COLUMN is_current SET NOT NULL
-    ADD COLUMN current_version serial REFERENCES model (id)
+    ADD COLUMN current_version serial REFERENCES model_version (id)
     ADD COLUMN disease text REFERENCES disease (id);
 
 -- Add disease information to models
@@ -31,7 +34,7 @@ UPDATE model SET disease = 'Rubella' where id in
 UPDATE model SET disease = 'YF' where id in
     ('UnknownYF', 'YFIC');
 
--- Add "is_current information to models"
+-- Add is_current information to models
 UPDATE model SET is_current = TRUE;
 UPDATE model SET is_current = FALSE where modelling_group = 'unknown';
 UPDATE model SET is_current = FALSE where modelling_group = 'Harvard-Sweet';
@@ -49,3 +52,6 @@ SELECT model.id, '201708test',
     'versions the groups used in this touchstone')
 FROM model
 WHERE model.is_current;
+
+-- Add not null constraint to model.disease
+-- Add conditional unique constraint to model
