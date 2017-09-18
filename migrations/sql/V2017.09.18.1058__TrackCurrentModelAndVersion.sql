@@ -61,11 +61,11 @@ FROM inserted_versions
 WHERE model.id = inserted_versions.model;
 
 -- Add constraints to model
-ALTER TABLE model 
-    ALTER COLUMN disease SET NOT NULL,
-    ADD FOREIGN KEY (disease) REFERENCES disease(id),
-    ADD FOREIGN KEY (current_version) REFERENCES model_version(id);
+--ALTER TABLE model 
+--    ALTER COLUMN disease SET NOT NULL,
+--    ADD FOREIGN KEY (disease) REFERENCES disease(id),
+--    ADD FOREIGN KEY (current_version) REFERENCES model_version(id);
 
 -- Add conditional unique constraint to model
-CREATE UNIQUE INDEX modelling_group_disease_unique_when_current ON
-    model (modelling_group, disease) WHERE (is_current);
+--CREATE UNIQUE INDEX modelling_group_disease_unique_when_current ON
+--    model (modelling_group, disease) WHERE (is_current);
