@@ -14,11 +14,11 @@ ALTER TABLE model
 
 -- Add disease information to models
 UPDATE model SET disease = 'HepB' WHERE id in 
-    ('HepBGoldstein', 'HepBIC', 'HepBSTATIC');
+    ('HepBGoldstein', 'HepBIC', 'HepBSTATIC', 'PRoGReSs');
 UPDATE model SET disease = 'Hib' where id in
     ('LiST-Hib', 'TRIVAC-Hib');
 UPDATE model SET disease = 'HPV' where id in
-    ('PRIME', 'HPVGoldie', 'HPVGoldie-flat', 'HPVGoldie-linear', 'PRoGReSs');
+    ('PRIME', 'HPVGoldie', 'HPVGoldie-flat', 'HPVGoldie-linear');
 UPDATE model SET disease = 'JE' where id in 
     ('JE-Clapham', 'PATH-JE');
 UPDATE model SET disease = 'Measles' where id in 
@@ -36,8 +36,10 @@ UPDATE model SET disease = 'YF' where id in
 
 -- Add is_current information to models
 UPDATE model SET is_current = TRUE;
-UPDATE model SET is_current = FALSE where modelling_group = 'unknown';
-UPDATE model SET is_current = FALSE where modelling_group = 'Harvard-Sweet';
+UPDATE model SET is_current = FALSE where modelling_group IN 
+    ('unknown', 'Harvard-Sweet', 'LSHTM-Edmunds');
+UPDATE model SET is_current = FALSE where model IN 
+    ('PATH-MenA');
 -- This is the only modelling group that has more than one model for the same
 -- disease. I've just picked one of three models at random - we need Tini on
 -- this one.
