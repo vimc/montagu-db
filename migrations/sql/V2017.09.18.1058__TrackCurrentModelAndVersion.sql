@@ -48,12 +48,19 @@ UPDATE model SET is_current = TRUE
     and id = 'HPVGoldie';
 
 -- Create a new version for every model
-INSERT INTO model_version (model, version, note)
-SELECT model.id, '201708test', 
-    'Generated automatically - we have not gathered any information about what '
-    'versions the groups used in this touchstone')
-FROM model
-WHERE model.is_current;
+WITH inserted_versions AS (
+    INSERT INTO model_version (model, version, note)
+    SELECT model.id, '201708test', 
+        'Generated automatically - we have not gathered any information about '
+        'what versions the groups used in this touchstone'
+    FROM model
+    WHERE model.is_current
+    RETURNING model_version.id
+)
+UPDATE model
+SET current_version = inserted_versions.id
+FROM inserted_versions
+WHERE model.id = inserted_versions.model;
 
 -- Add not null constraint to model.disease
 ALTER TABLE model ALTER COLUMN disease SET NOT NULL;
