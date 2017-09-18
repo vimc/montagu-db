@@ -56,4 +56,8 @@ FROM model
 WHERE model.is_current;
 
 -- Add not null constraint to model.disease
+ALTER TABLE model ALTER COLUMN disease SET NOT NULL;
+
 -- Add conditional unique constraint to model
+CREATE UNIQUE INDEX modelling_group_disease_unique_when_current ON
+    model (modelling_group, disease) WHERE (is_current);
