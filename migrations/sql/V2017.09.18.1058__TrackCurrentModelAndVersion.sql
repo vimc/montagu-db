@@ -63,7 +63,7 @@ WHERE model.id = inserted_versions.model;
 -- Add constraints to model
 ALTER TABLE model 
     ALTER COLUMN disease SET NOT NULL,
-    ADD FOREIGN KEY (disease) REFERENCES disease(id)
+    ADD FOREIGN KEY (disease) REFERENCES disease(id),
     ADD FOREIGN KEY (current_version) REFERENCES model_version(id);
 
 -- Add conditional unique constraint to model
