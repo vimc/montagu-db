@@ -7,7 +7,7 @@ ALTER TABLE modelling_group
 ALTER TABLE model
     DROP COLUMN current,
     ADD COLUMN is_current boolean NOT NULL DEFAULT FALSE,
-    ADD COLUMN current_version serial,
+    ADD COLUMN current_version INTEGER NULL,
     ADD COLUMN disease text;
 
 -- Add disease information to models
