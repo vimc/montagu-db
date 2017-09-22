@@ -1,0 +1,1 @@
+INSERT INTO role_permission VALUES (9, 'estimates.write');
