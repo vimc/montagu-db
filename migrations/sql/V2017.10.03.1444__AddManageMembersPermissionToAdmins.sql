@@ -1,0 +1,1 @@
+INSERT INTO role_permission VALUES (5, 'modelling-groups.manage-members');
