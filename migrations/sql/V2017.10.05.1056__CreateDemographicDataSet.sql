@@ -19,7 +19,6 @@ ALTER TABLE "demographic_dataset" ADD FOREIGN KEY ("demographic_statistic_type")
 /* Create "touchstone_demographic_dataset" table */
 /* This allows a touchstone to have multiple demographic datasets - compared to touchstone_demographic_source */
 /* NB, touchstone is an FK, but TEXT not INTEGER. */
-/* DEPRECATE touchstone_demographic_source in due course */
 
 CREATE TABLE "touchstone_demographic_dataset" (
   "id"  SERIAL ,
@@ -34,13 +33,11 @@ ALTER TABLE "touchstone_demographic_dataset" ADD FOREIGN KEY ("demographic_datas
 ALTER TABLE "touchstone_demographic_dataset" ADD FOREIGN KEY ("touchstone") REFERENCES "touchstone" ("id");
 
 /* Every demographic_statistic now needs to belong to a demographic_dataset */
-/* DEPRECATE demographic_statistic.demographic_source and demographic_statistic.demographic_statistic_type */
 
 ALTER TABLE "demographic_statistic" ADD "demographic_dataset" INTEGER;
 ALTER TABLE "demographic_statistic" ADD FOREIGN KEY ("demographic_dataset") REFERENCES "demographic_dataset" ("id");
 
 /* Add touchstone_demographic_dataset field to touchstone - and add FK */
-/* DEPRECATE touchstone.touchstone_demographic_source */
 
 ALTER TABLE "touchstone" ADD "touchstone_demographic_dataset" INTEGER;
 ALTER TABLE "touchstone" ADD FOREIGN KEY ("touchstone_demographic_dataset") REFERENCES "touchstone_demographic_dataset" ("id");
@@ -62,7 +59,7 @@ UPDATE TABLE "demographic_statistic" SET demographic_dataset=3 WHERE demographic
 INSERT INTO "demographic_dataset" (id, description, source, type) VALUES (4, "UNWPP_2015 Total Population", 2, 20);
 UPDATE TABLE "demographic_statistic" SET demographic_dataset=4 WHERE demographic_source=2 AND demographic_statistic_type=10;
 
-/* UNWPP_2017 (source 3) has many types - note deaths added at the end - i642_643 */
+/* UNWPP_2017 (source 3) has types 1..5, 9..13, 15..22 */
 
 INSERT INTO "demographic_dataset" (id, description, source, type) VALUES (5, "UNWPP_2017 Fertility, age-specific", 3, 1);
 UPDATE TABLE "demographic_statistic" SET demographic_dataset=5 WHERE demographic_source=3 AND demographic_statistic_type=1;
@@ -118,7 +115,7 @@ UPDATE TABLE "demographic_statistic" SET demographic_dataset=21 WHERE demographi
 INSERT INTO "demographic_dataset" (id, description, source, type) VALUES (22, "UNWPP_2017 Mortality, Under 1 IMR", 3, 22);
 UPDATE TABLE "demographic_statistic" SET demographic_dataset=22 WHERE demographic_source=3 AND demographic_statistic_type=22;
 
-/* cm_2015 (source 4) - not in a touchstone, but has these three sources */
+/* cm_2015 (source 4) - not in a touchstone, but has three sources, 6,7,8 */
 
 INSERT INTO "demographic_dataset" (id, description, source, type) VALUES (23, "CM_2015 Mortality, Under 5 U5MR", 4, 6);
 UPDATE TABLE "demographic_statistic" SET demographic_dataset=23 WHERE demographic_source=4 AND demographic_statistic_type=6;
@@ -129,13 +126,13 @@ UPDATE TABLE "demographic_statistic" SET demographic_dataset=24 WHERE demographi
 INSERT INTO "demographic_dataset" (id, description, source, type) VALUES (25, "CM_2015 Mortality, Neonatal 28 day NMR", 4, 8);
 UPDATE TABLE "demographic_statistic" SET demographic_dataset=25 WHERE demographic_source=4 AND demographic_statistic_type=22;
 
-/* unwpp_2017_cm2-15_hybrid (source 5) - one source. */
+/* unwpp_2017_cm2-15_hybrid (source 5) - one source, 23, the hybrid NMR */
 
 INSERT INTO "demographic_dataset" (id, description, source, type) VALUES (26, "UNWPP_2017_CM_2015 Mortality Neonatal 28 day", 5, 23);
 UPDATE TABLE "demographic_statistic" SET demographic_dataset=26 WHERE demographic_source=5 AND demographic_statistic_type=23;
 
-/* AFTER the i642_643 fix */
-/* unwpp_2017_1 (source 6) - all the UNWPP data, plus the fix for mortality */
+/* unwpp_2017_1 (source 6) - all the UNWPP data, plus the fix for mortality, the central death rate */
+/* And the births-by-age-of-woman. So that's 1-5, 9-22, 24-25 */
 
 INSERT INTO "demographic_dataset" (id, description, source, type) VALUES (27, "UNWPP_2017_1 Fertility, age-specific", 6, 1);
 UPDATE TABLE "demographic_statistic" SET demographic_dataset=27 WHERE demographic_source=6 AND demographic_statistic_type=1;
@@ -194,11 +191,18 @@ UPDATE TABLE "demographic_statistic" SET demographic_dataset=44 WHERE demographi
 INSERT INTO "demographic_dataset" (id, description, source, type) VALUES (45, "UNWPP_2017_1 Mortality, Under 1 IMR", 6, 22);
 UPDATE TABLE "demographic_statistic" SET demographic_dataset=45 WHERE demographic_source=6 AND demographic_statistic_type=22;
 
+INSERT INTO "demographic_dataset" (id, description, source, type) VALUES (46, "UNWPP_2017_1 Mortality: Central Death Rate", 6, 24);
+UPDATE TABLE "demographic_statistic" SET demographic_dataset=46 WHERE demographic_source=6 AND demographic_statistic_type=24;
+
+INSERT INTO "demographic_dataset" (id, description, source, type) VALUES (47, "UNWPP_2017_1 Fertility: Births by age of mother", 6, 25);
+UPDATE TABLE "demographic_statistic" SET demographic_dataset=47 WHERE demographic_source=6 AND demographic_statistic_type=25;
+
 /* Guessing at the syntax for this from other examples...*/
-ALTER SEQUENCE demographic_dataset_id_seq RESTART WITH 46;
+ALTER SEQUENCE demographic_dataset_id_seq RESTART WITH 48;
 
 /* Backward compatibiltiy for previous touchstones. Current touchstone_demographic table is:
 
+   id              touchstone demographic_source
    id              touchstone demographic_source
 1   1            201310gavi-1                  2
 2   2            201510gavi-4                  1
@@ -211,27 +215,45 @@ ALTER SEQUENCE demographic_dataset_id_seq RESTART WITH 46;
 9   9           201310gavi-42                  2
 10 10            201708test-1                  3
 11 11            201708test-1                  5
+12 13            201708test-2                  5
+13 14            201708test-2                  6
 
 */
 
+/* 20310gavi-1. Old Source 2. New dataset: 3,4
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201310gavi-1", 3)
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201310gavi-1", 4)
+
+/* The next seven touchstones all use old source 1 => new dataset: 1,2 */
+/* Touchstones: 201510gavi-{4,5,7,9} 2012gavi-201607wue-1, 201210gavi-201303gavi-1 and 20150gavi-42 /*
+
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201510gavi-4", 1)
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201510gavi-4", 2)
+
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201510gavi-5", 1)
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201510gavi-5", 2)
+
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201510gavi-7", 1)
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201510gavi-7", 2)
+
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201510gavi-9", 1)
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201510gavi-9", 2)
+
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201210gavi-201607wue-1", 1)
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201210gavi-201607wue-1", 2)
+
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201210gavi-201303gavi-1", 1)
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201210gavi-201303gavi-1", 2)
+
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201510gavi-42", 1)
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201510gavi-42", 2)
+
+/* 201310gavi-42 - old source = 2. new dataset = 3,4 */
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201310gavi-42", 3)
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201310gavi-42", 4)
+
+/* 201708test-1 - old sources 3 and 5. new datasets = 5-22 and 26
+
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-1", 5)
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-1", 6)
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-1", 7)
@@ -252,33 +274,52 @@ INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) V
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-1", 22)
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-1", 26)
 
-/* The next bit, the 201709test-1 touchstone - this is the "legacy" way of doing it - effectively, the changes
+/* The next bit, the 201708test-2 touchstone - this is the "legacy" way of doing it - effectively, the changes
    made to fix the demography required a whole separate data source to be created.
 
    If this happens in the future, we'll be able to select (source, type) for different sources - hence, 
    we would then use all the correct data from (say) UNWPP_2017, and just the corrected data from UNWPP_2017_1.
 
-   As it is, this is a backward compatibility issue, so 201709-test-1 uses the UNWPP_2017_1 sources (27-45),
+   As it is, this is a backward compatibility issue, so 201708test-2 uses the UNWPP_2017_1 sources (27-45),
    and the hybrid CM/UNWPP separate source, which was fine. (26).  
 */
+
+/* Anyway. 201708test-2 uses old sources 5 and 6. New datasets: 26 (from src 5), and 27-47 (from src 6). */
+/* Note that 46 and 47 are new datasets added (central mortality rate, and births-per-woman-of-age) */
    
-INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201709test-1", 27)
-INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201709test-1", 28)
-INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201709test-1", 29)
-INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201709test-1", 30)
-INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201709test-1", 31)
-INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201709test-1", 32)
-INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201709test-1", 33)
-INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201709test-1", 34)
-INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201709test-1", 35)
-INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201709test-1", 36)
-INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201709test-1", 37)
-INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201709test-1", 38)
-INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201709test-1", 39)
-INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201709test-1", 40)
-INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201709test-1", 41)
-INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201709test-1", 42)
-INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201709test-1", 43)
-INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201709test-1", 44)
-INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201709test-1", 45)
-INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201709test-1", 26)
+INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-2", 26)
+INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-2", 27)
+INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-2", 28)
+INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-2", 29)
+INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-2", 30)
+INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-2", 31)
+INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-2", 32)
+INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-2", 33)
+INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-2", 34)
+INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-2", 35)
+INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-2", 36)
+INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-2", 37)
+INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-2", 38)
+INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-2", 39)
+INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-2", 40)
+INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-2", 41)
+INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-2", 42)
+INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-2", 43)
+INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-2", 44)
+INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-2", 45)
+INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-2", 46)
+INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201708test-2", 47)
+
+/* None of these changes break the API, which is good news. Once we are using the new changes, then
+   the following things could be dropped..
+
+   * remove field demographic_statistic.demographic_source
+     (you get to it via demographic_statistic.demographic_dataset.demographic_source
+
+   * remove field demographic_statistic.demographic_statistic_type
+     (similar, this is demographic.statistic.demographic_dataset.demographic_statistic_type
+
+   * remove touchstone_demographic_source table.
+     (no longer relevant, because touchstone_demographic_dataset does the work)
+
+*/
