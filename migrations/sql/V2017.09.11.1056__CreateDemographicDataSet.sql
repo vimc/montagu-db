@@ -220,7 +220,7 @@ ALTER SEQUENCE demographic_dataset_id_seq RESTART WITH 48;
 
 */
 
-/* 20310gavi-1. Old Source 2. New dataset: 3,4 *.
+/* 20310gavi-1. Old Source 2. New dataset: 3,4 */
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201310gavi-1", 3)
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201310gavi-1", 4)
 
