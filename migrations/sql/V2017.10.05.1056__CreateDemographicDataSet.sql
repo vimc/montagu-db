@@ -225,7 +225,7 @@ INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) V
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201310gavi-1", 4)
 
 /* The next seven touchstones all use old source 1 => new dataset: 1,2 */
-/* Touchstones: 201510gavi-{4,5,7,9} 2012gavi-201607wue-1, 201210gavi-201303gavi-1 and 20150gavi-42 /*
+/* Touchstones: 201510gavi-{4,5,7,9} 2012gavi-201607wue-1, 201210gavi-201303gavi-1 and 20150gavi-42 */
 
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201510gavi-4", 1)
 INSERT INTO "touchstone_demographic_dataset" (touchstone, demographic_dataset) VALUES ("201510gavi-4", 2)
