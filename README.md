@@ -1,9 +1,9 @@
 # Montagu Database
 ## View the documentation
 You can view the full documentation for the master branch
-[here](https://rawgit.com/vimc/montagu-db/master/docs/index.html).
+[here](https://vimc.github.io/montagu-db-docs/latest) (see [here](https://vimc.github.io/montagu-db-docs) for previous versions).
 
-The closest equivalent to the old diagram is [here](docs/diagrams/summary/relationships.real.compact.png), 
+The closest equivalent to the old diagram is [here](https://vimc.github.io/montagu-db-docs/latest/diagrams/summary/relationships.real.compact.png),
 which you can also navigate to by clicking the "Relationships" tab. But I 
 encourage you to explore the full documentation. In particular, if you click on 
 any one table you will get a mini diagram explaining its relationships to other 
