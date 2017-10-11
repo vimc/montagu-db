@@ -6,6 +6,9 @@
 # load-dump-into-container
 
 set -ex
+
+/montagu-bin/terminate-clients.sh
+
 PATH_DUMP=$1
 DB_DEFAULT=postgres
 pg_restore --clean --create --verbose --stop-on-error --no-owner \
