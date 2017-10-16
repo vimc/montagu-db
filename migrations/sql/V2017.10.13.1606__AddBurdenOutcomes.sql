@@ -1,0 +1,2 @@
+INSERT INTO burden_outcome (code, name) VALUES ('hepb_cases_chronic',       'Cases of active chronic HepB infection + clinical evidence of damage from mild to severe liver damage');
+INSERT INTO burden_outcome (code, name) VALUES ('hepb_infections_chronic',       'Number of people tested positive for HepB chronic infection (HBsAg and anti-HBc)');
