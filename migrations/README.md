@@ -23,6 +23,9 @@ at:
 You can override these by passing in command line options. Please see the Flyway
 docs for more details.
 
+## Generate documentation
+Once TeamCity has build and the db Docker image has been pushed, run [the tool](https://github.com/vimc/montagu-db-doc) against the short commit hash.
+
 ## Baselining
 Because we started without migrations, I have created a number of 
 migrations that get from an empty database to one that has essential data in it
