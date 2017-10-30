@@ -9,7 +9,7 @@ encourage you to explore the full documentation. In particular, if you click on
 any one table you will get a mini diagram explaining its relationships to other 
 tables, which is often clearer.
 
-## Updating the data model
+## Updating the data model and docs
 See [migrations](migrations/README.md).
 
 ## Setting up docker for use with montagu
