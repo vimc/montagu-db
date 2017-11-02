@@ -13,3 +13,5 @@ COPY postgresql.test.conf postgresql.test.conf
 COPY start-with-config.sh /montagu-bin/start-with-config.sh
 
 RUN ./docker-entrypoint.sh --version
+
+COPY postgresql.conf2 /pgdata/postgresql.conf
