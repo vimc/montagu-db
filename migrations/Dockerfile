@@ -14,7 +14,9 @@ RUN wget https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/${FLYWAY
   && ln -s /flyway/flyway /usr/local/bin/flyway
 
 COPY migrations/sql /sql
+COPY migrations/sql-annex /sql-annex
 COPY migrations/flyway.conf /flyway/conf/flyway.conf
+COPY migrations/flyway-annex.conf /flyway/conf/flyway-annex.conf
 
 ENTRYPOINT ["flyway"]
 CMD ["migrate"]

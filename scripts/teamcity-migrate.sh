@@ -18,10 +18,16 @@ docker build \
        .
 
 docker network create migration_test
-docker run --rm --network=migration_test -d --name db $DB
-docker run --rm --network=migration_test $COMMIT_TAG
 
-docker stop db
+# First the core database:
+docker run --rm --network=migration_test -d --name db $DB
+docker run --rm --network=migration_test -d --name db-annex $DB
+
+docker run --rm --network=migration_test $COMMIT_TAG
+docker run --rm --network=migration_test $COMMIT_TAG -configFile=conf/flyway-annex.conf migrate
+
+docker stop db db-annex
+
 docker network rm migration_test
 
 docker push $COMMIT_TAG
