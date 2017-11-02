@@ -54,72 +54,12 @@ docker pull docker.montagu.dide.ic.ac.uk:5000/montagu-db:master
 docker run --rm -p 8888:5432 docker.montagu.dide.ic.ac.uk:5000/montagu-db:master
 ```
 
-## Restore a dump (as created from CI)
+## Restore a dump (from backup)
 
-This will delete all data in the database for the running container and import a dump from a file
-
-```
-CONTAINER_ID=$(docker run --rm -d -p 8888:5432 docker.montagu.dide.ic.ac.uk:5000/montagu-db:master)
-./scripts/load-dump-into-container.sh montagu.dump $CONTAINER_ID
-```
-
-Loading the demograph information takes considerably longer!  Run
+See the [montagu-backup](https://github.com/vimc/montagu-backup) repo for information on backing up and restoring.  Once done, you should have database file at `/montagu/db.dump`
 
 ```
-./scripts/load-demography.sh demography.dump $CONTAINER_ID
+docker run --rm -d --name montagu_db docker.montagu.dide.ic.ac.uk:5000/montagu-db:master
+docker cp /montagu/db.dump montagu_db:/tmp/import.dump
+docker exec montagu_db /montagu-bin/restore-dump.sh /tmp/import.dump
 ```
-
-## Use the empty container for testing
-
-```
-docker run -p 5432:5432 docker.montagu.dide.ic.ac.uk:5000/montagu-db:master
-psql -h localhost -p 5432 -U vimc -d montagu -c "\dt"
-```
-
-## Accessing the dump from R
-
-Install the `RPostgres` package.  On windows, run:
-
-``` r
-# install.packages("drat")
-drat:::add("dide-tools")
-install.packages("RPostgres")
-```
-
-On linux first install the postgres development libraries:
-
-```
-apt-get install libpq-dev
-```
-
-then install the package from source with
-
-``` r
-# install.packages("remotes")
-remotes::install_github("rstats-db/RPostgres", upgrade = FALSE)
-```
-
-To access a local copy of the database (started with docker) run:
-
-```r
-con <- DBI::dbConnect(RPostgres::Postgres(),
-                 dbname = "montagu",
-                 host = "localhost",
-                 port = 8888,
-                 password = "changeme",
-                 user = "vimc")
-```
-
-Or change host to `science.montagu.dide.ic.ac.uk` to run a copy running on our server.
-
-## Scripts
-
-The scripts in `bin` are designed to be run from within the docker image; they assume that the database is set up to run *without* a password (which is by default allowed via psql with local access).
-
-## Containers
-
-The database *process* container is disposable; it's just the [official postgres docker image](https://hub.docker.com/_/postgres/) with a few environment variables set and the [`bin`](bin) directory copied as `/montagu-bin` (and added to `$PATH`).
-
-The database *data volume* containers are persistent and we'll need to be able to do a few things to these.
-
-Docker seems to be moving fairly rapidly in terms of data volumes (which we'll be making use of) so I'm going to assume fairly recent docker throughout
