@@ -42,5 +42,5 @@ docker exec $MONTAGU_DB_ANNEX annex_sync subscribe start
 docker exec $MONTAGU_DB_ANNEX annex_sync subscribe stop
 docker exec $MONTAGU_DB annex_sync publish stop
 
-# docker push $COMMIT_TAG
-# docker push $BRANCH_TAG
+docker push $COMMIT_TAG
+docker push $BRANCH_TAG
