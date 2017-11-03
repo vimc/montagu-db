@@ -11,9 +11,6 @@ CREATE USER MAPPING for vimc
     SERVER montagu_db_annex
     OPTIONS (user 'vimc', password '${montagu_db_annex_password}');
 
-CREATE PUBLICATION sync_burden_estimate_set
-    FOR TABLE burden_estimate_set, country, burden_outcome;
-
 CREATE FOREIGN TABLE burden_estimate_stochastic (
         id BIGSERIAL NOT NULL,
         burden_estimate_set integer NOT NULL,
