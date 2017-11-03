@@ -42,16 +42,19 @@ def subscribe_start(d):
     # docs hint at a way of creating a replication slot directly using
     # "pg_create_logical_replication_slot with the plugin name
     # pgoutput) but there' no good guidance for that.
-    sql = """
+    sql1 = """
     ALTER TABLE burden_estimate_stochastic DISABLE TRIGGER ALL;
     DELETE FROM country;
     DELETE FROM burden_estimate_set;
-    DELETE FROM burden_outcome;
-    CREATE SUBSCRIPTION {subscription_name}
+    DELETE FROM burden_outcome;"""
+    psql(sql)
+    sql2 = """CREATE SUBSCRIPTION {subscription_name}
     CONNECTION 'dbname=montagu host={host} user=vimc password={password}'
-    PUBLICATION {subscription_name};
-    ALTER TABLE burden_estimate_stochastic ENABLE TRIGGER ALL;"""
-    psql(sql.format(**d))
+    PUBLICATION {subscription_name};"""
+    sql3 = "ALTER TABLE burden_estimate_stochastic ENABLE TRIGGER ALL;"
+    psql(sql1)
+    psql(sql2.format(**d))
+    psql(sql3)
 
 def subscribe_stop(d):
     sql = "DROP SUBSCRIPTION {subscription_name}"
