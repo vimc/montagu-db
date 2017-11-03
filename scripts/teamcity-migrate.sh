@@ -19,22 +19,28 @@ docker build \
 
 docker network create migration_test
 
+MONTAGU_DB=db
+MONTAGU_DB_ANNEX=db-annex
+
 function cleanup {
-    docker stop db db-annex
+    docker stop $MONTAGU_DB $MONTAGU_DB_ANNEX
     docker network rm migration_test
 }
 trap cleanup EXIT
 
 # First the core database:
-docker run --rm --network=migration_test -d --name db $DB
-docker run --rm --network=migration_test -d --name db-annex $DB
+docker run --rm --network=migration_test -d --name $MONTAGU_DB $DB
+docker run --rm --network=migration_test -d --name $MONTAGU_DB_ANNEX $DB
 
-# The main database *must* be migrated first because it will establish
-# a subscription that the annex will listen to
 docker run --rm --network=migration_test $COMMIT_TAG
-
-# At this point the annex can be migrated safely
 docker run --rm --network=migration_test $COMMIT_TAG -configFile=conf/flyway-annex.conf migrate
 
-docker push $COMMIT_TAG
-docker push $BRANCH_TAG
+# This works through establishing and then tearing down the connection
+# between the main database and the annex
+docker exec $MONTAGU_DB annex_sync publish start
+docker exec $MONTAGU_DB_ANNEX annex_sync subscribe start
+docker exec $MONTAGU_DB_ANNEX annex_sync subscribe stop
+docker exec $MONTAGU_DB annex_sync publish stop
+
+# docker push $COMMIT_TAG
+# docker push $BRANCH_TAG
