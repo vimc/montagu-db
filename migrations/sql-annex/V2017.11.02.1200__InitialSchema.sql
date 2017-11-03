@@ -52,7 +52,6 @@ ALTER TABLE burden_estimate_stochastic
 
 -- Further logical constraints
 ALTER TABLE burden_estimate_stochastic
-    ADD COLUMN age int DEFAULT NULL,
     ADD CONSTRAINT burden_estimate_stochastic_unique UNIQUE (
         burden_estimate_set,
         country,
