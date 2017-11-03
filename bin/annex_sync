@@ -47,7 +47,6 @@ def subscribe_start(d):
     DELETE FROM country;
     DELETE FROM burden_estimate_set;
     DELETE FROM burden_outcome;"""
-    psql(sql)
     sql2 = """CREATE SUBSCRIPTION {subscription_name}
     CONNECTION 'dbname=montagu host={host} user=vimc password={password}'
     PUBLICATION {subscription_name};"""
