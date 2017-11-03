@@ -35,12 +35,5 @@ docker run --rm --network=migration_test -d --name $MONTAGU_DB_ANNEX $DB
 docker run --rm --network=migration_test $COMMIT_TAG
 docker run --rm --network=migration_test $COMMIT_TAG -configFile=conf/flyway-annex.conf migrate
 
-# This works through establishing and then tearing down the connection
-# between the main database and the annex
-docker exec $MONTAGU_DB annex_sync publish start
-docker exec $MONTAGU_DB_ANNEX annex_sync subscribe start
-docker exec $MONTAGU_DB_ANNEX annex_sync subscribe stop
-docker exec $MONTAGU_DB annex_sync publish stop
-
 docker push $COMMIT_TAG
 docker push $BRANCH_TAG
