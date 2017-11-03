@@ -19,16 +19,22 @@ docker build \
 
 docker network create migration_test
 
+function cleanup {
+    docker stop db db-annex
+    docker network rm migration_test
+}
+trap cleanup EXIT
+
 # First the core database:
 docker run --rm --network=migration_test -d --name db $DB
 docker run --rm --network=migration_test -d --name db-annex $DB
 
+# The main database *must* be migrated first because it will establish
+# a subscription that the annex will listen to
 docker run --rm --network=migration_test $COMMIT_TAG
+
+# At this point the annex can be migrated safely
 docker run --rm --network=migration_test $COMMIT_TAG -configFile=conf/flyway-annex.conf migrate
-
-docker stop db db-annex
-
-docker network rm migration_test
 
 docker push $COMMIT_TAG
 docker push $BRANCH_TAG
