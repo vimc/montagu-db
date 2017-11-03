@@ -49,6 +49,9 @@ ALTER TABLE burden_estimate_stochastic
 ALTER TABLE burden_estimate_stochastic
     ADD FOREIGN KEY ("country")
     REFERENCES country ("id");
+ALTER TABLE burden_estimate_stochastic
+    ADD FOREIGN KEY ("burden_outcome")
+    REFERENCES burden_outcome ("id");
 
 -- Further logical constraints
 ALTER TABLE burden_estimate_stochastic
