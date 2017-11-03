@@ -1,3 +1,6 @@
+-- Built partly from manually looking at
+-- pg_dump -O -x --schema-only -U vimc -d montagu -t burden_estimate
+
 CREATE TABLE burden_estimate_stochastic (
     id BIGSERIAL NOT NULL,
     burden_estimate_set integer NOT NULL,
@@ -38,16 +41,24 @@ CREATE TABLE burden_outcome (
     PRIMARY KEY ("id")
 );
 
--- WARNING: this is a *total* hack in order to create a
--- non-transactional migration.  The alternative is to set up the
--- subscription during deploy, which might actually be preferable?
---
--- The background is that flyway "autodetects" nontransactional
--- commands and does not yet support CREATE SUBSCRIPTION.
-CREATE TYPE public.mytype AS enum ('A');
-ALTER TYPE public.mytype ADD VALUE 'B' AFTER 'A';
-DROP TYPE public.mytype;
+-- Foreign key constraints - we're concerned here only with the table
+-- that is not replicated from the main database
+ALTER TABLE burden_estimate_stochastic
+    ADD FOREIGN KEY ("burden_estimate_set")
+    REFERENCES burden_estimate_set ("id");
+ALTER TABLE burden_estimate_stochastic
+    ADD FOREIGN KEY ("country")
+    REFERENCES country ("id");
 
-CREATE SUBSCRIPTION sync_burden_estimate_set
-    CONNECTION 'dbname=montagu host=${montagu_db_host} user=vimc password=${montagu_db_password}'
-    PUBLICATION sync_burden_estimate_set;
+-- Further logical constraints
+ALTER TABLE burden_estimate_stochastic
+    ADD COLUMN age int DEFAULT NULL,
+    ADD CONSTRAINT burden_estimate_stochastic_unique UNIQUE (
+        burden_estimate_set,
+        country,
+        year,
+        age,
+        burden_outcome
+    );
+
+CREATE INDEX ON burden_estimate_stochastic (burden_estimate_set);
