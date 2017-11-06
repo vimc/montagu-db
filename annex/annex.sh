@@ -23,7 +23,8 @@ function cleanup {
 }
 trap cleanup EXIT
 
-MONTAGU_DB_VERSION=i880 docker-compose up -d
+export MONTAGU_DB_VERSION=i880
+docker-compose up -d
 
 docker cp /montagu/db.dump $MONTAGU_DB:/tmp/import.dump
 docker exec $MONTAGU_DB /montagu-bin/restore-dump.sh /tmp/import.dump
