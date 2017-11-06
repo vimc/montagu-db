@@ -20,6 +20,7 @@ function cleanup {
     docker-compose rm -f -v
     docker network rm $MONTAGU_NETWORK
     docker volume rm "${MONTAGU_BASENAME}_db_volume" "${MONTAGU_BASENAME}_db_annex_volume"
+}
 trap cleanup EXIT
 
 MONTAGU_DB_VERSION=i880 docker-compose up -d
