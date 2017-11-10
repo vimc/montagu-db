@@ -35,3 +35,11 @@ CREATE TABLE burden_estimate_stochastic (
 );
 
 CREATE INDEX ON burden_estimate_stochastic (burden_estimate_set);
+
+ALTER TABLE burden_estimate_stochastic
+    ADD CONSTRAINT burden_estimate_stochastic_unique UNIQUE (
+        burden_estimate_set,
+        country,
+        year,
+        age,
+        burden_outcome) DEFERRABLE INITIALLY DEFERRED;
