@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
-GIT_ID=$(git rev-parse --short HEAD)
-GIT_BRANCH=$(git symbolic-ref --short HEAD)
+GIT_ID=$(git rev-parse --short=7 HEAD)
+GIT_BRANCH=$(git symbolic-ref --short=7 HEAD)
 REGISTRY=docker.montagu.dide.ic.ac.uk:5000
 NAME=montagu-db
 
