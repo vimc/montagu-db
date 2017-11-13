@@ -6,10 +6,15 @@
 CREATE EXTENSION postgres_fdw;
 CREATE SERVER montagu_db_annex
     FOREIGN DATA WRAPPER postgres_fdw
-    OPTIONS (host '${montagu_db_annex_host}', port '5432', dbname 'montagu');
+    OPTIONS (
+        host '${montagu_db_annex_host}',
+        port '${montagu_db_annex_port}',
+        dbname 'montagu');
 CREATE USER MAPPING for vimc
     SERVER montagu_db_annex
-    OPTIONS (user 'vimc', password '${montagu_db_annex_password}');
+    OPTIONS (
+        user '${montagu_db_annex_user}',
+        password '${montagu_db_annex_password}');
 
 CREATE FOREIGN TABLE burden_estimate_stochastic (
         id BIGSERIAL NOT NULL,
