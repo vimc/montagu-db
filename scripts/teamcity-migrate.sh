@@ -32,6 +32,9 @@ trap cleanup EXIT
 docker run --rm --network=migration_test -d --name $MONTAGU_DB $DB
 docker run --rm --network=migration_test -d --name $MONTAGU_DB_ANNEX $DB
 
+docker exec $MONTAGU_DB montagu-wait.sh
+docker exec $MONTAGI_DB_ANNEX montagu-wait.sh
+
 docker run --rm --network=migration_test $COMMIT_TAG
 docker run --rm --network=migration_test $COMMIT_TAG -configFile=conf/flyway-annex.conf migrate
 
