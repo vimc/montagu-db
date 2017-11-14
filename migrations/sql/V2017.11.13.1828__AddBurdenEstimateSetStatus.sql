@@ -9,9 +9,7 @@ INSERT INTO burden_estimate_set_status VALUES ('empty', 'No burden estimates add
 INSERT INTO burden_estimate_set_status VALUES ('partial', 'Some but not all burden estimates added');
 INSERT INTO burden_estimate_set_status VALUES ('complete', 'Closed to further estimates');
 
+-- currently sets are populated at the same time as being completed, so set default status to complete
 ALTER TABLE burden_estimate_set
-  ADD COLUMN status TEXT DEFAULT 'empty' NULL,
+  ADD COLUMN status TEXT DEFAULT 'complete' NULL,
   ADD FOREIGN KEY ("status") REFERENCES burden_estimate_set_status (code);
-
--- all previous sets were populated at the same time as being completed, so set these to complete
-UPDATE burden_estimate_set SET status = 'complete'
