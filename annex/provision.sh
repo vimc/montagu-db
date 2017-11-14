@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+apt-get update
+apt-get install -yy \
+        git \
+        unzip
+
 ## Install docker
 if which -a docker > /dev/null; then
     echo "docker is already installed"
@@ -32,4 +37,7 @@ if getent passwd montagu > /dev/null; then
 else
     adduser --quiet --gecos "User" --disabled-password montagu
     usermod -aG docker montagu
+    chmod -R o-rwx ~montagu
+    chmod -R g-rwx ~montagu
+    # Ideally set the umask at this point
 fi
