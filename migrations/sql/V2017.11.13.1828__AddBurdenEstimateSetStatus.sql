@@ -12,3 +12,6 @@ INSERT INTO burden_estimate_set_status VALUES ('complete', 'Closed to further es
 ALTER TABLE burden_estimate_set
   ADD COLUMN status TEXT DEFAULT 'empty' NULL,
   ADD FOREIGN KEY ("status") REFERENCES burden_estimate_set_status (code);
+
+-- all previous sets were populated at the same time as being completed, so set these to complete
+UPDATE burden_estimate_set SET status = 'complete'
