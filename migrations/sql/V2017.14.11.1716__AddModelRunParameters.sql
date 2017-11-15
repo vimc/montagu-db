@@ -17,7 +17,7 @@ ALTER TABLE model_run_parameter_set ADD FOREIGN KEY (model_version) REFERENCES m
 ALTER TABLE model_run_parameter_set ADD FOREIGN KEY (upload_info) REFERENCES upload_info.id;
 
 CREATE TABLE model_run(
-intenal_id SERIAL,
+internal_id SERIAL,
 run_id TEXT NOT NULL,
 model_run_parameter_set INTEGER NOT NULL
 );
