@@ -57,13 +57,11 @@ docker run -d --rm \
 docker exec $ANNEX_CONTAINER_NAME montagu-wait.sh
 
 if [ "$INITIAL_DEPLOY" -eq "0" ]; then
-    echo "Not an initial deployment - leaving password alone"
+    echo "Not an initial deployment - leaving root password alone"
 else
-    echo "Setting passwords"
+    echo "Setting root password"
     docker exec $ANNEX_CONTAINER_NAME psql -U vimc -d montagu -c \
            "ALTER USER vimc WITH PASSWORD '${ANNEX_ROOT_PASSWORD}';"
-    docker exec $ANNEX_CONTAINER_NAME psql -U vimc -d montagu -c \
-           "ALTER USER readonly WITH PASSWORD '${ANNEX_READONLY_PASSWORD}';"
 fi
 
 # Then migrations
@@ -73,3 +71,13 @@ docker run --rm --network=host $ANNEX_MIGRATE_IMAGE \
        -user=vimc \
        -password=$ANNEX_ROOT_PASSWORD \
        migrate
+
+# Then readonly password (must be done _after_ the migration because
+# the migration makes this role.
+if [ "$INITIAL_DEPLOY" -eq "0" ]; then
+    echo "Not an initial deployment - leaving readonly password alone"
+else
+    echo "Setting readonly password"
+    docker exec $ANNEX_CONTAINER_NAME psql -U vimc -d montagu -c \
+           "ALTER USER readonly WITH PASSWORD '${ANNEX_READONLY_PASSWORD}';"
+fi
