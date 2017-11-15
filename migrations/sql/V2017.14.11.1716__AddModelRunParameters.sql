@@ -31,7 +31,7 @@ CREATE TABLE model_run_parameter(
 model_run INTEGER NOT NULL,
 key TEXT NOT NULL,
 value TEXT NOT NULL,
-UNIQUE (key)
+UNIQUE (key, model_run)
 );
 
 ALTER TABLE model_run_parameter ADD FOREIGN KEY (model_run) REFERENCES model_run (internal_id);
