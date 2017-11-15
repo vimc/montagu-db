@@ -18,6 +18,9 @@ docker build \
        .
 
 docker network create migration_test
+
+docker exec db montagu-wait.sh
+
 docker run --rm --network=migration_test -d --name db $DB
 docker run --rm --network=migration_test $COMMIT_TAG
 
