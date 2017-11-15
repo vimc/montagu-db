@@ -74,3 +74,7 @@ To stop the container and remove the data volume run
 After initial deployment, migrations can be handled from the main montagu deployment.  When deploying in production mode it will perform any required migrations.
 
 Re-deployment should only be required when updating the underlying postgres container (e.g., security fixes).
+
+## Testing
+
+There is a script for testing the idea in [`testing`](testing) - this can likely be removed as things get tested more formally on teamcity.
