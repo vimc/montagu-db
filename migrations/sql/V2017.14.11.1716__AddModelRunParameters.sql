@@ -2,7 +2,7 @@ CREATE TABLE upload_info(
 id SERIAL,
 uploaded_by TEXT NOT NULL,
 uploaded_on TEXT NOT NULL
-)
+);
 
 CREATE TABLE model_run_parameter_set(
    id SERIAL,
