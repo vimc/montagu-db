@@ -20,7 +20,7 @@ CREATE TABLE model_run(
 intenal_id SERIAL,
 run_id TEXT NOT NULL,
 model_run_parameter_set INTEGER NOT NULL
-)
+);
 
 ALTER TABLE model_run ADD FOREIGN KEY (model_run_parameter_set) REFERENCES model_run_parameter_set.id;
 
@@ -28,6 +28,6 @@ CREATE TABLE model_run_parameter(
 model_run INTEGER NOT NULL,
 key TEXT NOT NULL,
 value TEXT NOT NULL
-)
+);
 
-ALTER TABLE model_run_parameter ADD FOREIGN KEY (model_run) REFERENCES model_run.id;
+ALTER TABLE model_run_parameter ADD FOREIGN KEY (model_run) REFERENCES model_run.internal_id;
