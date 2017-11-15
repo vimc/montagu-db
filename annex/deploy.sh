@@ -11,7 +11,7 @@
 # So for now; destroy this annex with the script ./destroy.sh and when
 # we start with backups we'll get this done more nicely.
 
-set -ex
+set -e
 
 ANNEX_VOLUME_NAME=montagu_db_annex_volume
 ANNEX_CONTAINER_NAME=montagu_db_annex
@@ -28,18 +28,19 @@ MIGRATE_URL="jdbc:postgresql://localhost:${ANNEX_PORT}/montagu"
 export VAULT_ADDR=https://support.montagu.dide.ic.ac.uk:8200
 ANNEX_ROOT_PASSWORD=$(vault read -field=value /secret/annex/password)
 
-if docker inspect -f '{{.State.Running}}' $ANNEX_CONTAINER_NAME; then
-    echo "montagu db annex already exists"
-    exit 1
+if docker inspect -f '{{.State.Running}}' $ANNEX_CONTAINER_NAME > /dev/null; then
+    echo "montagu db annex already exists: stopping"
+    docker stop $ANNEX_CONTAINER_NAME
 fi
 
 if docker volume inspect $ANNEX_VOLUME_NAME > /dev/null 2>&1; then
     echo "montagu db annex volume already exists"
-    exit 1
+    INITIAL_DEPLOY=0
+else
+    echo "Creating montagu db annex volume"
+    INITIAL_DEPLOY=1
+    docker volume create $ANNEX_VOLUME_NAME
 fi
-
-echo "Creating montagu db annex volume"
-docker volume create $ANNEX_VOLUME_NAME
 
 docker pull $ANNEX_IMAGE
 docker pull $ANNEX_MIGRATE_IMAGE
@@ -51,15 +52,21 @@ docker run -d --rm \
        --name $ANNEX_CONTAINER_NAME \
        $ANNEX_IMAGE
 
-# Then migrations
+# Wait for the container to come up
 docker exec $ANNEX_CONTAINER_NAME montagu-wait.sh
+
+if [ "$INITIAL_DEPLOY" -eq "0" ]; then
+    echo "Not an initial deployment - leaving password alone"
+else
+    echo "Scrambling root password"
+    docker exec $ANNEX_CONTAINER_NAME psql -U vimc -d montagu -c \
+           "ALTER USER vimc WITH PASSWORD '${ANNEX_ROOT_PASSWORD}';"
+fi
+
+# Then migrations
 docker run --rm --network=host $ANNEX_MIGRATE_IMAGE \
        -url=$MIGRATE_URL \
        -configFile=conf/flyway-annex.conf \
        -user=vimc \
-       -password=changeme \
+       -password=$ANNEX_ROOT_PASSWORD \
        migrate
-
-# Then password reset
-docker exec $ANNEX_CONTAINER_NAME psql -U vimc -d montagu -c \
-       "ALTER USER vimc WITH PASSWORD '${ANNEX_ROOT_PASSWORD}';"
