@@ -26,7 +26,8 @@ ANNEX_MIGRATE_IMAGE=${MONTAGU_REGISTRY}/montagu-migrate:${ANNEX_IMAGE_VERSION}
 MIGRATE_URL="jdbc:postgresql://localhost:${ANNEX_PORT}/montagu"
 
 export VAULT_ADDR=https://support.montagu.dide.ic.ac.uk:8200
-ANNEX_ROOT_PASSWORD=$(vault read -field=value /secret/annex/password)
+ANNEX_ROOT_PASSWORD=$(vault read -field=password /secret/annex/users/root)
+ANNEX_READONLY_PASSWORD=$(vault read -field=password /secret/annex/users/readonly)
 
 if docker inspect -f '{{.State.Running}}' $ANNEX_CONTAINER_NAME > /dev/null; then
     echo "montagu db annex already exists: stopping"
@@ -58,9 +59,11 @@ docker exec $ANNEX_CONTAINER_NAME montagu-wait.sh
 if [ "$INITIAL_DEPLOY" -eq "0" ]; then
     echo "Not an initial deployment - leaving password alone"
 else
-    echo "Scrambling root password"
+    echo "Setting passwords"
     docker exec $ANNEX_CONTAINER_NAME psql -U vimc -d montagu -c \
            "ALTER USER vimc WITH PASSWORD '${ANNEX_ROOT_PASSWORD}';"
+    docker exec $ANNEX_CONTAINER_NAME psql -U vimc -d montagu -c \
+           "ALTER USER readonly WITH PASSWORD '${ANNEX_READONLY_PASSWORD}';"
 fi
 
 # Then migrations
