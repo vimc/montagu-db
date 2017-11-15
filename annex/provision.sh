@@ -37,6 +37,7 @@ if getent passwd montagu > /dev/null; then
 else
     adduser --quiet --gecos "User" --disabled-password montagu
     usermod -aG docker montagu
+    usermod -aG ssh montagu
     chmod -R o-rwx ~montagu
     chmod -R g-rwx ~montagu
     # Ideally set the umask at this point

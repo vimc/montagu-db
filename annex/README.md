@@ -17,6 +17,21 @@ sudo ./provision.sh
 
 (See [the script](provision.sh) for details)
 
+## Working on the annex machine
+
+*We do not have sole ownership of the annex machine - it is a shared DIDE resource and so there are differences to other `.montagu` machines*
+
+All montagu related things are owned by the user `montagu`; use `sudo su montagu` to become that user, or login as them; copy your .ssh public identity into `~/.ssh/authorized_keys`, then add to your `~/.ssh/config`:
+
+```
+Host annex.montagu
+  User montagu
+  Compression yes
+  ForwardAgent yes
+```
+
+The password for su is stored in the vault.
+
 ## Preparing
 
 ```
