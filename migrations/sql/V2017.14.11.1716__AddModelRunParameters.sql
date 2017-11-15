@@ -22,7 +22,7 @@ CREATE TABLE model_run(
 internal_id SERIAL,
 run_id TEXT NOT NULL,
 model_run_parameter_set INTEGER NOT NULL,
-PRIMARY KEY (id)
+PRIMARY KEY (internal_id)
 );
 
 ALTER TABLE model_run ADD FOREIGN KEY (model_run_parameter_set) REFERENCES model_run_parameter_set (id);
