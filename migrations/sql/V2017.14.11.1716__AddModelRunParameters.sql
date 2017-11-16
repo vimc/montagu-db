@@ -39,7 +39,7 @@ id SERIAL,
 model_run INTEGER NOT NULL,
 model_run_parameter INTEGER NOT NULL,
 value TEXT NOT NULL,
-UNIQUE (key, model_run),
+UNIQUE (model_run_parameter, model_run),
 PRIMARY KEY (id)
 );
 
