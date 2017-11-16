@@ -42,5 +42,5 @@ UNIQUE (model_run_parameter, model_run),
 PRIMARY KEY (id)
 );
 
-ALTER TABLE model_run_parameter ADD FOREIGN KEY (model_run) REFERENCES model_run (internal_id);
-ALTER TABLE model_run_parameter ADD FOREIGN KEY (model_run_parameter) REFERENCES model_run_parameter (id);
+ALTER TABLE model_run_parameter_value ADD FOREIGN KEY (model_run) REFERENCES model_run (internal_id);
+ALTER TABLE model_run_parameter_value ADD FOREIGN KEY (model_run_parameter) REFERENCES model_run_parameter (id);
