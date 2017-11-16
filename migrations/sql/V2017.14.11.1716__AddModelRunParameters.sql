@@ -35,7 +35,7 @@ UNIQUE (key, model_run_parameter_set),
 PRIMARY KEY (id)
 );
 
-ALTER TABLE model_run_parameter ADD FOREIGN KEY (model_run_parameter_set) REFERENCES model_run_parameter_set (id)
+ALTER TABLE model_run_parameter ADD FOREIGN KEY (model_run_parameter_set) REFERENCES model_run_parameter_set (id);
 
 CREATE TABLE model_run_parameter_value(
 id SERIAL,
