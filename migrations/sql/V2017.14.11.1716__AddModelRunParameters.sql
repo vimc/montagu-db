@@ -29,11 +29,22 @@ ALTER TABLE model_run ADD FOREIGN KEY (model_run_parameter_set) REFERENCES model
 
 CREATE TABLE model_run_parameter(
 id SERIAL,
-model_run INTEGER NOT NULL,
 key TEXT NOT NULL,
-value TEXT NOT NULL,
-UNIQUE (key, model_run),
+model_run_parameter_set INTEGER NOT NULL,
+UNIQUE (key, model_run_parameter_set),
 PRIMARY KEY (id)
 );
 
-ALTER TABLE model_run_parameter ADD FOREIGN KEY (model_run) REFERENCES model_run (internal_id);
+ALTER TABLE model_run_parameter ADD FOREIGN KEY (model_run_parameter_set) REFERENCES model_run_parameter_set (id);
+
+CREATE TABLE model_run_parameter_value(
+id SERIAL,
+model_run INTEGER NOT NULL,
+model_run_parameter INTEGER NOT NULL,
+value TEXT NOT NULL,
+UNIQUE (model_run_parameter, model_run),
+PRIMARY KEY (id)
+);
+
+ALTER TABLE model_run_parameter_value ADD FOREIGN KEY (model_run) REFERENCES model_run (internal_id);
+ALTER TABLE model_run_parameter_value ADD FOREIGN KEY (model_run_parameter) REFERENCES model_run_parameter (id);
