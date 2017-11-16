@@ -30,7 +30,6 @@ ALTER TABLE model_run ADD FOREIGN KEY (model_run_parameter_set) REFERENCES model
 CREATE TABLE model_run_parameter(
 id SERIAL,
 key TEXT NOT NULL,
-UNIQUE (key, model_run),
 PRIMARY KEY (id)
 );
 
