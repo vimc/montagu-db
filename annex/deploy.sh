@@ -26,7 +26,7 @@ ANNEX_MIGRATE_IMAGE=${MONTAGU_REGISTRY}/montagu-migrate:${ANNEX_IMAGE_VERSION}
 MIGRATE_URL="jdbc:postgresql://localhost:${ANNEX_PORT}/montagu"
 
 export VAULT_ADDR=https://support.montagu.dide.ic.ac.uk:8200
-ANNEX_ROOT_PASSWORD=$(vault read -field=password /secret/annex/users/root)
+ANNEX_VIMC_PASSWORD=$(vault read -field=password /secret/annex/users/vimc)
 ANNEX_READONLY_PASSWORD=$(vault read -field=password /secret/annex/users/readonly)
 
 if docker inspect -f '{{.State.Running}}' $ANNEX_CONTAINER_NAME > /dev/null; then
@@ -57,11 +57,11 @@ docker run -d --rm \
 docker exec $ANNEX_CONTAINER_NAME montagu-wait.sh
 
 if [ "$INITIAL_DEPLOY" -eq "0" ]; then
-    echo "Not an initial deployment - leaving root password alone"
+    echo "Not an initial deployment - leaving vimc password alone"
 else
-    echo "Setting root password"
+    echo "Setting vimc password"
     docker exec $ANNEX_CONTAINER_NAME psql -U vimc -d montagu -c \
-           "ALTER USER vimc WITH PASSWORD '${ANNEX_ROOT_PASSWORD}';"
+           "ALTER USER vimc WITH PASSWORD '${ANNEX_VIMC_PASSWORD}';"
 fi
 
 # Then migrations
@@ -69,7 +69,7 @@ docker run --rm --network=host $ANNEX_MIGRATE_IMAGE \
        -url=$MIGRATE_URL \
        -configFile=conf/flyway-annex.conf \
        -user=vimc \
-       -password=$ANNEX_ROOT_PASSWORD \
+       -password=$ANNEX_VIMC_PASSWORD \
        migrate
 
 # Then readonly password (must be done _after_ the migration because
