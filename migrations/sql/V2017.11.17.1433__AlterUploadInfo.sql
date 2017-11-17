@@ -7,4 +7,4 @@ ALTER TABLE upload_info
 ADD COLUMN uploaded_on TIMESTAMP;
 
 -- this is similar to burden_estimate_set and allows nice parsing of the date by java
-ALTER TABLE ONLY upload_info ALTER COLUMN uploaded_on SET DEFAULT date_trunc('milliseconds', now());
+ALTER TABLE upload_info ALTER COLUMN uploaded_on SET DEFAULT date_trunc('milliseconds', now());
