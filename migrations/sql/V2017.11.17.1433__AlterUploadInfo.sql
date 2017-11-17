@@ -1,2 +1,5 @@
 ALTER TABLE upload_info
-ALTER COLUMN uploaded_on SET DATA TYPE TIMESTAMP;
+DROP COLUMN uploaded_on;
+
+ALTER TABLE upload_info
+ADD COLUMN uploaded_on SET DATA TYPE TIMESTAMP;
