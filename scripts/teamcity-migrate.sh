@@ -20,7 +20,7 @@ docker build \
 docker network create migration_test
 
 MONTAGU_DB=db
-MONTAGU_DB_ANNEX=db-annex
+MONTAGU_DB_ANNEX=db_annex
 
 function cleanup {
     docker stop $MONTAGU_DB $MONTAGU_DB_ANNEX
