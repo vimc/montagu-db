@@ -11,32 +11,17 @@ COMMIT_TAG=$REGISTRY/$NAME:$GIT_ID
 BRANCH_TAG=$REGISTRY/$NAME:$GIT_BRANCH
 DB=$REGISTRY/montagu-db:$GIT_ID
 
+## Get directory of the 'scripts/' directory
+DIR=$(dirname "$(readlink -f "$0")")
+
 docker build \
        --tag $COMMIT_TAG \
        --tag $BRANCH_TAG \
        -f migrations/Dockerfile \
        .
 
-docker network create migration_test
-
-MONTAGU_DB=db
-MONTAGU_DB_ANNEX=db_annex
-
-function cleanup {
-    docker stop $MONTAGU_DB $MONTAGU_DB_ANNEX
-    docker network rm migration_test
-}
-trap cleanup EXIT
-
-# First the core database:
-docker run --rm --network=migration_test -d --name $MONTAGU_DB $DB
-docker run --rm --network=migration_test -d --name $MONTAGU_DB_ANNEX $DB
-
-docker exec $MONTAGU_DB montagu-wait.sh
-docker exec $MONTAGU_DB_ANNEX montagu-wait.sh
-
-docker run --rm --network=migration_test $COMMIT_TAG
-docker run --rm --network=migration_test $COMMIT_TAG -configFile=conf/flyway-annex.conf migrate
+$DIR/start.sh $GIT_ID
+$DIR/stop.sh
 
 docker push $COMMIT_TAG
 docker push $BRANCH_TAG
