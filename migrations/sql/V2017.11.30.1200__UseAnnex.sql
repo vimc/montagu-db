@@ -23,7 +23,7 @@ CREATE SERVER montagu_db_annex
 CREATE USER MAPPING for vimc
     SERVER montagu_db_annex
     OPTIONS (
-        user '${montagu_db_annex_user}',
+        user 'readonly',
         password '${montagu_db_annex_password}');
 
 -- The actual table that we want to access.
