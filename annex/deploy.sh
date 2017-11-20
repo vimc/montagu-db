@@ -56,10 +56,6 @@ docker run -d --rm \
 # Wait for the container to come up
 docker exec $ANNEX_CONTAINER_NAME montagu-wait.sh
 
-if [ "$INITIAL_DEPLOY" -eq "0" ]; then
-    echo "Not an initial deployment - leaving vimc password alone"
-else
-    echo "Setting vimc password"
-    docker exec $ANNEX_CONTAINER_NAME psql -U vimc -d montagu -c \
-           "ALTER USER vimc WITH PASSWORD '${ANNEX_VIMC_PASSWORD}';"
-fi
+echo "Setting vimc password"
+docker exec $ANNEX_CONTAINER_NAME psql -U vimc -d montagu -c \
+       "ALTER USER vimc WITH PASSWORD '${ANNEX_VIMC_PASSWORD}';"
