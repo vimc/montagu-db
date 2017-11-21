@@ -9,10 +9,12 @@ RUN apt-get update && apt-get -y install \
 
 RUN install.r -e \
   DBI \
+  RcppRoll \
+  data.table \
   drat \
   httr \
   jsonlite \
-  RcppRoll \
+  readxl \
   remotes \
   whisker \
   yaml
