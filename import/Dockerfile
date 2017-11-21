@@ -7,7 +7,7 @@ RUN apt-get update && apt-get -y install \
   pkg-config \
   postgresql-client
 
-RUN install.r \
+RUN install.r -e \
   DBI \
   drat \
   httr \
