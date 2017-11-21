@@ -10,6 +10,11 @@ RUN apt-get update && apt-get -y install \
 RUN install.r \
   DBI \
   drat \
-  remotes
+  httr \
+  jsonlite \
+  RcppRoll \
+  remotes \
+  whisker \
+  yaml
 
 RUN Rscript -e 'remotes::install_github("rstats-db/RPostgres")'
