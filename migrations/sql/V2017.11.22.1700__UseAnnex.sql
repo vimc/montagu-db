@@ -13,19 +13,6 @@ CREATE SERVER montagu_db_annex
         port '${montagu_db_annex_port}',
         dbname 'montagu');
 
--- This is a mapping for the main montagu root user onto a user in the
--- annex; it is the only mapping that will map through to a read-write
--- user (that can be changed by altering the usernames passed through
--- to flyway).
---
--- The deploy script will map all of montagu's actual db users (api,
--- readonly, orderly, ...) through to the annex's readonly user.
-CREATE USER MAPPING for vimc
-    SERVER montagu_db_annex
-    OPTIONS (
-        user 'readonly',
-        password '${montagu_db_annex_password}');
-
 -- The actual table that we want to access.
 --
 -- This will need updating as the schema solidifies around the
