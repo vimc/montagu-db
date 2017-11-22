@@ -43,8 +43,7 @@ fi
 
 docker pull $ANNEX_IMAGE
 
-## TODO: add '--restart=always' to daemonise the container
-docker run -d --rm \
+docker run -d \
        --restart=always \
        -p $ANNEX_PORT:5432 \
        -v $ANNEX_VOLUME_NAME:/pgdata \
