@@ -43,7 +43,3 @@ ALTER TABLE burden_estimate_stochastic
         year,
         age,
         burden_outcome) DEFERRABLE INITIALLY DEFERRED;
-
--- A readonly user
-CREATE ROLE readonly LOGIN PASSWORD 'changeme2';
-GRANT SELECT ON burden_estimate_stochastic TO readonly;
