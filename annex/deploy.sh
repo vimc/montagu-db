@@ -22,8 +22,6 @@ ANNEX_PORT=15432
 MONTAGU_REGISTRY=docker.montagu.dide.ic.ac.uk:5000
 
 ANNEX_IMAGE=${MONTAGU_REGISTRY}/${ANNEX_IMAGE_NAME}:${ANNEX_IMAGE_VERSION}
-ANNEX_MIGRATE_IMAGE=${MONTAGU_REGISTRY}/montagu-migrate:${ANNEX_IMAGE_VERSION}
-MIGRATE_URL="jdbc:postgresql://localhost:${ANNEX_PORT}/montagu"
 
 export VAULT_ADDR=https://support.montagu.dide.ic.ac.uk:8200
 ANNEX_VIMC_PASSWORD=$(vault read -field=password /secret/annex/users/vimc)
@@ -44,10 +42,10 @@ else
 fi
 
 docker pull $ANNEX_IMAGE
-docker pull $ANNEX_MIGRATE_IMAGE
 
 ## TODO: add '--restart=always' to daemonise the container
 docker run -d --rm \
+       --restart=always \
        -p $ANNEX_PORT:5432 \
        -v $ANNEX_VOLUME_NAME:/pgdata \
        --name $ANNEX_CONTAINER_NAME \
