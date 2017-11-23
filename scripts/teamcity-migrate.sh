@@ -11,12 +11,8 @@ COMMIT_TAG=$REGISTRY/$NAME:$GIT_ID
 BRANCH_TAG=$REGISTRY/$NAME:$GIT_BRANCH
 DB=$REGISTRY/montagu-db:$GIT_ID
 
-function cleanup {
-    set +e
-    docker stop db
-    docker network rm migration_test
-}
-trap cleanup EXIT
+## Get directory of the 'scripts/' directory
+DIR=$(dirname "$(readlink -f "$0")")
 
 docker build \
        --tag $COMMIT_TAG \
@@ -24,13 +20,8 @@ docker build \
        -f migrations/Dockerfile \
        .
 
-docker network create migration_test
-
-docker run --rm --network=migration_test -d --name db $DB
-
-docker exec db montagu-wait.sh
-
-docker run --rm --network=migration_test $COMMIT_TAG
+$DIR/start.sh $GIT_ID
+$DIR/stop.sh
 
 docker push $COMMIT_TAG
 docker push $BRANCH_TAG

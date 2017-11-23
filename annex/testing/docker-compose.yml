@@ -1,0 +1,16 @@
+version: '2'
+services:
+  db:
+    image: docker.montagu.dide.ic.ac.uk:5000/montagu-db:${MONTAGU_DB_VERSION}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_volume:/pgdata
+  db-annex:
+    image: docker.montagu.dide.ic.ac.uk:5000/montagu-db:${MONTAGU_DB_VERSION}
+    volumes:
+      - db_annex_volume:/pgdata
+
+volumes:
+  db_volume:
+  db_annex_volume:
