@@ -12,4 +12,4 @@ set -ex
 PATH_DUMP=$1
 DB_DEFAULT=postgres
 pg_restore --verbose --exit-on-error --no-owner \
-    -d "$DB_DEFAULT" -U "$POSTGRES_USER" "$PATH_DUMP"
+    -d "$POSTGRES_DB" -U "$POSTGRES_USER" "$PATH_DUMP"
