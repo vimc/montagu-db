@@ -1,2 +1,3 @@
 insert into burden_outcome (code, name)
-values ('cases_crs', 'Cases of congenital rubella syndrome '), ('deaths_crs', 'Deaths due to congenital rubella syndrome');
+values ('rubella_cases_congenital', 'Cases of congenital rubella syndrome '),
+ ('rubella_deaths_congenital', 'Deaths due to congenital rubella syndrome');
