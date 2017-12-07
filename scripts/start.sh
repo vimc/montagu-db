@@ -1,14 +1,4 @@
 #!/usr/bin/env bash
-
-set -ex
-
-if [ "$#" -ne 1 ]; then
-    echo "Usage: start.sh <DB_VERSION>"
-    exit 1
-fi
-
-DB_VERSION=$1
-
 ## Starts a set of containers:
 ##
 ##   db - main db
@@ -17,6 +7,24 @@ DB_VERSION=$1
 ## On the network
 ##
 ##   db_nw
+set -e
+
+if (( "$#" < 1 || "$#" > 2 )); then
+    echo "Usage: start.sh <DB_VERSION> [<DB_PORT>]"
+    echo "Starts the database and the annex database, using the specified image"
+    echo "version. If DB_PORT is provided, exposes the main database on the "
+    echo "host machine at that port."
+    exit 1
+fi
+
+set -ex
+DB_VERSION=$1
+DB_PORT=$2
+
+PORT_MAPPING=
+if [[ ! -z $DB_PORT ]]; then
+    PORT_MAPPING="-p $DB_PORT:5432"
+fi
 
 REGISTRY=docker.montagu.dide.ic.ac.uk:5000
 
@@ -25,9 +33,11 @@ MIGRATE_IMAGE=$REGISTRY/montagu-migrate:$DB_VERSION
 
 DB_CONTAINER=db
 DB_ANNEX_CONTAINER=db_annex
+DB_PORT=5432    # Exposed on host machine
 NETWORK=db_nw
 
 function cleanup {
+    set +e
     docker stop $DB_CONTAINER $DB_ANNEX_CONTAINER
     docker network rm $NETWORK
 }
@@ -41,7 +51,7 @@ docker pull $DB_IMAGE || true
 docker pull $MIGRATE_IMAGE || true
 
 # First the core database:
-docker run --rm --network=$NETWORK -d --name $DB_CONTAINER $DB_IMAGE
+docker run --rm --network=$NETWORK -d --name $DB_CONTAINER $PORT_MAPPING $DB_IMAGE
 docker run --rm --network=$NETWORK -d --name $DB_ANNEX_CONTAINER $DB_IMAGE
 
 # Wait for things to become responsive
