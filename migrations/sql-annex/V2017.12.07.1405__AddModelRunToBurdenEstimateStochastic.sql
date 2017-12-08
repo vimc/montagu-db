@@ -1,3 +1,4 @@
 ALTER TABLE burden_estimate_stochastic
     /* Note lack of FK; this is deliberate */
-    ADD COLUMN model_run INTEGER NOT NULL;
+    ADD COLUMN model_run INTEGER NOT NULL,
+    DROP COLUMN stochastic;

@@ -4,4 +4,5 @@ ALTER TABLE burden_estimate
     DROP COLUMN stochastic;
 
 ALTER FOREIGN TABLE burden_estimate_stochastic
-    ADD COLUMN model_run INTEGER NOT NULL;
+    ADD COLUMN model_run INTEGER NOT NULL,
+    DROP COLUMN stochastic;
