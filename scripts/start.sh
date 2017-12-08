@@ -9,21 +9,28 @@
 ##   db_nw
 set -e
 
-if (( "$#" < 1 || "$#" > 2 )); then
-    echo "Usage: start.sh <DB_VERSION> [<DB_PORT>]"
+if (( "$#" < 1 || "$#" > 3 )); then
+    echo "Usage: start.sh <DB_VERSION> [<DB_PORT>] [<ANNEX_PORT>]"
     echo "Starts the database and the annex database, using the specified image"
     echo "version. If DB_PORT is provided, exposes the main database on the "
-    echo "host machine at that port."
+    echo "host machine at that port. If ANNEX_PORT is provided, additionally"
+    echo "expose the annex database on the host machine at that port."
     exit 1
 fi
 
 set -ex
 DB_VERSION=$1
 DB_PORT=$2
+ANNEX_PORT=$3
 
 PORT_MAPPING=
 if [[ ! -z $DB_PORT ]]; then
     PORT_MAPPING="-p $DB_PORT:5432"
+fi
+
+ANNEX_PORT_MAPPING=
+if [[ ! -z $ANNEX_PORT ]]; then
+    ANNEX_PORT_MAPPING="-p $ANNEX_PORT:5432"
 fi
 
 REGISTRY=docker.montagu.dide.ic.ac.uk:5000
@@ -51,8 +58,10 @@ docker pull $DB_IMAGE || true
 docker pull $MIGRATE_IMAGE || true
 
 # First the core database:
-docker run --rm --network=$NETWORK -d --name $DB_CONTAINER $PORT_MAPPING $DB_IMAGE
-docker run --rm --network=$NETWORK -d --name $DB_ANNEX_CONTAINER $DB_IMAGE
+docker run --rm --network=$NETWORK -d \
+    --name $DB_CONTAINER $PORT_MAPPING $DB_IMAGE
+docker run --rm --network=$NETWORK -d \
+    --name $DB_ANNEX_CONTAINER $ANNEX_PORT_MAPPING $DB_IMAGE
 
 # Wait for things to become responsive
 docker exec $DB_CONTAINER montagu-wait.sh
