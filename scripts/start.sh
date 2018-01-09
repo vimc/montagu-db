@@ -71,4 +71,8 @@ docker exec $DB_ANNEX_CONTAINER montagu-wait.sh
 docker run --rm --network=$NETWORK $MIGRATE_IMAGE -configFile=conf/flyway-annex.conf migrate
 docker run --rm --network=$NETWORK $MIGRATE_IMAGE
 
+# Add user mapping
+docker exec $DB_CONTAINER psql -U vimc -d montagu -c \
+       "CREATE USER MAPPING FOR vimc SERVER montagu_db_annex OPTIONS (user 'vimc', password 'changeme');"
+
 trap - EXIT
