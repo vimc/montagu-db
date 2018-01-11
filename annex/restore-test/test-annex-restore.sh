@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
-set -ex
-
-REAL_ANNEX_HOST=annex.montagu.dide.ic.ac.uk
-REAL_ANNEX_PORT=15432
+set -e
 
 # --------------------------------------------------------------------
 # Get access to Vault
@@ -14,10 +11,11 @@ if [ "$VAULT_AUTH_GITHUB_TOKEN" = "" ]; then
     echo ""
     export VAULT_AUTH_GITHUB_TOKEN=${token}
 fi
+set -x
 vault auth -method=github
 
 # --------------------------------------------------------------------
-# Restore backup (inside VM)
+# Restore backup (inside VM) and output sample data to shared folder
 # --------------------------------------------------------------------
 if ! vagrant plugin list | grep vagrant-persistent-storage; then
     vagrant plugin install vagrant-persistent-storage
@@ -32,25 +30,10 @@ function cleanup {
 trap cleanup EXIT
 
 # --------------------------------------------------------------------
-# Pull data from the real annex and from our copy restored from backup
-# --------------------------------------------------------------------
-set +x
-export PGPASSWORD=$(vault read -field=value secret/annex/password)
-
-set -x
-test_query="SELECT * FROM burden_estimate_stochastic 
-ORDER BY id DESC LIMIT 5000;"
-
-psql -h localhost -p 15433 -U vimc -d montagu \
-    -c "$test_query" > from_backup
-psql -h $REAL_ANNEX_HOST -p $REAL_ANNEX_PORT -U vimc -d montagu \
-    -c "$test_query" > from_live
-
-# --------------------------------------------------------------------
 # Compare the data and check there are no diffs
 # --------------------------------------------------------------------
 set +ex
-diff from_live from_backup
+diff shared/from_live shared/from_backup
 echo "----------------------------------------------------------------"
 case $? in
     0 )
