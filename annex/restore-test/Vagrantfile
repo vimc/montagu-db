@@ -1,0 +1,61 @@
+# -*- mode: ruby -*-
+
+# Older versions of vagrant can't start the ubuntu bentobox with
+# private networking
+Vagrant.require_version ">= 1.8.2"
+
+box = "bento/ubuntu-16.04"
+hostname = 'annex-restore-test'
+
+memory = 2048 # in MB
+disk_size = 60 # in GB
+
+ip = '192.168.80.10'
+domain = 'localdomain'
+
+# Pass through github token
+env = { 
+  "VAULT_AUTH_GITHUB_TOKEN" => ENV["VAULT_AUTH_GITHUB_TOKEN"],
+  "VAULT_ADDR" => ENV["VAULT_ADDR"]
+}
+
+Vagrant.configure(2) do |config|
+  # Basic properties
+  config.vm.box = box
+  config.vm.provider :virtualbox do |vbox|
+    vbox.gui = false
+    vbox.memory = memory
+  end
+  config.vm.hostname = "#{hostname}.#{domain}"
+  config.vm.network :private_network, ip: ip
+  config.vm.network "forwarded_port", guest: 15432, host: 15433
+
+  # Configure a second disk
+  config.persistent_storage.enabled = true
+  config.persistent_storage.mountname = "data"
+  config.persistent_storage.filesystem = "ext4"
+  config.persistent_storage.mountpoint = "/mnt/data"
+  config.persistent_storage.size = disk_size * 1024
+  config.persistent_storage.location = "disk/#{hostname}.vdi"  
+
+  # Provision dependencies
+  config.vm.provision :shell do |shell|
+    shell.path = 'provision/setup-docker.sh'
+  end
+  config.vm.provision :shell do |shell|
+    shell.path = 'provision/setup-vault.sh'
+    shell.env = env
+  end
+  config.vm.provision :shell do |shell|
+    shell.path = 'provision/setup-montagu-backup.sh'
+    shell.env = env
+  end
+
+  # Actually run the restore test
+  config.vm.provision :shell do |shell|
+    shell.path = 'provision/run-annex-container.sh'
+  end
+  config.vm.provision :shell do |shell|
+    shell.path = 'provision/test-restore.sh'
+  end
+end
