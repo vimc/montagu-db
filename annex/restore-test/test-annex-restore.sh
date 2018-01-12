@@ -2,6 +2,11 @@
 set -e
 
 # --------------------------------------------------------------------
+# Cleanup previous attempt
+# --------------------------------------------------------------------
+./teardown.sh
+
+# --------------------------------------------------------------------
 # Get access to Vault
 # --------------------------------------------------------------------
 export VAULT_ADDR='https://support.montagu.dide.ic.ac.uk:8200'
@@ -23,11 +28,9 @@ fi
 vagrant up
 
 function cleanup {
-    set +e
-    vagrant destroy --force
-    rm -r disk
+    ./teardown.sh
 }
-trap cleanup EXIT
+trap cleanup SIGINT SIGTERM
 
 # --------------------------------------------------------------------
 # Compare the data and check there are no diffs
@@ -45,3 +48,8 @@ case $? in
     2 )
         echo "Diff encountered an error" ;;
 esac
+
+echo "VM is still running, so that you can run additional queries"
+echo "to inspect the data. Use vagrant ssh and then psql on port"
+echo "15432 to do so. When you are finished, teardown with "
+echo "./teardown.sh."
