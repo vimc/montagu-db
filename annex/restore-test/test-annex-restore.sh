@@ -35,19 +35,16 @@ trap cleanup SIGINT SIGTERM
 # --------------------------------------------------------------------
 # Compare the data and check there are no diffs
 # --------------------------------------------------------------------
-set +ex
-diff shared/from_live shared/from_backup
+set +x
+difference=$(diff shared/from_live shared/from_backup)
 echo "----------------------------------------------------------------"
-case $? in
-    0 )
-        echo "No differences found in most recent 5000 records."
-        echo "Restore from backup was successful!" ;;
-    1 )
-        echo "Differences found in the most recent 5000 records."
-        echo "Restore unsuccessful / backup is out of date." ;;
-    2 )
-        echo "Diff encountered an error" ;;
-esac
+if [ -z difference ]; then
+    echo "No differences found in most recent 5000 records."
+    echo "Restore from backup was successful!"
+else
+    echo "Differences found in the most recent 5000 records."
+    echo "Restore unsuccessful / backup is out of date."
+fi
 
 echo "VM is still running, so that you can run additional queries"
 echo "to inspect the data. Use vagrant ssh and then psql on port"
