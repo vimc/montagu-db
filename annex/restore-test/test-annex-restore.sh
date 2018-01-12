@@ -37,6 +37,7 @@ trap cleanup SIGINT SIGTERM
 # --------------------------------------------------------------------
 set +x
 difference=$(diff shared/from_live shared/from_backup)
+echo $difference
 echo "----------------------------------------------------------------"
 if [ -z difference ]; then
     echo "No differences found in most recent 5000 records."
