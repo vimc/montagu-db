@@ -2,6 +2,11 @@
 set -e
 
 # --------------------------------------------------------------------
+# Cleanup previous attempt
+# --------------------------------------------------------------------
+./teardown.sh
+
+# --------------------------------------------------------------------
 # Get access to Vault
 # --------------------------------------------------------------------
 export VAULT_ADDR='https://support.montagu.dide.ic.ac.uk:8200'
@@ -13,11 +18,6 @@ if [ "$VAULT_AUTH_GITHUB_TOKEN" = "" ]; then
 fi
 set -x
 vault auth -method=github
-
-# --------------------------------------------------------------------
-# Cleanup previous attempt
-# --------------------------------------------------------------------
-./teardown.sh
 
 # --------------------------------------------------------------------
 # Restore backup (inside VM) and output sample data to shared folder
@@ -35,11 +35,11 @@ trap cleanup SIGINT SIGTERM
 # --------------------------------------------------------------------
 # Compare the data and check there are no diffs
 # --------------------------------------------------------------------
-set +x
+set +ex
 difference=$(diff shared/from_live shared/from_backup)
 echo $difference
 echo "----------------------------------------------------------------"
-if [ -z difference ]; then
+if [[ -z $difference ]]; then
     echo "No differences found in most recent 5000 records."
     echo "Restore from backup was successful!"
 else
