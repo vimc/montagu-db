@@ -16,8 +16,8 @@ RUN start-with-config.sh /etc/montagu/postgresql.conf --version
 
 # Configuration to allow streaming replication:
 RUN echo "host replication all all md5" >> $PGDATA/pg_hba.conf && \
-        createuser -U vimc -w --superuser   barman && \
-        createuser -U vimc -w --replication streaming_barman
+        createuser -U $POSTGRES_USER -d $POSTGRES_DB -w --superuser   barman && \
+        createuser -U $POSTGRES_USER -d $POSTGRES_DB -w --replication streaming_barman
 
 ENTRYPOINT ["start-with-config.sh"]
 CMD ["/etc/montagu/postgresql.conf"]
