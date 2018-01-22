@@ -13,5 +13,7 @@ COPY conf /etc/montagu
 RUN chown -R postgres:postgres /etc/montagu
 
 RUN start-with-config.sh /etc/montagu/postgresql.conf --version
+RUN echo "host replication all all md5" >> $PGDATA/pg_hba.conf
+
 ENTRYPOINT ["start-with-config.sh"]
 CMD ["/etc/montagu/postgresql.conf"]
