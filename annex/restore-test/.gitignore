@@ -1,0 +1,3 @@
+.vagrant/*
+shared/from_backup
+shared/from_live
