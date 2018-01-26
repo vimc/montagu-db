@@ -1,4 +1,5 @@
 FROM postgres:9.6.2
+COPY bin /montagu-bin
 ENV PATH="/montagu-bin:$PATH"
 ENV POSTGRES_DB montagu
 ENV POSTGRES_USER vimc
@@ -7,7 +8,6 @@ ENV POSTGRES_PASSWORD changeme
 # don't mount a persistent volume at the mount point.
 ENV PGDATA /pgdata
 
-COPY bin /montagu-bin
 
 COPY conf /etc/montagu
 ## or COPY ... --chown=<user>:<group> in recent docker (>=17.09)
