@@ -8,10 +8,11 @@ ENV POSTGRES_PASSWORD changeme
 # don't mount a persistent volume at the mount point.
 ENV PGDATA /pgdata
 
-
 COPY conf /etc/montagu
 ## or COPY ... --chown=<user>:<group> in recent docker (>=17.09)
 RUN chown -R postgres:postgres /etc/montagu
+
+RUN cp /montagu-bin/create-users.sh /docker-entrypoint-initdb.d/
 
 RUN start-with-config.sh /etc/montagu/postgresql.conf --version
 
