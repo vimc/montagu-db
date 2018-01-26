@@ -13,7 +13,8 @@ CREATE TABLE "gavi_eligibility" (
   PRIMARY KEY ("id"),
   FOREIGN KEY (touchstone) REFERENCES touchstone(id),
   FOREIGN KEY (country) REFERENCES country(id),
-  FOREIGN KEY (status) REFERENCES gavi_eligibility_status(id)
+  FOREIGN KEY (status) REFERENCES gavi_eligibility_status(id),
+  UNIQUE ("touchstone", "country", "year")
 );
 
 INSERT INTO gavi_eligibility_status (id, name) VALUES
