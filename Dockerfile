@@ -14,7 +14,5 @@ RUN chown -R postgres:postgres /etc/montagu
 
 RUN cp /montagu-bin/create-users.sh /docker-entrypoint-initdb.d/
 
-RUN start-with-config.sh /etc/montagu/postgresql.conf --version
-
 ENTRYPOINT ["start-with-config.sh"]
 CMD ["/etc/montagu/postgresql.conf"]
