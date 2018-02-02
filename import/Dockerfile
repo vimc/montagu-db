@@ -17,6 +17,7 @@ RUN install.r -e \
   jsonlite \
   readxl \
   remotes \
+  tidyr \
   whisker \
   yaml \
   xml2
