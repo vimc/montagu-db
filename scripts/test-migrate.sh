@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -ex
 
 DB_CONTAINER=db
 DB_ANNEX_CONTAINER=db_annex
