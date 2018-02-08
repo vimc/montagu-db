@@ -1,4 +1,5 @@
 montagu.dump
 dump/
 *.dump
+.idea
 demography
