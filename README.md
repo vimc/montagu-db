@@ -63,3 +63,11 @@ docker run --rm -d --name montagu_db docker.montagu.dide.ic.ac.uk:5000/montagu-d
 docker cp /montagu/db.dump montagu_db:/tmp/import.dump
 docker exec montagu_db /montagu-bin/restore-dump.sh /tmp/import.dump
 ```
+
+## Using an alternative configuration
+
+There is only one at present `/etc/montagu/postgresql.test.conf`, to use it add this as an argument when running a container, e.g.
+
+```
+docker run --rm docker.montagu.dide.ic.ac.uk:5000/montagu-db:master /etc/montagu/postgresql.test.conf
+```

@@ -9,7 +9,8 @@ ENV POSTGRES_PASSWORD changeme
 ENV PGDATA /pgdata
 
 COPY conf /etc/montagu
-## or COPY ... --chown=<user>:<group> in recent docker (>=17.09)
+RUN cat /etc/montagu/postgresql.conf /etc/montagu/postgresql.test.conf.in > \
+        /etc/montagu/postgresql.test.conf
 RUN chown -R postgres:postgres /etc/montagu
 RUN ./docker-entrypoint.sh --version
 
