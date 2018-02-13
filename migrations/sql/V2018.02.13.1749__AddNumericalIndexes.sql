@@ -1,0 +1,9 @@
+ALTER TABLE country
+  ADD COLUMN internal_id SMALLSERIAL NOT NULL;
+
+ALTER TABLE burden_outcome
+  ALTER COLUMN id TYPE SMALLINT;
+
+ALTER TABLE burden_estimate
+  ALTER COLUMN year TYPE SMALLINT,
+   ALTER COLUMN burden_outcome TYPE SMALLINT;
