@@ -33,6 +33,10 @@ if [[ ! -z $ANNEX_PORT ]]; then
     ANNEX_PORT_MAPPING="-p $ANNEX_PORT:5432"
 fi
 
+if [[ ! -z $PG_TEST_MODE ]]; then
+    PG_CONFIG=/etc/montagu/postgresql.test.conf
+fi
+
 REGISTRY=docker.montagu.dide.ic.ac.uk:5000
 
 DB_IMAGE=$REGISTRY/montagu-db:$DB_VERSION
@@ -59,9 +63,9 @@ docker pull $MIGRATE_IMAGE || true
 
 # First the core database:
 docker run --rm --network=$NETWORK -d \
-    --name $DB_CONTAINER $PORT_MAPPING $DB_IMAGE
+    --name $DB_CONTAINER $PORT_MAPPING $DB_IMAGE $PG_CONFIG
 docker run --rm --network=$NETWORK -d \
-    --name $DB_ANNEX_CONTAINER $ANNEX_PORT_MAPPING $DB_IMAGE
+    --name $DB_ANNEX_CONTAINER $ANNEX_PORT_MAPPING $DB_IMAGE $PG_CONFIG
 
 # Wait for things to become responsive
 docker exec $DB_CONTAINER montagu-wait.sh
