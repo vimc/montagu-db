@@ -6,8 +6,10 @@ ALTER TABLE burden_estimate
   DROP COLUMN burden_outcome;
 
 ALTER TABLE burden_estimate
-  RENAME COLUMN year_small to 'year',
-  RENAME COLUMN burden_outcome_small to 'burden_outcome';
+  RENAME COLUMN year_small TO year;
+
+ALTER TABLE burden_estimate
+  RENAME COLUMN burden_outcome_small TO burden_outcome;
 
 ALTER TABLE burden_estimate
   ENABLE TRIGGER ALL;
