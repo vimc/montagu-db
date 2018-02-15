@@ -1,0 +1,2 @@
+ALTER TABLE burden_outcome
+  ALTER COLUMN id TYPE SMALLINT;
