@@ -11,6 +11,8 @@ ENV PGDATA /pgdata
 COPY conf /etc/montagu
 RUN cat /etc/montagu/postgresql.conf /etc/montagu/postgresql.test.conf.in > \
         /etc/montagu/postgresql.test.conf
+RUN cat /etc/montagu/postgresql.conf /etc/montagu/postgresql.production.conf.in > \
+        /etc/montagu/postgresql.production.conf
 RUN chown -R postgres:postgres /etc/montagu
 RUN ./docker-entrypoint.sh --version
 
