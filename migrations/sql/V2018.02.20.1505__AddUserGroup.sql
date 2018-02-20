@@ -21,6 +21,11 @@ VALUES ('GAVI', 'All members of GAVI'),
   ('Modellers', 'Members of modelling groups'),
   ('Secretariat', 'Members of the consortium secretariat');
 
+-- for each user create group of same name
+INSERT INTO report_user_group (name, description)
+  SELECT username, 'Individual user group'
+  FROM app_user;
+
 -- insert all modellers into Modellers group
 INSERT INTO user_report_user_group (username, user_group)
   SELECT username, 'Modellers'
