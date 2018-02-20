@@ -21,7 +21,7 @@ VALUES ('GAVI', 'All members of GAVI'),
   ('Modellers', 'Members of modelling groups'),
   ('Secretariat', 'Members of the consortium secretariat');
 
--- insert all modellers into modelling group
+-- insert all modellers into Modellers group
 INSERT INTO user_report_user_group (username, user_group)
   SELECT (username, 'Modellers')
   FROM user_role
