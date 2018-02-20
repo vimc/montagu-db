@@ -23,6 +23,6 @@ VALUES ('GAVI', 'All members of GAVI'),
 
 -- insert all modellers into Modellers group
 INSERT INTO user_report_user_group (username, user_group)
-  SELECT (username, 'Modellers')
+  SELECT username, 'Modellers'
   FROM user_role
   WHERE role = 9;
