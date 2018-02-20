@@ -32,7 +32,7 @@ FOREIGN KEY (country) REFERENCES country (id),
 PRIMARY KEY (id),
 
   ADD CONSTRAINT burden_estimate_model_run_fkey
-FOREIGN KEY (model_run) REFERENCES model_run (id),
+FOREIGN KEY (model_run) REFERENCES model_run (internal_id),
 
   ADD CONSTRAINT burden_estimate_burden_outcome_fkey
 FOREIGN KEY (burden_outcome) REFERENCES burden_outcome (id);
