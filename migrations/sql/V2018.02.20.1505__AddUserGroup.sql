@@ -25,4 +25,4 @@ VALUES ('GAVI', 'All members of GAVI'),
 INSERT INTO user_report_user_group (username, user_group)
   SELECT (username, 'Modellers')
   FROM user_role
-  WHERE role = 'member';
+  WHERE role = 9;
