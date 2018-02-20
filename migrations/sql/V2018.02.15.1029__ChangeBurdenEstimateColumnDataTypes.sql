@@ -22,11 +22,11 @@ ALTER TABLE burden_estimate
   burden_outcome
 ),
 
-  ADD CONSTRAINT burden_estimate_unique
-FOREIGN KEY (set_type) REFERENCES burden_estimate_set_type (code),
-
   ADD CONSTRAINT burden_estimate_burden_estimate_set_fkey
 FOREIGN KEY (burden_estimate_set) REFERENCES burden_estimate_set (id),
+
+  ADD CONSTRAINT burden_estimate_country
+FOREIGN KEY (country) REFERENCES country (id),
 
   ADD CONSTRAINT burden_estimate_pkey
 PRIMARY KEY (id),
