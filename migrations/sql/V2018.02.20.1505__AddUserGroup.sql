@@ -14,7 +14,7 @@ CREATE TABLE user_group_membership (
 ALTER TABLE user_group_membership
   ADD FOREIGN KEY (username) REFERENCES app_user (username);
 ALTER TABLE user_group_membership
-  ADD FOREIGN KEY (user_group) REFERENCES user_group (name);
+  ADD FOREIGN KEY (user_group) REFERENCES user_group (id);
 
 CREATE TABLE user_group_role (
 user_group TEXT NOT NULL ,
@@ -23,7 +23,7 @@ scope_id TEXT NOT NULL ,
 PRIMARY KEY (user_group, role, scope_id)
 );
 
-ALTER TABLE user_group_role ADD FOREIGN KEY (user_group) REFERENCES user_group (name);
+ALTER TABLE user_group_role ADD FOREIGN KEY (user_group) REFERENCES user_group (id);
 ALTER TABLE user_group_role ADD FOREIGN KEY (role) REFERENCES role (id);
 
 -- create standard groups
