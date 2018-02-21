@@ -20,7 +20,7 @@ PRIMARY KEY ("user_group", "role", "scope_id")
 ALTER TABLE user_group_user
   ADD FOREIGN KEY (username) REFERENCES app_user (username);
 ALTER TABLE user_group_user
-  ADD FOREIGN KEY (user_group) REFERENCES report_user_group (name);
+  ADD FOREIGN KEY (user_group) REFERENCES user_group (name);
 
 INSERT INTO user_group (name, description)
 VALUES ('GAVI', 'All members of GAVI'),
