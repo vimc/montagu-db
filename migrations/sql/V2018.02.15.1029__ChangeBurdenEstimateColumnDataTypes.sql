@@ -12,15 +12,12 @@ ALTER TABLE burden_estimate
   ALTER COLUMN year SET DATA TYPE SMALLINT,
   ALTER COLUMN burden_outcome SET DATA TYPE SMALLINT;
 
--- add constraints back
 ALTER TABLE burden_estimate
-  ADD CONSTRAINT burden_estimate_unique UNIQUE (
-  burden_estimate_set,
-  country,
-  year,
-  age,
-  burden_outcome
-),
+  ADD COLUMN year_small SMALLINT NULL,
+  ADD COLUMN burden_outcome_small SMALLINT NULL;
+
+UPDATE TABLE burden_estimate
+  ADD COLUMN
 
   ADD CONSTRAINT burden_estimate_burden_estimate_set_fkey
 FOREIGN KEY (burden_estimate_set) REFERENCES burden_estimate_set (id),
@@ -36,3 +33,13 @@ FOREIGN KEY (model_run) REFERENCES model_run (internal_id),
 
   ADD CONSTRAINT burden_estimate_burden_outcome_fkey
 FOREIGN KEY (burden_outcome) REFERENCES burden_outcome (id);
+
+-- add constraints back
+ALTER TABLE burden_estimate
+  ADD CONSTRAINT burden_estimate_unique UNIQUE (
+  burden_estimate_set,
+  country,
+  year,
+  age,
+  burden_outcome
+)
