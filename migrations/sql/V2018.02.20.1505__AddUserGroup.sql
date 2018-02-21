@@ -13,7 +13,7 @@ CREATE TABLE user_group_membership (
 
 ALTER TABLE user_group_membership
   ADD FOREIGN KEY (username) REFERENCES app_user (username);
-ALTER TABLE user_group_user
+ALTER TABLE user_group_membership
   ADD FOREIGN KEY (user_group) REFERENCES user_group (name);
 
 CREATE TABLE user_group_role (
