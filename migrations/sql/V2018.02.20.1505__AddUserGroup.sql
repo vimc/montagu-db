@@ -1,7 +1,7 @@
 CREATE TABLE user_group (
-  "name"        TEXT NOT NULL,
-  "description" TEXT NULL,
-  PRIMARY KEY ("name")
+  name        TEXT NOT NULL,
+  description TEXT NULL,
+  PRIMARY KEY (name)
 );
 
 CREATE TABLE user_group_user (
@@ -16,14 +16,14 @@ ALTER TABLE user_group_user
   ADD FOREIGN KEY (user_group) REFERENCES user_group (name);
 
 CREATE TABLE user_group_role (
-"user_group" TEXT NOT NULL ,
-"role" INTEGER ,
-"scope_id" TEXT NOT NULL ,
-PRIMARY KEY ("user_group", "role", "scope_id")
+user_group TEXT NOT NULL ,
+role INTEGER ,
+scope_id TEXT NOT NULL ,
+PRIMARY KEY (user_group, role, scope_id)
 );
 
-ALTER TABLE "user_group_role" ADD FOREIGN KEY ("user_group") REFERENCES "user_group" ("name");
-ALTER TABLE "user_group_role" ADD FOREIGN KEY ("role") REFERENCES "role" ("id");
+ALTER TABLE user_group_role ADD FOREIGN KEY (user_group) REFERENCES user_group (name);
+ALTER TABLE user_group_role ADD FOREIGN KEY (role) REFERENCES role (id);
 
 -- create standard groups
 INSERT INTO user_group (name, description)
@@ -41,7 +41,7 @@ INSERT INTO user_group (name, description)
 INSERT INTO user_group_role (user_group, role, scope_id)
   SELECT user_group_user.user_group, user_role.role, user_role.scope_id
   FROM user_role join user_group_user
-  on user_group_user.username = user_role.username
+  ON user_group_user.username = user_role.username;
 
 -- insert all modellers into Modellers group
 INSERT INTO user_group_user (username, user_group)
