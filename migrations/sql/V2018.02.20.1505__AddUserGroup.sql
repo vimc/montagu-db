@@ -1,16 +1,17 @@
 CREATE TABLE user_group (
+  id TEXT NOT NULL,
   name        TEXT NOT NULL,
   description TEXT NULL,
-  PRIMARY KEY (name)
+  PRIMARY KEY (id)
 );
 
-CREATE TABLE user_group_user (
+CREATE TABLE user_group_membership (
   username   TEXT NOT NULL,
   user_group TEXT NOT NULL,
   PRIMARY KEY (username, user_group)
 );
 
-ALTER TABLE user_group_user
+ALTER TABLE user_group_membership
   ADD FOREIGN KEY (username) REFERENCES app_user (username);
 ALTER TABLE user_group_user
   ADD FOREIGN KEY (user_group) REFERENCES user_group (name);
@@ -26,25 +27,9 @@ ALTER TABLE user_group_role ADD FOREIGN KEY (user_group) REFERENCES user_group (
 ALTER TABLE user_group_role ADD FOREIGN KEY (role) REFERENCES role (id);
 
 -- create standard groups
-INSERT INTO user_group (name, description)
-VALUES ('GAVI', 'All members of GAVI'),
-  ('Gates', 'All members of the Gates foundation'),
-  ('Modellers', 'Members of modelling groups'),
-  ('Secretariat', 'Members of the consortium secretariat');
+INSERT INTO user_group (id, name, description)
+VALUES ('gavi', 'GAVI', 'All members of GAVI'),
+  ('gates', 'Gates', 'All members of the Gates foundation'),
+  ('modellers', 'Modellers', 'Members of modelling groups'),
+  ('secretariat', 'Secretariat', 'Members of the consortium secretariat');
 
--- for each user create group of same name
-INSERT INTO user_group (name, description)
-  SELECT username, 'Individual user group'
-  FROM app_user;
-
--- migrate all existent role mappings to new table
-INSERT INTO user_group_role (user_group, role, scope_id)
-  SELECT user_group_user.user_group, user_role.role, user_role.scope_id
-  FROM user_role join user_group_user
-  ON user_group_user.username = user_role.username;
-
--- insert all modellers into Modellers group
-INSERT INTO user_group_user (username, user_group)
-  SELECT username, 'Modellers'
-  FROM user_role
-  WHERE role = 9;
