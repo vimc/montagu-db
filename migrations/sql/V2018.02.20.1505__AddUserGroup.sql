@@ -10,6 +10,11 @@ CREATE TABLE user_group_user (
   PRIMARY KEY (username, user_group)
 );
 
+ALTER TABLE user_group_user
+  ADD FOREIGN KEY (username) REFERENCES app_user (username);
+ALTER TABLE user_group_user
+  ADD FOREIGN KEY (user_group) REFERENCES user_group (name);
+
 CREATE TABLE user_group_role (
 "user_group" TEXT NOT NULL ,
 "role" INTEGER ,
@@ -17,11 +22,10 @@ CREATE TABLE user_group_role (
 PRIMARY KEY ("user_group", "role", "scope_id")
 );
 
-ALTER TABLE user_group_user
-  ADD FOREIGN KEY (username) REFERENCES app_user (username);
-ALTER TABLE user_group_user
-  ADD FOREIGN KEY (user_group) REFERENCES user_group (name);
+ALTER TABLE "user_group_role" ADD FOREIGN KEY ("user_group") REFERENCES "user_group" ("name");
+ALTER TABLE "user_group_role" ADD FOREIGN KEY ("role") REFERENCES "role" ("id");
 
+-- create standard groups
 INSERT INTO user_group (name, description)
 VALUES ('GAVI', 'All members of GAVI'),
   ('Gates', 'All members of the Gates foundation'),
@@ -32,6 +36,12 @@ VALUES ('GAVI', 'All members of GAVI'),
 INSERT INTO user_group (name, description)
   SELECT username, 'Individual user group'
   FROM app_user;
+
+-- migrate all existent role mappings to new table
+INSERT INTO user_group_role (user_group, role, scope_id)
+  SELECT user_group_user.user_group, user_role.role, user_role.scope_id
+  FROM user_role join user_group_user
+  on user_group_user.username = user_role.username
 
 -- insert all modellers into Modellers group
 INSERT INTO user_group_user (username, user_group)
