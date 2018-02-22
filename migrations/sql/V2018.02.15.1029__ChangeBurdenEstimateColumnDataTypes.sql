@@ -1,13 +1,17 @@
--- change data type
-ALTER TABLE burden_estimate DISABLE TRIGGER ALL;
+-- this ran out of disk space on UAT
+-- -- change data type
+-- ALTER TABLE burden_estimate DISABLE TRIGGER ALL;
+--
+-- -- set data types to small ints
+-- ALTER TABLE burden_estimate
+--   ALTER COLUMN year SET DATA TYPE SMALLINT;
+--
+-- ALTER TABLE burden_estimate ENABLE TRIGGER ALL;
 
--- set data types to small ints
-ALTER TABLE burden_estimate
-  ALTER COLUMN year SET DATA TYPE SMALLINT;
-
-ALTER TABLE burden_estimate ENABLE TRIGGER ALL;
-
+-- this also ran out of disk space on UAT
 -- change via new column
+-- ALTER TABLE burden_estimate DISABLE TRIGGER ALL;
+--
 -- ALTER TABLE burden_estimate
 --   ADD COLUMN year_small SMALLINT NULL;
 --
@@ -15,7 +19,9 @@ ALTER TABLE burden_estimate ENABLE TRIGGER ALL;
 -- SET year_small = year;
 --
 -- ALTER TABLE burden_estimate
---   DROP COLUMN year,
+--   DROP COLUMN year;
+--
+-- ALTER TABLE burden_estimate
 -- RENAME COLUMN year_small TO year;
 --
 -- ALTER TABLE burden_estimate ENABLE TRIGGER ALL;
