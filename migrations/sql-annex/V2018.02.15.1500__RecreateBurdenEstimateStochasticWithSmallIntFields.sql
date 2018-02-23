@@ -7,7 +7,6 @@ CREATE TABLE burden_estimate_stochastic (
   country_nid SMALLINT NULL,
   year SMALLINT NOT NULL,
   burden_outcome SMALLINT NOT NULL,
-  stochastic boolean NOT NULL,
   value numeric,
   age SMALLINT,
   PRIMARY KEY ("id")
@@ -18,7 +17,7 @@ CREATE INDEX ON burden_estimate_stochastic (burden_estimate_set);
 ALTER TABLE burden_estimate_stochastic
   ADD CONSTRAINT burden_estimate_stochastic_unique UNIQUE (
   burden_estimate_set,
-  country,
+  country_nid,
   year,
   age,
   burden_outcome) DEFERRABLE INITIALLY DEFERRED;
