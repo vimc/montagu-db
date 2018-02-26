@@ -1,4 +1,4 @@
--- this took 16 minutes
+-- this took 16 minutes on UAT
 -- disable triggers
 ALTER TABLE burden_estimate DISABLE TRIGGER ALL;
 ALTER TABLE impact_estimate_ingredient DISABLE TRIGGER ALL;

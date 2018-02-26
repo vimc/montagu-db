@@ -1,3 +1,4 @@
+-- this took 1 hour 16 mins on UAT
 -- change data type
 ALTER TABLE burden_estimate DISABLE TRIGGER ALL;
 
