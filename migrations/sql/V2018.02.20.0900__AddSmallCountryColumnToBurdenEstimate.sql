@@ -1,4 +1,4 @@
--- this took 5 hours 19 mins on UAT
+-- this took > 6 hours on UAT
 ALTER TABLE burden_estimate
   ADD COLUMN country_nid SMALLINT NULL;
 
