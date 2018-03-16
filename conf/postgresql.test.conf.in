@@ -11,4 +11,3 @@ synchronous_commit = off
 full_page_writes = off
 checkpoint_timeout = 45min
 max_wal_size = 4GB
-max_replication_slots = 1
