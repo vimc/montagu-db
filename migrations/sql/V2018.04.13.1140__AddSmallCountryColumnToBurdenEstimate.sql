@@ -53,6 +53,7 @@ CREATE INDEX ON burden_estimate (burden_estimate_set);
 ALTER TABLE burden_estimate
   ADD CONSTRAINT burden_estimate_unique UNIQUE (
   burden_estimate_set,
+  model_run,
   country,
   year,
   age,
