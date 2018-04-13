@@ -1,0 +1,5 @@
+ALTER TABLE country
+ ALTER COLUMN nid SET DATA TYPE SMALLINT;
+
+ALTER TABLE country
+ ADD CONSTRAINT country_nid_unique UNIQUE (nid)
