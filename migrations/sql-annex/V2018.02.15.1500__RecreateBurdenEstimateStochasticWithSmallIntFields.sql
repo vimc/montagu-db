@@ -1,14 +1,14 @@
 DROP TABLE burden_estimate_stochastic;
 
 CREATE TABLE burden_estimate_stochastic (
-  id BIGSERIAL NOT NULL,
-  burden_estimate_set integer NOT NULL,
-  model_run INTEGER NOT NULL,
-  country SMALLINT NOT NULL,
-  year SMALLINT NOT NULL,
-  burden_outcome SMALLINT NOT NULL,
-  value numeric,
-  age SMALLINT,
+  id                  BIGSERIAL NOT NULL,
+  burden_estimate_set INTEGER   NOT NULL,
+  model_run           INTEGER   NOT NULL,
+  country             SMALLINT  NOT NULL,
+  year                SMALLINT  NOT NULL,
+  burden_outcome      SMALLINT  NOT NULL,
+  value               NUMERIC,
+  age                 SMALLINT,
   PRIMARY KEY ("id")
 );
 
@@ -21,4 +21,5 @@ ALTER TABLE burden_estimate_stochastic
   country,
   year,
   age,
-  burden_outcome) DEFERRABLE INITIALLY DEFERRED;
+  burden_outcome)
+  DEFERRABLE INITIALLY DEFERRED;
