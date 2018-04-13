@@ -4,7 +4,7 @@ CREATE TABLE burden_estimate_stochastic (
   id BIGSERIAL NOT NULL,
   burden_estimate_set integer NOT NULL,
   model_run INTEGER NOT NULL,
-  country SMALLINT NULL,
+  country SMALLINT NOT NULL,
   year SMALLINT NOT NULL,
   burden_outcome SMALLINT NOT NULL,
   value numeric,
