@@ -13,12 +13,12 @@ INSERT INTO burden_estimate_new
   (SELECT
      burden_estimate.id,
      burden_estimate.burden_estimate_set,
-     burden_estimate.model_run,
-     burden_estimate.burden_outcome,
      country.nid AS country,
      burden_estimate.year,
+     burden_estimate.burden_outcome,
+     burden_estimate.value,
      burden_estimate.age,
-     burden_estimate.value
+     burden_estimate.model_run
    FROM burden_estimate
      JOIN country ON burden_estimate.country = country.id);
 
@@ -57,4 +57,4 @@ ALTER TABLE burden_estimate
   year,
   age,
   burden_outcome
-)
+);
