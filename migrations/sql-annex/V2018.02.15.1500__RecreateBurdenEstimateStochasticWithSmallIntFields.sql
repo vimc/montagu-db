@@ -7,7 +7,7 @@ CREATE TABLE burden_estimate_stochastic (
   country             SMALLINT  NOT NULL,
   year                SMALLINT  NOT NULL,
   burden_outcome      SMALLINT  NOT NULL,
-  value               NUMERIC,
+  value               REAL,
   age                 SMALLINT,
   PRIMARY KEY ("id")
 );

@@ -4,7 +4,7 @@ CREATE TABLE burden_estimate_new (
   country             SMALLINT NOT NULL,
   year                SMALLINT NOT NULL,
   burden_outcome      SMALLINT NOT NULL,
-  value               NUMERIC,
+  value               REAL,
   age                 SMALLINT,
   model_run           INTEGER
 );
