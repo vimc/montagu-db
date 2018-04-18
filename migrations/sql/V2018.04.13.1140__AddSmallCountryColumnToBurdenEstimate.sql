@@ -1,26 +1,26 @@
 CREATE TABLE burden_estimate_new (
-  id                  INTEGER  NOT NULL,
+  id                  SERIAL   NOT NULL,
   burden_estimate_set INTEGER  NOT NULL,
   country             SMALLINT NOT NULL,
   year                SMALLINT NOT NULL,
   burden_outcome      SMALLINT NOT NULL,
-  value               NUMERIC,
+  value               REAL,
   age                 SMALLINT,
   model_run           INTEGER
 );
 
 INSERT INTO burden_estimate_new
   (SELECT
-      burden_estimate.id,
-      burden_estimate.burden_estimate_set,
-      burden_estimate.model_run,
-      burden_estimate.burden_outcome,
-      country.nid AS country,
-      burden_estimate.year,
-      burden_estimate.age,
-      burden_estimate.value
-    FROM burden_estimate
-      JOIN country ON burden_estimate.country = country.id);
+     burden_estimate.id,
+     burden_estimate.burden_estimate_set,
+     country.nid AS country,
+     burden_estimate.year,
+     burden_estimate.burden_outcome,
+     burden_estimate.value,
+     burden_estimate.age,
+     burden_estimate.model_run
+   FROM burden_estimate
+     JOIN country ON burden_estimate.country = country.id);
 
 DROP TABLE burden_estimate;
 
@@ -57,4 +57,4 @@ ALTER TABLE burden_estimate
   year,
   age,
   burden_outcome
-)
+);
