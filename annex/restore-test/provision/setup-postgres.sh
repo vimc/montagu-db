@@ -11,7 +11,7 @@ else
 
     wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
         sudo apt-key add -
-    sudo apt-get update 
+    sudo apt-get update
 
-    sudo apt-get install -y postgresql-client-9.6 
+    sudo apt-get install -y postgresql-client-10
 fi
