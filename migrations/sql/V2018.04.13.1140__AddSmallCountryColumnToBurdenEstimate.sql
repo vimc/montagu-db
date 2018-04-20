@@ -1,3 +1,9 @@
+ALTER TABLE country
+  ALTER COLUMN nid SET DATA TYPE SMALLINT;
+
+ALTER TABLE country
+  ADD CONSTRAINT country_nid_unique UNIQUE (nid);
+
 CREATE TABLE burden_estimate_new (
   id                  SERIAL   NOT NULL,
   burden_estimate_set INTEGER  NOT NULL,
