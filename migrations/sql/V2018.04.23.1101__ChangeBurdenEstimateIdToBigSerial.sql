@@ -1,0 +1,4 @@
+ALTER TABLE burden_estimate
+  DROP COLUMN id,
+  ADD COLUMN id BIGSERIAL NOT NULL,
+  ADD PRIMARY KEY ("id");
