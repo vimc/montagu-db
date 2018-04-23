@@ -6,3 +6,6 @@ ALTER TABLE burden_estimate
                       year,
                       age,
                       burden_outcome);
+
+ALTER FOREIGN TABLE burden_estimate_stochastic
+  DROP COLUMN id;
