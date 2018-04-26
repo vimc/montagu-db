@@ -12,22 +12,30 @@ cd montagu-db-backup/backup
 pip3 install -r requirements.txt
 ```
 
-Then interact with the barman container the `./barman-montagu` command:
+Then install the command with
 
 ```
-$ ./barman-montagu --help
-Set up barman (Postgres streaming backup) for montagu
+sudo ./install
+```
+
+which sets up a `barman-montagu` command that can be used from anywhere on the computer that refers to the configuration in *this* directory (you can also use `./barman-montagu` and avoid installing).
+
+Then you can interact with the barman container the `barman-montagu` command:
+
+```
+$ barman-montagu --help
+Set up and use barman (Postgres streaming backup) for montagu
 
 Usage:
   barman-montagu setup [options] <host>
   barman-montagu status
   barman-montagu barman [--] [<args>...]
   barman-montagu recover [--wipe-first] [<backup-id>]
+  barman-montagu update-nightly
   barman-montagu wipe-recover
   barman-montagu destroy
 
 Options:
-  --configure-cron          Configure a once-a-minute cron job
   --password-group=<group>  Password group [default: production]
   --image-tag=<tag>         Barman image tag [default: master]
   --pull-image              Pull image before running?
@@ -39,46 +47,40 @@ These commands create and pass through to the `barman` process in a long running
 To set up barman:
 
 ```
-./barman-montagu setup --pull-image production.montagu.dide.ic.ac.uk
+barman-montagu setup --pull-image production.montagu.dide.ic.ac.uk
 ```
 
 Or, for local testing you would want:
 
 ```
-./barman-montagu setup --pull-image localhost
+barman-montagu setup --pull-image localhost
 ```
 
 Currently the port 5432 is assumed.
 
-To install the cron job pass `--configure-cron` (which will also require running with `sudo`).  Or to set up cron on an already running barman:
-
-```
-sudo ./barman-montagu setup --configure-cron production.dide.ic.ac.uk
-```
-
 To see a set of status information run
 
 ```
-./barman-montagu status
+barman-montagu status
 ```
 
 To interact with barman directly, either do `docker exec barman-montagu barman ...` or use
 
 ```
 
-./barman-montagu barman -- --help
+barman-montagu barman -- --help
 ```
 
 (the `--` is often optional but disambiguates arguments to `barman-montagu` and for barman).  For example listing files in the most recent backup might look like:
 
 ```
-./barman-montagu barman list-files montagu latest
+barman-montagu barman list-files montagu latest
 ```
 
 or getting information about the latest backup:
 
 ```
-./barman-montagu barman show-backup montagu latest
+barman-montagu barman show-backup montagu latest
 ```
 
 (see [the `barman` docs](http://docs.pgbarman.org/release/2.0) for more commands).
@@ -86,15 +88,27 @@ or getting information about the latest backup:
 To dump out the latest copy of the database to recover from:
 
 ```
-./barman-montagu recover --wipe-first
+barman-montagu recover --wipe-first
 ```
 
 You will then need to clone the contents of the `barman_recover` volume into a suitable place for the Postgres server to read from.
 
-To remove all traces of barman (the cron job, the container and the volumes), use:
+
+Every night a snapshot of the database can be written out to the `montagu_db_volume` volume, by running
+
 
 ```
-./barman-montagu destroy
+barman-montagu update-nightly
+```
+
+This should be arranged to run on your host machine.
+
+For a manual dump, prefer the `barman-montagu recover` which writes to the `barman_recover` volume.
+
+To remove all traces of barman (the container and the volumes), use:
+
+```
+barman-montagu destroy
 ```
 
 The `barman-montagu` script does not depend on its location and can be moved to a position within `$PATH`.
@@ -107,10 +121,11 @@ Important notes:
 
 The barman container must be able to reach the montagu-db container over the network.  Depending on how you are deploying this would be either by attaching to the same network (e.g., in testing) or over the network (e.g., in production)
 
-**Three** volumes are used;
+**Four** volumes are used;
 1. `barman_data` (at `/var/lib/barman`) is the one that holds the backup - this should itself be backed up
 2. `barman_logs` (at `/var/log/barman`) is used to persist logs
-3. `barman_recover` (at `/recover`) holds a recovery location - ensure that this is empty before restoring into it
+3. `barman_recover` (at `/recover`) holds a manual recovery location - ensure that this is empty before restoring into it
+4. `montagu_db_volume` (at `/nightly`) holds a periodic recovery
 
 Barman needs to know the hostname, port, database name, two user names and two passwords.  Defaults for these are set in [etc/barman.d.in/montagu.json](etc/barman.d.in/montagu.json) but can be overridden by passing environment variables to the container in the form `BARMAN_MONTAGU_<key>` where `<key>` is one of the entries from the json, in uppercase (this can be done either with the `-e` flag or `--env-file` argument (e.g., `BARMAN_MONTAGU_PASS_BACKUP`)
 
@@ -120,12 +135,6 @@ Once the barman container is up it just runs an idle loop (which is needed to su
 
 ```
 docker exec barman_container barman list-backup all
-```
-
-The host system should arrange to run `barman cron` via exec regularly (the barman docs suggest once a minute).  It *must* run because otherwise eventually the source database will die because the log shipping has failed.
-
-```
-docker exec barman_container barman cron
 ```
 
 To restore, run:
@@ -149,3 +158,15 @@ If we copy files around, using scp with `-o "Compression no"` can speed things u
 1. Stop montagu so that the db stops, but do not remove the data volume
 2. Rsync from the restore into the container with appropriate `--delete` flags set: this will hopefully reduce copying around too much
 3. Start up montagu!
+
+## Testing
+
+Copy `testing/montagu-deploy.json` into your `montagu/src` directory - this creates a minimal montagu deployment that supports streaming replication.
+
+Run:
+
+```
+barman-montagu setup --pull-image localhost
+```
+
+(you may want to specify `--image-tag` too to run the branch you're working on).

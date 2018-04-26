@@ -5,6 +5,7 @@ FROM ubuntu:16.04
 # key from the postgres deb repo
 RUN apt-get update && \
         apt-get install -y --no-install-recommends \
+                cron \
                 python3-pip \
                 python3-setuptools \
                 wget
@@ -22,6 +23,7 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
 VOLUME /var/lib/barman
 VOLUME /var/log/barman
 VOLUME /recover
+VOLUME /nightly
 
 COPY etc /etc
 COPY bin /usr/local/bin
