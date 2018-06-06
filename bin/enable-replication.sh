@@ -12,4 +12,15 @@ END IF;
 END
 \$\$;
 SELECT * FROM pg_replication_slots WHERE slot_name = 'barman';
+
+DO \$\$
+BEGIN
+IF
+  (SELECT count(*) = 0 FROM pg_replication_slots WHERE slot_name = 'barman_aws')
+  THEN
+    PERFORM * from pg_create_physical_replication_slot('barman_aws');
+END IF;
+END
+\$\$;
+SELECT * FROM pg_replication_slots WHERE slot_name = 'barman_aws';
 EOF
