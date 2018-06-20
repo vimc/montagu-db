@@ -28,3 +28,7 @@ wait_for()
 TIMEOUT="${1:-15}"
 wait_for
 RESULT=$?
+if [[ $RESULT -ne 0 ]]; then
+  echo "postgres did not become available in time"
+fi
+exit $RESULT
