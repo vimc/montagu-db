@@ -3,8 +3,7 @@ wait_for()
 {
     echo "waiting $TIMEOUT seconds for postgres"
     start_ts=$(date +%s)
-    while :
-    do
+    for i in $(seq $TIMEOUT); do
         # Using pg_ready as:
         #
         #   pg_isready -U $POSTGRES_USER -d $POSTGRES_DB
