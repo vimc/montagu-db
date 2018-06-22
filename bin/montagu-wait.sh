@@ -3,8 +3,7 @@ wait_for()
 {
     echo "waiting $TIMEOUT seconds for postgres"
     start_ts=$(date +%s)
-    while :
-    do
+    for i in $(seq $TIMEOUT); do
         # Using pg_ready as:
         #
         #   pg_isready -U $POSTGRES_USER -d $POSTGRES_DB
@@ -24,6 +23,12 @@ wait_for()
     return $result
 }
 
-TIMEOUT=15
+# The variable expansion below is 15s by default, or the argument provided
+# to this script
+TIMEOUT="${1:-15}"
 wait_for
 RESULT=$?
+if [[ $RESULT -ne 0 ]]; then
+  echo "postgres did not become available in time"
+fi
+exit $RESULT
