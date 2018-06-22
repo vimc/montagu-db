@@ -5,4 +5,4 @@ if [ -z $VAULT_AUTH_GITHUB_TOKEN ]; then
     read -s VAULT_AUTH_GITHUB_TOKEN
 fi
 export VAULT_AUTH_GITHUB_TOKEN
-vault auth -method=github
+vault login -method=github

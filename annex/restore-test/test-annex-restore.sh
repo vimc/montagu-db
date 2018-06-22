@@ -17,7 +17,7 @@ if [ "$VAULT_AUTH_GITHUB_TOKEN" = "" ]; then
     export VAULT_AUTH_GITHUB_TOKEN=${token}
 fi
 set -x
-vault auth -method=github
+vault login -method=github
 
 # --------------------------------------------------------------------
 # Restore backup (inside VM) and output sample data to shared folder
