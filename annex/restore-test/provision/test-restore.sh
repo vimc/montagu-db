@@ -9,7 +9,7 @@ cd montagu-backup
 ./restore.py
 
 # Read data from the local database (just restored) and the real annex
-vault auth -method=github
+vault login -method=github
 set +x
 export PGPASSWORD=$(vault read -field=value secret/annex/password)
 
