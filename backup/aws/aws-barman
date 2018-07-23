@@ -1,0 +1,64 @@
+#!/usr/bin/env python3
+"""Usage:
+aws-barman status [<name>]
+aws-barman start [<name>] [--no-stop-on-error]
+aws-barman stop [<name>]
+aws-barman startup_log [<name>]
+aws-barman ssh [<name>]
+
+Options:
+  --no-stop-on-error    Don't stop and remove in the instance on error
+
+<name> defaults to montagu-barman, and is used to distinguish instances
+"""
+
+# https://boto3.readthedocs.io/en/latest/reference/services/ec2.html
+from os.path import isfile
+
+import boto3
+from docopt import docopt
+
+from barman_instance import BarmanInstance
+from vault import save_securely_to_disk, VaultClient
+
+ec2 = boto3.resource('ec2')
+
+
+def dump_key(vault: VaultClient):
+    if not isfile('montagu-barman.pem'):
+        print("Writing private key to ./montagu-barman.pem")
+        save_securely_to_disk('montagu-barman.pem', vault.ec2_private_key)
+
+
+def ssh(instance: BarmanInstance, vault: VaultClient):
+    if instance.exists:
+        dump_key(vault)
+        suggested_cmd = "ssh -i ./montagu-barman.pem ubuntu@{}".format(
+            instance.public_dns_name)
+        print("To connect, use:")
+        print(suggested_cmd)
+    else:
+        print("No instance exists")
+
+
+def status():
+    if instance.exists:
+        print("Instance status: " + instance.status)
+        print("Instance ID: " + instance.id)
+        print("Instance DNS: " + instance.public_dns_name)
+
+
+if __name__ == '__main__':
+    args = docopt(__doc__)
+    instance_name = args["<name>"] or "montagu-barman"
+    instance = BarmanInstance(instance_name)
+    if args["start"]:
+        instance.start()
+    elif args["status"]:
+        status()
+    elif args["stop"]:
+        instance.stop()
+    elif args["ssh"]:
+        ssh(instance, VaultClient())
+    elif args["startup_log"]:
+        print(instance.get_startup_log())

@@ -18,6 +18,10 @@ Options:
   --pull-image              Pull image before running?
   --no-clean-on-error       Don't clean up container/volumes on error
   --slot=<slot>             Replication slot to use on the db
+  --volume_data=<volume>    Volume name or path for data [default: barman_data]
+  --volume_logs=<volume>    Volume name or path for logs [default: barman_logs]
+  --volume_recover=<volume> Volume name or path for recovery [default: barman_recover]
+  --volume_nightly<volume>  Volume name or path for nightly recover [default: montagu_db_volume]
 """
 
 import os
@@ -37,7 +41,7 @@ BARMAN_CONTAINER = 'barman-montagu'
 # recover).
 BARMAN_VOLUMES = {
     'data': {'volume': 'barman_data', 'path': '/var/lib/barman'},
-    'libs': {'volume': 'barman_logs', 'path': '/var/log/barman'},
+    'logs': {'volume': 'barman_logs', 'path': '/var/log/barman'},
     'recover': {'volume': 'barman_recover', 'path': '/recover'},
     'nightly': {'volume': 'montagu_db_volume', 'path': '/nightly'}
 }
@@ -112,6 +116,9 @@ def start_barman(host, slot, password_group, tag, registry, pull,
     image_name = '{}/{}:{}'.format(registry, DOCKER_IMAGE, tag)
     volume_mappings = {x['volume']: {'bind': x['path']}
                        for x in BARMAN_VOLUMES.values()}
+    print("Volume mappings: ")
+    print(volume_mappings)
+
     db = DATABASE_NAME.upper()
     environment = {
         'BARMAN_{}_PASS_BACKUP'.format(db): pw['barman'],
@@ -123,7 +130,7 @@ def start_barman(host, slot, password_group, tag, registry, pull,
     if pull:
         print("Pulling image...")
         d.images.pull(image_name)
-    volumes = [volume_create(v['volume'], d) for v in BARMAN_VOLUMES.values()]
+    volumes = [volume_create(v, d) for v in named_volumes()]
     barman = d.containers.run(image_name, name=BARMAN_CONTAINER, detach=True,
                               volumes=volume_mappings, environment=environment,
                               extra_hosts=extra_hosts, network=network)
@@ -138,6 +145,11 @@ def start_barman(host, slot, password_group, tag, registry, pull,
                     v.remove()
         raise
     return barman
+
+
+def named_volumes():
+    return (v['volume'] for v in BARMAN_VOLUMES.values()
+            if not v['volume'].startswith('/'))
 
 
 def vault_client():
@@ -159,11 +171,14 @@ def get_barman_passwords(password_group):
         def get_password(user):
             return user
     else:
-        vault = vault_client()
-
         def get_password(user):
-            path = "secret/database/{}/users/{}".format(password_group, user)
-            return vault.read(path)['data']['password']
+            password = os.environ.get("MONTAGU_DB_PASSWORD_" + user)
+            if password:
+                return password
+            else:
+                vault = vault_client()
+                path = "secret/database/{}/users/{}".format(password_group, user)
+                return vault.read(path)['data']['password']
 
     return {x: get_password(x) for x in users}
 
@@ -233,7 +248,7 @@ def exec_safely(container, cmd, check=False, stream=True):
 
 def resolve_host_ip(host):
     if host == "localhost" or host == "127.0.0.1":
-        return localhost_ip()
+        return "127.0.0.1"
     try:
         parsed = socket.inet_aton(host)
         if len(parsed) != 4:
@@ -243,22 +258,17 @@ def resolve_host_ip(host):
         return socket.gethostbyname(host)
 
 
-# NOTE: not terribly portable (probably linux only).  An alternative,
-# but far more cryptic, approach is to use:
-#
-#     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
-#         s.connect(('8.8.8.8', 1))
-#         return s.getsockname()[0]
-#
-# which is adapted from various stackoverflow answers.
-def localhost_ip():
-    res = subprocess.run(["hostname", "--ip-address"], check=True,
-                         stdout=subprocess.PIPE)
-    return res.stdout.decode("UTF-8").strip()
+def handle_volume_args(args):
+    for volume in ['data', 'logs', 'nightly', 'recover']:
+        arg = "--volume_" + volume
+        if arg in args:
+            BARMAN_VOLUMES[volume]['volume'] = args[arg]
 
 
 def main():
     args = docopt.docopt(__doc__)
+    handle_volume_args(args)
+
     if args['setup']:
         setup(args['<host>'],
               args['--slot'],
