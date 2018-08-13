@@ -25,7 +25,7 @@ wait_for()
 
 # The variable expansion below is 15s by default, or the argument provided
 # to this script
-TIMEOUT="${1:-15}"
+TIMEOUT="${1:-30}"
 wait_for
 RESULT=$?
 if [[ $RESULT -ne 0 ]]; then
