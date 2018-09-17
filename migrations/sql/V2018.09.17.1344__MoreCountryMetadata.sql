@@ -4,6 +4,7 @@
 -- check null ness for everything
 -- everything that needs to be an enum table done
 -- no "data" in column names (e.g., thing_2008, thing_yf, etc)
+-- some of the not-null constraints need to be relaxed until we have the data import done - this needs writing out as a second import.
 
 
 CREATE TABLE country_gavi_region (
@@ -48,7 +49,7 @@ CREATE TABLE country_cofinance (
 
 ALTER TABLE country_metadata
   -- ADD COLUMN francophone INTEGER,
-  ADD COLUMN vxdel_segement TEXT,
+  ADD COLUMN vxdel_segement TEXT NOT NULL,
   -- various country groupings
   ADD COLUMN pine_5 BOOLEAN NOT NULL,
   ADD COLUMN dove94 BOOLEAN NOT NULL,
