@@ -66,8 +66,43 @@ Or, for local testing you would want:
 barman-montagu setup --pull-image --slot barman localhost
 ```
 
+Or, for testing a locally built barman image, something like:
+
+```
+docker build --tag montagu-barman:test .
+./barman-montagu setup \
+    --slot=barman \
+    --image-source= \
+    --image-tag=test \
+    --password-group=fake \
+    localhost
+```
+
 Currently the port 5432 is assumed.
 
+## Monitoring barman
+Barman serves up OpenTSDB formatted (i.e. Prometheus-compatible) metrics
+at port 5000 on the host machine it is run on, using a Flask app that we
+wrote. It should give you output in roughly this format:
+
+```
+barman_running{database="montagu"} 1
+barman_ok{database="montagu"} 1
+barman_pg_version{database="montagu"} 10.3
+barman_available_backups{database="montagu"} 1
+barman_time_since_last_backup_seconds{database="montagu"} 54.008972
+barman_time_since_last_backup_minutes{database="montagu"} 0.9001495333333334
+barman_time_since_last_backup_hours{database="montagu"} 0.015002492222222222
+barman_time_since_last_backup_days{database="montagu"} 0.0006251038425925926
+```
+
+Prometheus adds two labels to every metric: instance_name and job. Plus we
+have a manual label here: database. So if we have two barman instances
+tracking the same db (as we do: production and AWS) they will differ by
+instance_name. And if they are tracking different databases they will also
+differ by database.
+
+## Interacting with barman
 To see a set of status information run
 
 ```
