@@ -44,8 +44,10 @@ checkpoint_flush_after = 256kB
 # REPLICATION
 #------------------------------------------------------------------------------
 
-max_wal_senders = 3		# max number of walsender processes
-max_replication_slots = 2	# max number of replication slots
+# This needs to be 3 * max_replication_slots + 1 because each
+# replication instance might use three connections
+max_wal_senders = 7         # max number of walsender processes
+max_replication_slots = 2   # max number of replication slots
 
 #------------------------------------------------------------------------------
 # QUERY TUNING
