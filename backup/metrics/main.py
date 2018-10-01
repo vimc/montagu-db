@@ -56,18 +56,26 @@ def parse_status(status, check):
         "barman_pg_version": status_values["PostgreSQL version"],
         "barman_available_backups": status_values["No. of available backups"],
         "barman_time_since_last_backup_seconds": since_last_backup,
-        "barman_time_since_last_backup_minutes": since_last_backup / 60,
-        "barman_time_since_last_backup_hours": since_last_backup / 3600,
-        "barman_time_since_last_backup_days": since_last_backup / (3600 * 24)
+        "barman_time_since_last_backup_minutes":
+            since_last_backup / 60 if since_last_backup is not None else None,
+        "barman_time_since_last_backup_hours":
+            since_last_backup / 3600 if since_last_backup is not None else None,
+        "barman_time_since_last_backup_days":
+            since_last_backup / (3600 * 24) if since_last_backup is not None else None
     }
 
 
 @app.route('/metrics')
 def metrics():
-    status = run(["barman", "status", DATABASE_NAME],
-                 stdout=PIPE, universal_newlines=True)
-    check = run(["barman", "check", DATABASE_NAME],
-                 stdout=PIPE, universal_newlines=True)
-    ms = parse_status(status.stdout, check.stdout)
-    ms = label_metrics(ms, {"database": DATABASE_NAME})
-    return render_metrics(ms)
+    try:
+        status = run(["barman", "status", DATABASE_NAME],
+                     stdout=PIPE, universal_newlines=True)
+        check = run(["barman", "check", DATABASE_NAME],
+                     stdout=PIPE, universal_newlines=True)
+        ms = parse_status(status.stdout, check.stdout)
+        ms = label_metrics(ms, {"database": DATABASE_NAME})
+        return render_metrics(ms)
+    except:
+        return render_metrics({
+            "barman_responding": False
+        })
