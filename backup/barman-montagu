@@ -139,7 +139,8 @@ def setup(host, slot, password_group, tag, registry, pull, clean_on_error,
     barman = d.containers.run(image_name, name=BARMAN_CONTAINER, detach=True,
                               volumes=volume_mappings, environment=environment,
                               extra_hosts=extra_hosts, network=network,
-                              ports={"5000": 5000})
+                              ports={"5000": 5000},
+                              restart_policy={"Name": "always"})
 
     args = ["setup-barman"]
     if no_initial_backup:
