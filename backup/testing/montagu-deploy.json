@@ -16,5 +16,6 @@
     "add_test_user": false,
     "enable_db_replication": true,
     "password_group": "production",
-    "bb8_backup": false
+    "bb8_backup": false,
+    "update_on_deploy": false
 }
