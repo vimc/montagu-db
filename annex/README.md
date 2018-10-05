@@ -19,9 +19,12 @@ sudo ./provision.sh
 
 ## Working on the annex machine
 
-*We do not have sole ownership of the annex machine - it is a shared DIDE resource and so there are differences to other `.montagu` machines*
+*We do not have sole ownership of the annex machine - it is a shared DIDE*
+*resource and so there are differences to other `.montagu` machines*
 
-All montagu related things are owned by the user `montagu`; use `sudo su montagu` to become that user, or login as them; copy your .ssh public identity into `~/.ssh/authorized_keys`, then add to your `~/.ssh/config`:
+All montagu related things are owned by the user `montagu`; use 
+`sudo su montagu` to become that user, or login as them; copy your .ssh public 
+identity into `~/.ssh/authorized_keys`, then add to your `~/.ssh/config`:
 
 ```
 Host annex.montagu
@@ -45,7 +48,9 @@ vault read -field=password /secret/registry/vimc | \
 
 ## Deployment
 
-Currently this is a transient store (see VIMC-1016, VIMC-1017).  There is quite a bit of logic required to get this right and it will likely end up with a simpler set of scripts to the deploy (but similar).
+Currently this is a transient store (see VIMC-1016, VIMC-1017).  There is quite
+a bit of logic required to get this right and it will likely end up with a
+simpler set of scripts to the deploy (but similar).
 
 1. if the container is running it will be stopped
 1. if a volume is not present one will be created
@@ -71,10 +76,14 @@ To stop the container and remove the data volume run
 
 ## Migrations
 
-After initial deployment, migrations can be handled from the main montagu deployment.  When deploying in production mode it will perform any required migrations.
+After initial deployment, migrations can be handled from the main montagu
+deployment. When deploying in production mode it will perform any required
+migrations.
 
-Re-deployment should only be required when updating the underlying postgres container (e.g., security fixes).
+Re-deployment should only be required when updating the underlying postgres
+container (e.g., security fixes).
 
 ## Testing
 
-There is a script for testing the idea in [`testing`](testing) - this can likely be removed as things get tested more formally on teamcity.
+There is a script for testing the idea in [`testing`](testing) - this can likely
+be removed as things get tested more formally on teamcity.
