@@ -69,22 +69,23 @@ CREATE TABLE country_worldbank_income_status (
 );
 
 ALTER TABLE country_metadata
-  ADD COLUMN francophone TEXT NOT NULL,
-  ADD COLUMN vxdel_segement TEXT NOT NULL,
-  -- various country groupings
-  ADD COLUMN pine_5 BOOLEAN NOT NULL,
-  ADD COLUMN dove94 BOOLEAN NOT NULL,
-  ADD COLUMN gavi68 BOOLEAN NOT NULL,
-  ADD COLUMN gavi72 BOOLEAN NOT NULL,
-  ADD COLUMN gavi77 BOOLEAN NOT NULL,
-  ADD COLUMN dove96 BOOLEAN NOT NULL,
-
+  ADD COLUMN francophone TEXT,
+  ADD COLUMN vxdel_segement TEXT,
+  ADD COLUMN pine_5 BOOLEAN,
+  ADD COLUMN dove94 BOOLEAN,
+  ADD COLUMN gavi68 BOOLEAN,
+  ADD COLUMN gavi72 BOOLEAN,
+  ADD COLUMN gavi77 BOOLEAN,
+  ADD COLUMN dove96 BOOLEAN,
   ADD COLUMN gavi_region TEXT,
-  ADD COLUMN gavi_pef_type TEXT,
+  ADD COLUMN gavi_pef_type TEXT;
 
 COMMENT ON COLUMN country_metadata.francophone IS
   '28 Gavi-supported French-speaking countries of interest to Gavi donors + 1 associated member + 4 observer counrties';
 
 COMMENT ON COLUMN country_metadata.vxdel_segment IS
   'An internal grouping as used by BMFG to stratify countries';
+
+COMMENT ON COLUMN country_metadata.gavi_pef_type IS
+  'Gavi Partners engagement framework';
 
