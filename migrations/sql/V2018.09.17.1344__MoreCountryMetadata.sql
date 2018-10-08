@@ -13,15 +13,7 @@ CREATE TABLE country_gavi_region (
   primary KEY (id)
 );
 COMMENT ON TABLE gavi_region
-  'Some description of a gavi region';
-
--- it's possible that what is wanted here is not just this but also
--- some sort of mega region thing, dividing the world up as
--- "Africa"/"Indo pacific" etc.
-CREATE TABLE country_continent (
-  id TEXT NOT NULL,
-  name TEXT NOT NULL,
-  PRIMARY KEY (id))
+  'include four types of gavi region interested by gavi doners';
 
 CREATE TABLE country_disease_endemic (
   country TEXT  NOT NULL,
@@ -33,7 +25,7 @@ CREATE TABLE country_fragility (
   id SERIAL,
   country TEXT NOT NULL,
   year INTEGER NOT NULL,
-  fragile BOOLEAN NOT NULL,
+  fragility text NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY ("country") REFERENCES country (id)
 );
@@ -42,7 +34,7 @@ CREATE TABLE country_cofinance (
   id SERIAL,
   country TEXT NOT NULL,
   year INTEGER NOT NULL,
-  cofinance BOOLEAN NOT NULL,
+  cofinance text NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY ("country") REFERENCES country (id)
 );
@@ -61,26 +53,8 @@ ALTER TABLE country_metadata
   ADD COLUMN gavi_region TEXT,
   ADD COLUMN gavi_pef_type TEXT,
 
-  ADD COLUMN continent TEXT NOT NULL,
-  ADD FOREIGN KEY ("continent") REFERENCES country_continent (id),
-
-  -- Xiang to think about:
-  -- ADD COLUMN continental_africa_gavi_supported BOOLEAN NOT NULL,
-  -- ADD COLUMN indo_pacific BOOLEAN NOT NULL,
-  -- ADD COLUMN regional_je BOOLEAN NOT NULL,
-  -- ADD COLUMN regional_mena BOOLEAN NOT NULL,
-  -- ADD COLUMN regional_yfv BOOLEAN NOT NULL,
-
 COMMENT ON COLUMN country_metadata.vxdel_segment IS
   'An internal grouping as used by BMFG to stratify countries';
-
-COMMENT ON COLUMN country_metadata.regional_je IS
-  'In this country JE is considered to be present?';
-COMMENT ON COLUMN country_metadata.regional_mena IS
-  'In this country MenA is considered to be present?';
-COMMENT ON COLUMN country_metadata.regional_yf IS
-  'In this country yellow fever is considered to be present?';
-
 
 CREATE TABLE country_worldbank_status (
   id TEXT NOT NULL
