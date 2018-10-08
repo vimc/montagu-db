@@ -12,7 +12,7 @@ CREATE TABLE country_gavi_region (
   name TEXT NOT NULL,
   primary KEY (id)
 );
-COMMENT ON TABLE gavi_region
+COMMENT ON TABLE country_gavi_region
   'include four types of gavi region interested by gavi doners';
 
 CREATE TABLE country_disease_endemic (
@@ -25,22 +25,51 @@ CREATE TABLE country_fragility (
   id SERIAL,
   country TEXT NOT NULL,
   year INTEGER NOT NULL,
-  fragility text NOT NULL,
+  is_fragile BOOLEAN NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY ("country") REFERENCES country (id)
+);
+
+CREATE TABLE cofinance_status (
+  id TEXT NOT NULL,
+  name TEXT NOT NULL,
+  primary KEY (id)
 );
 
 CREATE TABLE country_cofinance (
   id SERIAL,
   country TEXT NOT NULL,
   year INTEGER NOT NULL,
-  cofinance text NOT NULL,
+  cofinance_status text NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY ("country") REFERENCES country (id)
+  FOREIGN KEY ("cofinance_status") REFERENCES cofinance_status (id)
+);
+
+CREATE TABLE worldbank_status (
+  id TEXT NOT NULL
+  name TEXT NOT NULL
+  PRIMARY KEY (id)
+);
+COMMENT ON TABLE worldbank_status
+  'Country development status according to the worldbank';
+
+
+CREATE TABLE country_worldbank_income_status (
+  id  SERIAL,
+  touchstone TEXT NOT NULL,
+  country TEXT NOT NULL,
+  year INTEGER NOT NULL,
+  worldbank_status TEXT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (touchstone) REFERENCES touchstone(id),
+  FOREIGN KEY (country) REFERENCES country(id),
+  FOREIGN KEY (worldbank_status) REFERENCES worldbank_status(id),
+  UNIQUE (touchstone, country, year)
 );
 
 ALTER TABLE country_metadata
-  -- ADD COLUMN francophone INTEGER,
+  ADD COLUMN francophone TEXT NOT NULL,
   ADD COLUMN vxdel_segement TEXT NOT NULL,
   -- various country groupings
   ADD COLUMN pine_5 BOOLEAN NOT NULL,
@@ -53,27 +82,9 @@ ALTER TABLE country_metadata
   ADD COLUMN gavi_region TEXT,
   ADD COLUMN gavi_pef_type TEXT,
 
+COMMENT ON COLUMN country_metadata.francophone IS
+  '28 Gavi-supported French-speaking countries of interest to Gavi donors + 1 associated member + 4 observer counrties';
+
 COMMENT ON COLUMN country_metadata.vxdel_segment IS
   'An internal grouping as used by BMFG to stratify countries';
 
-CREATE TABLE country_worldbank_status (
-  id TEXT NOT NULL
-  name TEXT NOT NULL
-  PRIMARY KEY (id)
-);
-COMMENT ON TABLE worldbank_status
-  'Country development status according to the worldbank';
-
--- TODO: add not null constraints throughout
-CREATE TABLE country_worldbank_income_status (
-  id  SERIAL,
-  touchstone TEXT,
-  country TEXT,
-  year INTEGER,
-  worldbank_status TEXT,
-  PRIMARY KEY (id),
-  FOREIGN KEY (touchstone) REFERENCES touchstone(id),
-  FOREIGN KEY (country) REFERENCES country(id),
-  FOREIGN KEY (worldbank_status) REFERENCES country_worldbank_status(id),
-  UNIQUE (touchstone, country, year)
-);
