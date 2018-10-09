@@ -3,3 +3,4 @@ dump/
 *.dump
 .idea
 demography
+**/__pycache__/*
