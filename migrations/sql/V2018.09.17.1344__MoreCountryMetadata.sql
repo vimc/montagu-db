@@ -7,27 +7,32 @@
 -- some of the not-null constraints need to be relaxed until we have the data import done - this needs writing out as a second import.
 
 
-CREATE TABLE country_gavi_region (
+CREATE TABLE gavi_region (
   id TEXT NOT NULL,
   name TEXT NOT NULL,
   primary KEY (id)
 );
-COMMENT ON TABLE country_gavi_region
+COMMENT ON TABLE gavi_region
   'include four types of gavi region interested by gavi doners';
 
 CREATE TABLE country_disease_endemic (
+  touchstone TEXT NOT NULL,
   country TEXT  NOT NULL,
   disease TEXT  NOT NULL,
-  FOREIGN KEY ("country") REFERENCES country (id),
-  FOREIGN KEY ("disease") REFERENCES disease (id));
+  FOREIGN KEY (touchstone) REFERENCES touchstone(id),
+  FOREIGN KEY (country) REFERENCES country(id),
+  FOREIGN KEY (disease) REFERENCES disease(id)
+);
 
 CREATE TABLE country_fragility (
   id SERIAL,
+  touchstone TEXT NOT NULL,
   country TEXT NOT NULL,
   year INTEGER NOT NULL,
   is_fragile BOOLEAN NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY ("country") REFERENCES country (id)
+  FOREIGN KEY (touchstone) REFERENCES touchstone(id),
+  FOREIGN KEY (country) REFERENCES country(id)
 );
 
 CREATE TABLE cofinance_status (
@@ -38,12 +43,14 @@ CREATE TABLE cofinance_status (
 
 CREATE TABLE country_cofinance (
   id SERIAL,
+  touchstone TEXT NOT NULL,
   country TEXT NOT NULL,
   year INTEGER NOT NULL,
   cofinance_status text NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY ("country") REFERENCES country (id)
-  FOREIGN KEY ("cofinance_status") REFERENCES cofinance_status (id)
+  FOREIGN KEY (touchstone) REFERENCES touchstone(id),
+  FOREIGN KEY (country) REFERENCES country(id)
+  FOREIGN KEY (cofinance_status) REFERENCES cofinance_status(id)
 );
 
 CREATE TABLE worldbank_status (
@@ -78,6 +85,7 @@ ALTER TABLE country_metadata
   ADD COLUMN gavi77 BOOLEAN,
   ADD COLUMN dove96 BOOLEAN,
   ADD COLUMN gavi_region TEXT,
+  FOREIGN KEY (gavi_region) REFERENCES gavi_region(id),
   ADD COLUMN gavi_pef_type TEXT;
 
 COMMENT ON COLUMN country_metadata.francophone IS
