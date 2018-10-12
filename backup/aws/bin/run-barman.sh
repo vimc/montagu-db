@@ -6,9 +6,10 @@ user_and_host="aws@$db_host"
 source ./db_passwords && rm ./db_passwords
 
 mkdir barman && cd barman
-git clone https://github.com/vimc/montagu-db
+git clone --recursive https://github.com/vimc/montagu-db
 cd montagu-db/backup
-git checkout master
+git checkout i2260  # Return to master
+git submodule init && git submodule update
 pip3 install -r requirements.txt
 
 # http://www.harding.motd.ca/autossh/README.txt
@@ -30,10 +31,14 @@ autossh -M 20000 \
     -L 5432:$db_host:5432 \
     $user_and_host
 
+# The metrics won't get any data until barman is up and running, but they will
+# still work
+./start-metrics.sh
+
 # -u makes Python not buffer stdout, so we can monitor remotely
 # localhost is forwarded by SSH to the true host
 # For unknown reasons, this line refuses to break over multiple lines
-python3 -u ./barman-montagu setup --pull-image --image-source=vimc --no-clean-on-error --no-initial-backup --slot=barman_aws --volume_data=/mnt/data/barman_data --volume_logs=/mnt/data/barman_logs --volume_recover=/mnt/data/barman_recover localhost
+python3 -u ./barman-montagu setup --pull-image --image-source=vimc --no-clean-on-error --slot=barman_aws --volume_data=/mnt/data/barman_data --volume_logs=/mnt/data/barman_logs --volume_recover=/mnt/data/barman_recover localhost
 
 echo "------------------------------------------------------"
 echo "you maybe want to run a base backup now"
