@@ -5,13 +5,10 @@ FROM ubuntu:16.04
 # key from the postgres deb repo
 RUN apt-get update && \
         apt-get install -y --no-install-recommends \
-                cron \
-                python-flask \
+                git \
                 python3-pip \
                 python3-setuptools \
                 wget
-
-RUN pip3 install docopt
 
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
         apt-key add - && \
@@ -21,21 +18,25 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
                 barman \
                 postgresql-client-10
 
+RUN pip3 install \
+        docopt \
+        yacron
+
+ENV METRICS_UTILS_REF 4b2ef9b
+RUN git clone https://github.com/vimc/montagu-metrics-py /tmp/metrics_utils && \
+        git -C /tmp/metrics_utils reset --hard $METRICS_UTILS_REF && \
+        pip3 install -r /tmp/metrics_utils/requirements.txt && \
+        rm -rf /tmp/metrics_utils/.git && \
+        mv /tmp/metrics_utils /usr/local/lib/python3.5/dist-packages
+
 VOLUME /var/lib/barman
 VOLUME /var/log/barman
 VOLUME /recover
 VOLUME /nightly
+VOLUME /metrics
 
 COPY etc /etc
 COPY bin /usr/local/bin
+COPY schedule.yml /schedule.yml
 
-WORKDIR /app
-COPY metrics/app .
-RUN pip3 install -r requirements.txt
-RUN pip3 install -r montagu_metrics/requirements.txt
-
-ENV FLASK_APP=main.py
-ENV LC_ALL=C.UTF-8
-ENV LANG=C.UTF-8
-
-ENTRYPOINT ["flask", "run", "--host=0.0.0.0"]
+ENTRYPOINT ["barman-entrypoint"]

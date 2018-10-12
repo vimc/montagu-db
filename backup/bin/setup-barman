@@ -18,7 +18,7 @@ import subprocess
 import docopt
 
 
-def setup(verify=False):
+def setup():
     files = glob.glob("/etc/barman.d.in/*.json")
     conf = [read_barman_conf(x) for x in files]
     for x in conf:
@@ -27,12 +27,9 @@ def setup(verify=False):
     return conf
 
 
-def verify(conf, no_initial_backup):
+def verify(conf):
     for x in conf:
         test_connections(x)
-    if not no_initial_backup:
-        initial_backup(conf)
-    setup_cron(conf)
 
 
 def write_pgpass(dat):
@@ -109,21 +106,15 @@ def initial_backup(conf):
     subprocess.run(["barman", "cron"], check=True)
     for x in conf:
         nm = x['configuration_name']
-        force_archive(nm)
-        print("Running initial backup of {}".format(nm), flush=True)
-        subprocess.run(["barman", "backup", nm], check=True)
-        print("Checking barman status of {}".format(nm), flush=True)
-        subprocess.run(["barman", "check", nm], check=True)
-
-
-def setup_cron(conf):
-    print("Setting up cron jobs", flush=True)
-    # Once-per-minute cron job:
-    cron = "* * * * * root barman cron\n"
-    with open("/etc/cron.d/barman", 'w') as f:
-        f.write(cron)
-    print("Starting cron service", flush=True)
-    subprocess.run(["service", "cron", "start"], check=True)
+        base_dir = '/var/lib/barman/{}/base'.format(nm)
+        if os.path.exists(base_dir) and os.listdir(base_dir):
+            print("Base backup already exists for {}".format(nm))
+        else:
+            force_archive(nm)
+            print("Running initial backup of {}".format(nm), flush=True)
+            subprocess.run(["barman", "backup", nm], check=True)
+            print("Checking barman status of {}".format(nm), flush=True)
+            subprocess.run(["barman", "check", nm], check=True)
 
 
 # This seems a bit flakey to archive but usually runs just fine the
@@ -145,5 +136,10 @@ if __name__ == "__main__":
     args = docopt.docopt(__doc__)
     conf = setup()
     print("Arguments: {}".format(args))
+    ## NOTE: The '--no-verify' path is here for the case where we're
+    ## trying to set up barman to do recovery (see
+    ## bin/recover-last-no-server)
     if not args["--no-verify"]:
-        verify(conf, args["--no-initial-backup"])
+        verify(conf)
+        if not args["--no-initial-backup"]:
+            initial_backup(conf)

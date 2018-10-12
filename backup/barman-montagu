@@ -24,7 +24,6 @@ Options:
                             [default: barman_recover]
   --volume_nightly<volume>  Volume name or path for nightly recover
                             [default: montagu_db_volume]
-  --no-initial-backup       Skip the initial backup
 """
 
 import os
@@ -45,6 +44,7 @@ BARMAN_CONTAINER = 'barman-montagu'
 BARMAN_VOLUMES = {
     'data': {'volume': 'barman_data', 'path': '/var/lib/barman'},
     'logs': {'volume': 'barman_logs', 'path': '/var/log/barman'},
+    'metrics': {'volume': 'barman_metrics', 'path': '/metrics'},
     'recover': {'volume': 'barman_recover', 'path': '/recover'},
     'nightly': {'volume': 'montagu_db_volume', 'path': '/nightly'}
 }
@@ -101,8 +101,7 @@ def destroy():
         volume_remove(v['volume'], d)
 
 
-def setup(host, slot, password_group, tag, registry, pull, clean_on_error,
-          no_initial_backup):
+def setup(host, slot, password_group, tag, registry, pull, clean_on_error):
     d = docker.client.from_env()
     barman = get_barman_container(error=False)
     if barman:
@@ -139,22 +138,8 @@ def setup(host, slot, password_group, tag, registry, pull, clean_on_error,
     barman = d.containers.run(image_name, name=BARMAN_CONTAINER, detach=True,
                               volumes=volume_mappings, environment=environment,
                               extra_hosts=extra_hosts, network=network,
+                              restart_policy={"Name": "always"},
                               ports={"5000": 5000})
-
-    args = ["setup-barman"]
-    if no_initial_backup:
-        args.append("--no-initial-backup")
-    print("Running: {} in container".format(" ".join(args)))
-    try:
-        exec_safely(barman, args, check=True, stream=True)
-    except:
-        if clean_on_error:
-            print("Cleaning up before exit")
-            barman.remove(force=True)
-            for v, newly_created in volumes:
-                if newly_created:
-                    v.remove()
-        raise
     return barman
 
 
@@ -287,8 +272,7 @@ def main():
               tag=args['--image-tag'],
               registry=args['--image-source'],
               pull=args['--pull-image'],
-              clean_on_error=not args['--no-clean-on-error'],
-              no_initial_backup=args['--no-initial-backup'])
+              clean_on_error=not args['--no-clean-on-error'])
     elif args['status']:
         status()
     elif args['barman']:
