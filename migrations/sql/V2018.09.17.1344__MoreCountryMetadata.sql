@@ -10,15 +10,17 @@
 CREATE TABLE gavi_region (
   id TEXT NOT NULL,
   name TEXT NOT NULL,
-  primary KEY (id)
+  PRIMARY KEY (id)
 );
 COMMENT ON TABLE gavi_region
-  'include four types of gavi region interested by gavi doners';
+  'include four types of gavi region interested by gavi donors';
 
 CREATE TABLE country_disease_endemic (
+  id SERIAL,
   touchstone TEXT NOT NULL,
   country TEXT  NOT NULL,
   disease TEXT  NOT NULL,
+  PRIMARY KEY (id),
   FOREIGN KEY (touchstone) REFERENCES touchstone(id),
   FOREIGN KEY (country) REFERENCES country(id),
   FOREIGN KEY (disease) REFERENCES disease(id)
@@ -38,7 +40,7 @@ CREATE TABLE country_fragility (
 CREATE TABLE cofinance_status (
   id TEXT NOT NULL,
   name TEXT NOT NULL,
-  primary KEY (id)
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE country_cofinance (
@@ -75,6 +77,13 @@ CREATE TABLE country_worldbank_income_status (
   UNIQUE (touchstone, country, year)
 );
 
+CREATE TABLE francophone_status (
+  id TEXT,
+  PRIMARY KEY (status)
+);
+COMMENT ON TABLE francophone_status
+  'Status within the Organisation internationale de la Francophonie';
+
 ALTER TABLE country_metadata
   ADD COLUMN francophone TEXT,
   ADD COLUMN vxdel_segement TEXT,
@@ -86,6 +95,7 @@ ALTER TABLE country_metadata
   ADD COLUMN dove96 BOOLEAN,
   ADD COLUMN gavi_region TEXT,
   FOREIGN KEY (gavi_region) REFERENCES gavi_region(id),
+  FOREIGN KEY (francophone) REFERENCES francophone_status(id),
   ADD COLUMN gavi_pef_type TEXT;
 
 COMMENT ON COLUMN country_metadata.francophone IS
