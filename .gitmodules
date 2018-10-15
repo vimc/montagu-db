@@ -2,9 +2,6 @@
 	path = backup/aws/vault
 	url = https://github.com/vimc/montagu-vault-py
 
-[submodule "backup/metrics/app/montagu_metrics"]
-	path = backup/metrics/app/montagu_metrics
-	url = https://github.com/vimc/montagu-metrics-py.git
 [submodule "backup/cached-metrics"]
 	path = backup/cached-metrics
 	url = https://github.com/vimc/cached-metrics
