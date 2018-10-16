@@ -12,7 +12,7 @@ CREATE TABLE gavi_region (
   name TEXT NOT NULL,
   PRIMARY KEY (id)
 );
-COMMENT ON TABLE gavi_region
+COMMENT ON TABLE gavi_region IS
   'include four types of gavi region interested by gavi donors';
 
 CREATE TABLE country_disease_endemic (
@@ -60,7 +60,7 @@ CREATE TABLE worldbank_status (
   name TEXT NOT NULL
   PRIMARY KEY (id)
 );
-COMMENT ON TABLE worldbank_status
+COMMENT ON TABLE worldbank_status IS
   'Country development status according to the worldbank';
 
 
@@ -81,14 +81,14 @@ CREATE TABLE francophone_status (
   id TEXT,
   PRIMARY KEY (id)
 );
-COMMENT ON TABLE francophone_status
+COMMENT ON TABLE francophone_status IS
   'Status within the Organisation internationale de la Francophonie';
 
 CREATE TABLE vxdel_segement (
   id TEXT,
   PRIMARY KEY (id)
 );
-COMMENT ON TABLE vxdel_segement
+COMMENT ON TABLE vxdel_segement IS
   'Status within BMGF vxdel country classifiecation';
 
 ALTER TABLE country_metadata
