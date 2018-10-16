@@ -101,9 +101,9 @@ ALTER TABLE country_metadata
   ADD COLUMN gavi77 BOOLEAN,
   ADD COLUMN dove96 BOOLEAN,
   ADD COLUMN gavi_region TEXT,
-  FOREIGN KEY (gavi_region) REFERENCES gavi_region(id),
-  FOREIGN KEY (francophone) REFERENCES francophone_status(id),
-  FOREIGN KEY (vxdel_segement) REFERENCES vxdel_segement(id),
+  ADD FOREIGN KEY (gavi_region) REFERENCES gavi_region(id),
+  ADD FOREIGN KEY (francophone) REFERENCES francophone_status(id),
+  ADD FOREIGN KEY (vxdel_segement) REFERENCES vxdel_segement(id),
   ADD COLUMN gavi_pef_type TEXT;
 
 COMMENT ON COLUMN country_metadata.francophone IS
