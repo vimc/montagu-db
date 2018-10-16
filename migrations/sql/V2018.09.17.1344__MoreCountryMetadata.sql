@@ -84,16 +84,16 @@ CREATE TABLE francophone_status (
 COMMENT ON TABLE francophone_status IS
   'Status within the Organisation internationale de la Francophonie';
 
-CREATE TABLE vxdel_segement (
+CREATE TABLE vxdel_segment (
   id TEXT,
   PRIMARY KEY (id)
 );
-COMMENT ON TABLE vxdel_segement IS
+COMMENT ON TABLE vxdel_segment IS
   'Status within BMGF vxdel country classifiecation';
 
 ALTER TABLE country_metadata
   ADD COLUMN francophone TEXT,
-  ADD COLUMN vxdel_segement TEXT,
+  ADD COLUMN vxdel_segment TEXT,
   ADD COLUMN pine_5 BOOLEAN,
   ADD COLUMN dove94 BOOLEAN,
   ADD COLUMN gavi68 BOOLEAN,
@@ -103,7 +103,7 @@ ALTER TABLE country_metadata
   ADD COLUMN gavi_region TEXT,
   ADD FOREIGN KEY (gavi_region) REFERENCES gavi_region(id),
   ADD FOREIGN KEY (francophone) REFERENCES francophone_status(id),
-  ADD FOREIGN KEY (vxdel_segement) REFERENCES vxdel_segement(id),
+  ADD FOREIGN KEY (vxdel_segment) REFERENCES vxdel_segment(id),
   ADD COLUMN gavi_pef_type TEXT;
 
 COMMENT ON COLUMN country_metadata.francophone IS
