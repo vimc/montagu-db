@@ -51,7 +51,7 @@ CREATE TABLE country_cofinance (
   cofinance_status text NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (touchstone) REFERENCES touchstone(id),
-  FOREIGN KEY (country) REFERENCES country(id)
+  FOREIGN KEY (country) REFERENCES country(id),
   FOREIGN KEY (cofinance_status) REFERENCES cofinance_status(id)
 );
 
