@@ -79,10 +79,17 @@ CREATE TABLE country_worldbank_income_status (
 
 CREATE TABLE francophone_status (
   id TEXT,
-  PRIMARY KEY (status)
+  PRIMARY KEY (id)
 );
 COMMENT ON TABLE francophone_status
   'Status within the Organisation internationale de la Francophonie';
+
+CREATE TABLE vxdel_segement (
+  id TEXT,
+  PRIMARY KEY (id)
+);
+COMMENT ON TABLE vxdel_segement
+  'Status within BMGF vxdel country classifiecation';
 
 ALTER TABLE country_metadata
   ADD COLUMN francophone TEXT,
@@ -96,6 +103,7 @@ ALTER TABLE country_metadata
   ADD COLUMN gavi_region TEXT,
   FOREIGN KEY (gavi_region) REFERENCES gavi_region(id),
   FOREIGN KEY (francophone) REFERENCES francophone_status(id),
+  FOREIGN KEY (vxdel_segement) REFERENCES vxdel_segement(id),
   ADD COLUMN gavi_pef_type TEXT;
 
 COMMENT ON COLUMN country_metadata.francophone IS
