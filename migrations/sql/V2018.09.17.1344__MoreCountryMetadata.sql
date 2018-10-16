@@ -56,7 +56,7 @@ CREATE TABLE country_cofinance (
 );
 
 CREATE TABLE worldbank_status (
-  id TEXT NOT NULL
+  id TEXT NOT NULL,
   name TEXT NOT NULL
   PRIMARY KEY (id)
 );
