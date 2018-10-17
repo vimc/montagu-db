@@ -101,10 +101,10 @@ ALTER TABLE country_metadata
   ADD COLUMN gavi77 BOOLEAN,
   ADD COLUMN dove96 BOOLEAN,
   ADD COLUMN gavi_region TEXT,
+  ADD COLUMN gavi_pef_tier INTEGER;
   ADD FOREIGN KEY (gavi_region) REFERENCES gavi_region(id),
   ADD FOREIGN KEY (francophone) REFERENCES francophone_status(id),
   ADD FOREIGN KEY (vxdel_segment) REFERENCES vxdel_segment(id),
-  ADD COLUMN gavi_pef_tier INTEGER;
 
 COMMENT ON COLUMN country_metadata.francophone IS
   '28 Gavi-supported French-speaking countries of interest to Gavi donors + 1 associated member + 4 observer counrties';
