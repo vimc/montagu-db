@@ -104,7 +104,7 @@ ALTER TABLE country_metadata
   ADD FOREIGN KEY (gavi_region) REFERENCES gavi_region(id),
   ADD FOREIGN KEY (francophone) REFERENCES francophone_status(id),
   ADD FOREIGN KEY (vxdel_segment) REFERENCES vxdel_segment(id),
-  ADD COLUMN gavi_pef_type TEXT;
+  ADD COLUMN gavi_pef_tier INTEGER;
 
 COMMENT ON COLUMN country_metadata.francophone IS
   '28 Gavi-supported French-speaking countries of interest to Gavi donors + 1 associated member + 4 observer counrties';
@@ -112,6 +112,6 @@ COMMENT ON COLUMN country_metadata.francophone IS
 COMMENT ON COLUMN country_metadata.vxdel_segment IS
   'An internal grouping as used by BMFG to stratify countries';
 
-COMMENT ON COLUMN country_metadata.gavi_pef_type IS
-  'Gavi Partners engagement framework';
+COMMENT ON COLUMN country_metadata.gavi_pef_tier IS
+  'Gavi Partners engagement framework; Tier 1, 2 or 3 (stored as integer). NULL values indicate "Not PEF"';
 
