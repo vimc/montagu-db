@@ -64,7 +64,7 @@ COMMENT ON TABLE worldbank_status IS
   'Country development status according to the worldbank';
 
 
-CREATE TABLE country_worldbank_income_status (
+CREATE TABLE country_worldbank_status (
   id  SERIAL,
   touchstone TEXT NOT NULL,
   country TEXT NOT NULL,
