@@ -1,7 +1,0 @@
-jobs:
-  - name: barman-cron
-    command: barman cron
-    schedule: "* * * * *"
-  - name: metrics
-    command: barman-save-metrics
-    schedule: "*/5 * * * *"
