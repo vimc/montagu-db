@@ -71,3 +71,7 @@ There is only one at present `/etc/montagu/postgresql.test.conf`, to use it add 
 ```
 docker run --rm docker.montagu.dide.ic.ac.uk:5000/montagu-db:master /etc/montagu/postgresql.test.conf
 ```
+
+## Streaming backups
+
+Backup infrastructure is available in the [montagu-db-backup](https://github.com/vimc/montagu-db-backup)
