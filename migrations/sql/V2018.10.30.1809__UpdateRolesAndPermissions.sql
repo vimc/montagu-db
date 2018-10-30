@@ -1,4 +1,4 @@
-DELETE FROM role_permisison WHERE role = 1 AND permission IN
+DELETE FROM role_permission WHERE role = 1 AND permission IN
 ('estimates.read',
 'modelling-groups.read',
 'users.read');
