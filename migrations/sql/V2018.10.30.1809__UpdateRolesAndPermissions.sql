@@ -5,13 +5,13 @@ DELETE FROM role_permission WHERE role = 1 AND permission IN
 
 DO $$
   declare admin int;
-  SELECT id FROM role INTO admin WHERE name = 'admin';
+  SELECT id INTO admin FROM role WHERE name = 'admin';
 
   declare developer int;
-  SELECT id FROM role INTO developer WHERE name = 'developer';
+  SELECT id INTO developer FROM role WHERE name = 'developer';
 
   declare member int;
-  SELECT id FROM role INTO member WHERE name = 'member';
+  SELECT id INTO member FROM role WHERE name = 'member';
 
   INSERT INTO role_permission VALUES (admin, 'estimates.read')
   INSERT INTO role_permission VALUES (admin, 'modelling-groups.read')
