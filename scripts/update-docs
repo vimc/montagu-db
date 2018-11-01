@@ -21,6 +21,9 @@ else
     git clone git@github.com:vimc/montagu-db-docs $DB_DOCS_PATH
 fi
 
+echo "Installing dependencies"
+pip3 install --user -r $DB_DOCS_PATH/requirements.txt
+
 echo "Generating documentation"
 $DB_DOCS_PATH/generate.py $DB_SHA
 
