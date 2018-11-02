@@ -17,8 +17,7 @@ begin
   INSERT INTO user_group_role (user_group, role, scope_id)
     SELECT user_group, role_id, ''
     FROM user_group_role
-    WHERE role = member
-  ON CONFLICT DO NOTHING;
+    WHERE role = member;
 
 end $$;
 
