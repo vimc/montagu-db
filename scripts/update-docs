@@ -7,7 +7,7 @@ DB_SHA=$(git -C $ROOT rev-parse --short=7 HEAD)
 DB_BRANCH=$(git -C $ROOT symbolic-ref --short HEAD)
 
 DB_DOCS_PATH=$ROOT/docs/www
-DB_DOCS_TARGET=`cat $ROOT/docs/target`
+DB_DOCS_REPO=`cat $ROOT/docs/destination_repo`
 
 if [ $DB_BRANCH != "master" ]; then
     echo "Not generating docs for branch $DB_BRANCH"
@@ -21,7 +21,7 @@ if [ -d $DB_DOCS_PATH ]; then
     git -C $DB_DOCS_PATH checkout master
     git -C $DB_DOCS_PATH reset --hard origin/master
 else
-    git clone "$DB_DOCS_TARGET" $DB_DOCS_PATH
+    git clone "$DB_DOCS_REPO" $DB_DOCS_PATH
 fi
 
 echo "Installing dependencies"

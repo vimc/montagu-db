@@ -26,22 +26,22 @@ def build_schemaspy():
     return tag
 
 
-def git_commit(db_sha, target):
+def git_commit(db_sha, local_docs_path):
     print("creating commit")
     msg = 'Generated docs for db version {sha}'.format(sha=db_sha)
     try:
-        subprocess.run(['git', '-C', target, 'add', 'docs/' + db_sha,
+        subprocess.run(['git', '-C', local_docs_path, 'add', 'docs/' + db_sha,
                         'index.html', 'latest'],
                        check=True)
-        subprocess.run(['git', '-C', target, 'commit', '--no-verify',
+        subprocess.run(['git', '-C', local_docs_path, 'commit', '--no-verify',
                         '-m', msg],
                        check=True)
     except Exception as err:
-        subprocess.run(['git', '-C', target, 'reset'], check=False)
+        subprocess.run(['git', '-C', local_docs_path, 'reset'], check=False)
         raise err
 
 
-def generate(db_sha, target):
+def generate(db_sha, local_docs_path):
     registry = 'docker.montagu.dide.ic.ac.uk:5000'
     db_image_name = '{registry}/montagu-db:{db_sha}'.format(
         db_sha=db_sha, registry=registry)
@@ -53,7 +53,7 @@ def generate(db_sha, target):
     client = docker.from_env()
     command = '-host {db} -db montagu -u vimc '.format(db=db_name) + \
               '-p changeme -s public -o /output'
-    dest = os.path.join(target, 'docs', db_sha)
+    dest = os.path.join(local_docs_path, 'docs', db_sha)
     volumes = {os.path.abspath(dest): {'bind': '/output', 'mode': 'rw'}}
     uid = os.geteuid()
     schemaspy = build_schemaspy()
@@ -92,8 +92,8 @@ def generate(db_sha, target):
                 'date_generated': datetime_format(datetime.now())}
         with open(dest + '/info.json', 'w') as f:
             json.dump(info, f)
-        generate_index(target)
-        git_commit(db_sha, target)
+        generate_index(local_docs_path)
+        git_commit(db_sha, local_docs_path)
         success = True
     finally:
         if db:
@@ -107,11 +107,11 @@ def generate(db_sha, target):
     return True
 
 
-def generate_index(target):
+def generate_index(local_docs_path):
     print("updating index")
 
-    paths = [os.path.join(target, 'docs', x, 'info.json')
-             for x in os.listdir(os.path.join(target, 'docs'))]
+    paths = [os.path.join(local_docs_path, 'docs', x, 'info.json')
+             for x in os.listdir(os.path.join(local_docs_path, 'docs'))]
     dat = [read_json(p) for p in paths if os.path.exists(p)]
     dat = sorted(dat, key=lambda x: x['date_image'], reverse=True)
 
@@ -123,10 +123,10 @@ def generate_index(target):
     data = dat[0]
     data['versions'] = '\n'.join([fmt.format(**i) for i in dat])
     index = template.format(**data)
-    with open(os.path.join(target, 'index.html'), 'w') as f:
+    with open(os.path.join(local_docs_path, 'index.html'), 'w') as f:
         f.write(index)
 
-    latest = os.path.join(target, "latest")
+    latest = os.path.join(local_docs_path, "latest")
     if os.path.exists(latest):
         os.remove(latest)
     os.symlink('docs/' + data['sha'] + "/", latest)
