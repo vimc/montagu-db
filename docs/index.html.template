@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>montagu-db</title>
+    </head>
+    <body>
+        <h1>Latest version</h1>
+        <p>
+          <a href="docs/{sha}/index.html">Latest version of the
+            documentation</a>
+          sha <code>{sha}</code>,
+          built {date_image},
+          generated {date_generated}
+        </p>
+        <h1>All versions</h1>
+        <ul>
+            {versions}
+        </ul>
+    </body>
+</html>

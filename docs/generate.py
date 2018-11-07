@@ -22,25 +22,26 @@ def read_json(filename):
 def build_schemaspy():
     client = docker.from_env()
     tag = 'schemaspy.latest'
-    img = client.images.build(path='docker', tag=tag)
+    img = client.images.build(path='.', tag=tag)
     return tag
 
 
-def git_commit(db_sha):
+def git_commit(db_sha, target):
     print("creating commit")
     msg = 'Generated docs for db version {sha}'.format(sha=db_sha)
     try:
-        subprocess.run(['git', 'add', 'docs/' + db_sha, 'index.html',
-                        'latest'],
+        subprocess.run(['git', '-C', target, 'add', 'docs/' + db_sha,
+                        'index.html', 'latest'],
                        check=True)
-        subprocess.run(['git', 'commit', '--no-verify', '-m', msg],
+        subprocess.run(['git', '-C', target, 'commit', '--no-verify',
+                        '-m', msg],
                        check=True)
     except Exception as err:
-        subprocess.run(['git', 'reset'], check=False)
+        subprocess.run(['git', '-C', target, 'reset'], check=False)
         raise err
 
 
-def generate(db_sha):
+def generate(db_sha, target):
     registry = 'docker.montagu.dide.ic.ac.uk:5000'
     db_image_name = '{registry}/montagu-db:{db_sha}'.format(
         db_sha=db_sha, registry=registry)
@@ -52,13 +53,13 @@ def generate(db_sha):
     client = docker.from_env()
     command = '-host {db} -db montagu -u vimc '.format(db=db_name) + \
               '-p changeme -s public -o /output'
-    dest = 'docs/' + db_sha
+    dest = os.path.join(target, 'docs', db_sha)
     volumes = {os.path.abspath(dest): {'bind': '/output', 'mode': 'rw'}}
     uid = os.geteuid()
     schemaspy = build_schemaspy()
     if os.path.exists(dest):
         if os.path.exists(dest + '/info.json'):
-            print("Already created docs for ", db_sha)
+            print("Already created docs for '{}'".format(db_sha))
             return False
     else:
         os.makedirs(dest)
@@ -91,13 +92,12 @@ def generate(db_sha):
                 'date_generated': datetime_format(datetime.now())}
         with open(dest + '/info.json', 'w') as f:
             json.dump(info, f)
-        generate_index()
-        git_commit(db_sha)
+        generate_index(target)
+        git_commit(db_sha, target)
         success = True
     finally:
         if db:
-            db.stop(timeout=1)
-            db.remove()
+            db.remove(force = True)
         if nw:
             nw.remove()
         if not success:
@@ -107,10 +107,11 @@ def generate(db_sha):
     return True
 
 
-def generate_index():
+def generate_index(target):
     print("updating index")
 
-    paths = [os.path.join('docs', x, 'info.json') for x in os.listdir('docs')]
+    paths = [os.path.join(target, 'docs', x, 'info.json')
+             for x in os.listdir(os.path.join(target, 'docs'))]
     dat = [read_json(p) for p in paths if os.path.exists(p)]
     dat = sorted(dat, key=lambda x: x['date_image'], reverse=True)
 
@@ -122,17 +123,19 @@ def generate_index():
     data = dat[0]
     data['versions'] = '\n'.join([fmt.format(**i) for i in dat])
     index = template.format(**data)
-    with open('index.html', 'w') as f:
+    with open(os.path.join(target, 'index.html'), 'w') as f:
         f.write(index)
-    if os.path.exists("latest"):
-        os.remove("latest")
-    os.symlink('docs/' + data['sha'] + "/", "latest")
+
+    latest = os.path.join(target, "latest")
+    if os.path.exists(latest):
+        os.remove(latest)
+    os.symlink('docs/' + data['sha'] + "/", latest)
 
 
 if __name__ == "__main__":
     root = os.path.dirname(os.path.realpath(__file__))
     os.chdir(root)
     args = sys.argv[1:]
-    if len(args) != 1:
-        raise Exception("Expected exactly one argument")
-    generate(args[0])
+    if len(args) != 2:
+        raise Exception("Expected exactly two arguments")
+    generate(args[0], args[1])

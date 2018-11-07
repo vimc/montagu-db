@@ -2,15 +2,18 @@
 set -e
 
 ROOT=$(dirname $(dirname $(realpath $0)))
+
 DB_SHA=$(git -C $ROOT rev-parse --short=7 HEAD)
-DB_BRANCH=$(git symbolic-ref --short HEAD)
+DB_BRANCH=$(git -C $ROOT symbolic-ref --short HEAD)
+
+DB_DOCS_PATH=$ROOT/docs/www
+DB_DOCS_TARGET=`cat $ROOT/docs/target`
 
 if [ $DB_BRANCH != "master" ]; then
     echo "Not generating docs for branch $DB_BRANCH"
     exit 0
 fi
 
-DB_DOCS_PATH=$ROOT/montagu-db-docs
 
 if [ -d $DB_DOCS_PATH ]; then
     echo "Updating sources"
@@ -18,14 +21,14 @@ if [ -d $DB_DOCS_PATH ]; then
     git -C $DB_DOCS_PATH checkout master
     git -C $DB_DOCS_PATH reset --hard origin/master
 else
-    git clone git@github.com:vimc/montagu-db-docs $DB_DOCS_PATH
+    git clone "$DB_DOCS_TARGET" $DB_DOCS_PATH
 fi
 
 echo "Installing dependencies"
-pip3 install --user -r $DB_DOCS_PATH/requirements.txt
+pip3 install --user -r $ROOT/docs/requirements.txt
 
 echo "Generating documentation"
-$DB_DOCS_PATH/generate.py $DB_SHA
+$ROOT/docs/generate.py $DB_SHA $DB_DOCS_PATH
 
 echo "Pushing to github"
 git -C $DB_DOCS_PATH push
