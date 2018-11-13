@@ -47,3 +47,11 @@ docker run --network=montagu_default \
 on live, where the version will equal to or greater than the last of these 
 retroactive migrations. This way, Flyway will not attempt to run these 
 migrations on production.
+
+## Fixing mis-ordered migrations
+If you accidentally deploy a migration to production that has been erroneously dated to 
+a future date, to fix it you will need to 
+1. Rename the migration script in this repo to reflect the date it was actually run
+2. Manually edit the `schema_version` table to reflect the new name. Use the 
+`montagu-data` repo to do this, as per [this](https://github.com/vimc/montagu-data/blob/9d500278adf683c85a75edf7506efb5ec580e443/2018-064-i2381-fix-migration/README.md)
+example
