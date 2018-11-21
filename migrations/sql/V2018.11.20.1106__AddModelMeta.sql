@@ -1,11 +1,13 @@
---- Note for review
+--- What this Migration is about
+--- comment on model.is_current
+--- &
 --- creating three new table
 --- 1. model_version_meta
 --- 2. model_version_vaccine
 --- 3. model_version_country
 
 COMMENT ON COLUMN model.is_current IS
-  'whether the model is currently running for VIMC';
+  'TRUE if the model is currently running for VIMC.';
 
 CREATE TABLE model_version_meta (
   id SERIAL,
@@ -25,21 +27,21 @@ CREATE TABLE model_version_meta (
   FOREIGN KEY (gender) REFERENCES gender(id)
 );
 COMMENT ON TABLE model_version_meta IS
-  'general model metadata, including whether models consider herd effect, how models are coded, whether models provide DALYs, model observation shape - age/cohort/year ranges';
+  'General model metadata, including whether models consider herd effect, how models are coded, whether models provide DALYs, model observation shape - age/cohort/year ranges.';
 
 CREATE TABLE model_version_vaccine (
   id SERIAL,
   model_version INTEGER NOT NULL,
   vaccine TEXT NOT NULL, 
   activity_type TEXT NOT NULL, 
-  order INTEGER NOT NULL,
+  delivery_order INTEGER NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (model_version) REFERENCES model_version(id),
   FOREIGN KEY (vaccine) REFERENCES vaccine(id),
   FOREIGN KEY (activity_type) REFERENCES activity_type(id)
 );
 COMMENT ON TABLE model_version_vaccine IS
-  'specify which vaccine deliveries are evaluated in each model';
+  'Specify which vaccine deliveries (in delivery order) are evaluated in each model.';
 
 CREATE TABLE model_version_country (
   id SERIAL,
@@ -51,7 +53,7 @@ CREATE TABLE model_version_country (
   FOREIGN KEY (country) REFERENCES country(id)
 );
 COMMENT ON TABLE model_version_country IS
-  'specify which countries are evaluated in each model, and which countries are considered in small-scale model run';
+  'Specify which countries are evaluated in each model, and which countries are considered in small-scale model run.';
 
 
 
