@@ -19,4 +19,4 @@ WHERE id = 'low';
 
 UPDATE gavi_support_level
 SET name = 'Assuming 10% above OP coverage'
-WHERE id = 'bestcase';
+WHERE id = 'high';
