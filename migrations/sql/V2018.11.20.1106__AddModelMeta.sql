@@ -55,6 +55,17 @@ CREATE TABLE model_version_country (
 COMMENT ON TABLE model_version_country IS
   'Specify which countries are evaluated in each model, and which countries are considered in small-scale model run.';
 
+CREATE TABLE model_version_outcome (
+  id SERIAL,
+  model_version INTEGER NOT NULL,
+  outcome TEXT NOT NULL, 
+  PRIMARY KEY (id),
+  FOREIGN KEY (model_version) REFERENCES model_version(id),
+  FOREIGN KEY (outcome) REFERENCES burden_outcome(code)
+);
+COMMENT ON TABLE model_version_outcome IS
+  'Specify which burden outcomes are returned from each model.';
+
 
 
 
