@@ -5,6 +5,9 @@
 --- 1. model_version_meta
 --- 2. model_version_vaccine
 --- 3. model_version_country
+ALTER table model_version
+	DROP COLUMN note,
+	DROP COLUMN fingerprint;
 
 COMMENT ON COLUMN model.is_current IS
   'TRUE if the model is currently running for VIMC.';
