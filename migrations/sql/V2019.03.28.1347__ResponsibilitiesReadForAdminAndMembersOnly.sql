@@ -1,5 +1,5 @@
 -- user role
-DELETE FROM role_permision WHERE role=1 AND permission='responsibilities.read';
+DELETE FROM role_permission WHERE role=1 AND permission='responsibilities.read';
 
 -- member role
 INSERT INTO role_permission VALUES (9, 'responsibilities.read');
