@@ -16,5 +16,5 @@ BEGIN
   INSERT INTO role_permission VALUES (member_role, 'responsibilities.read');
   INSERT INTO role_permission VALUES (funder_role, 'responsibilities.read');
   INSERT INTO role_permission VALUES (admin_role, 'responsibilities.read');
-  INSERT INTO role_permission VALUES (devleoper_role, 'responsibilities.read');
+  INSERT INTO role_permission VALUES (developer_role, 'responsibilities.read');
 END $$;
