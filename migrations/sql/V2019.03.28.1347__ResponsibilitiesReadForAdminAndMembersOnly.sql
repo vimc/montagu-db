@@ -1,14 +1,20 @@
--- user role
-DELETE FROM role_permission WHERE role=1 AND permission='responsibilities.read';
+DO $$
+  DECLARE user_role INT;
+  DECLARE member_role INT;
+  DECLARE funder_role INT;
+  DECLARE admin_role INT;
+  DECLARE developer_role INT;
+BEGIN
+  SELECT id INTO user_role FROM role WHERE name = 'user'
+  SELECT id INTO member_role FROM role WHERE name = 'member'
+  SELECT id INTO funder_role FROM role WHERE name = 'funder'
+  SELECT id INTO admin_role FROM role WHERE name = 'admin'
+  SELECT id INTO developer_role FROM role WHERE name = 'developer'
 
--- member role
-INSERT INTO role_permission VALUES (9, 'responsibilities.read');
+  DELETE FROM role_permission WHERE role=user_role AND permission='responsibilities.read';
 
--- funder role
-INSERT INTO role_permission VALUES (16, 'responsibilities.read');
-
--- admin role
-INSERT INTO role_permission VALUES (17, 'responsibilities.read');
-
--- developer role
-INSERT INTO role_permission VALUES (18, 'responsibilities.read');
+  INSERT INTO role_permission VALUES (member_role, 'responsibilities.read');
+  INSERT INTO role_permission VALUES (funder_role, 'responsibilities.read');
+  INSERT INTO role_permission VALUES (admin_role, 'responsibilities.read');
+  INSERT INTO role_permission VALUES (devleoper_role, 'responsibilities.read');
+END $$;
