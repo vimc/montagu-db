@@ -1,5 +1,3 @@
-BEGIN;
-
 CREATE TABLE dettl_import_log (
   name       TEXT PRIMARY KEY,
   date       TIMESTAMP WITH TIME ZONE,
@@ -9,5 +7,3 @@ CREATE TABLE dettl_import_log (
   git_branch TEXT,
   git_hash   CHARACTER(40)
 );
-
-COMMIT;
