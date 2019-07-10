@@ -6,6 +6,5 @@ ALTER TABLE model
 
 ALTER TABLE model_version
     ADD COLUMN code text DEFAULT NULL,
-    ADD COLUMN is_dynamic boolean DEFAULT FALSE,
-    ADD COLUMN max_countries integer
+    ADD COLUMN is_dynamic boolean DEFAULT FALSE
     ;
