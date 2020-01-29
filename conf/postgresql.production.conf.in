@@ -26,7 +26,7 @@ max_connections = 100
 #------------------------------------------------------------------------------
 
 shared_buffers = 12GB
-work_mem = 64MB
+work_mem = 256MB
 maintenance_work_mem = 1GB
 
 dynamic_shared_memory_type = posix
@@ -36,9 +36,10 @@ dynamic_shared_memory_type = posix
 #------------------------------------------------------------------------------
 
 wal_level = replica
-max_wal_size = 1GB
+max_wal_size = 2GB
 checkpoint_completion_target = 0.9
 checkpoint_flush_after = 256kB
+checkpoint_timeout = 15min
 
 #------------------------------------------------------------------------------
 # REPLICATION
