@@ -25,7 +25,7 @@ max_connections = 100
 # RESOURCE USAGE (except WAL)
 #------------------------------------------------------------------------------
 
-shared_buffers = 12GB
+shared_buffers = 8GB
 work_mem = 64MB
 maintenance_work_mem = 1GB
 
