@@ -28,7 +28,7 @@ fi
 
 docker pull $ANNEX_IMAGE
 
-if docker inspect -f '{{.State.Running}}' $ANNEX_CONTAINER_NAME > /dev/null; then
+if docker inspect -f '{{.State.Running}}' $ANNEX_CONTAINER_NAME > /dev/null 2>&1; then
     echo "montagu db annex already exists: stopping"
     docker stop $ANNEX_CONTAINER_NAME
     docker rm $ANNEX_CONTAINER_NAME
