@@ -56,7 +56,6 @@ simpler set of scripts to the deploy (but similar).
 1. if a volume is not present one will be created
 1. start the db container and wait for it to allow connections
 1. if a volume _was_ created set the root password from the vault
-1. run the schema migrations
 
 ```
 ~/annex/annex/deploy.sh
@@ -73,16 +72,6 @@ To stop the container and remove the data volume run
 ```
 ~/annex/annex/destroy.sh
 ```
-
-## Migrations
-
-After initial deployment, migrations can be handled from the main montagu
-deployment. When deploying in production mode it will perform any required
-migrations.
-
-Re-deployment should only be required when updating the underlying postgres
-container (e.g., security fixes).
-
 ## Testing
 
 There is a script for testing the idea in [`testing`](testing) - this can likely
