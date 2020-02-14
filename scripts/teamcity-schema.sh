@@ -6,13 +6,24 @@ GIT_BRANCH=$(git symbolic-ref --short HEAD)
 REGISTRY=docker.montagu.dide.ic.ac.uk:5000
 NAME=montagu-db
 
-APP_DOCKER_TAG=$REGISTRY/$NAME
-APP_DOCKER_COMMIT_TAG=$REGISTRY/$NAME:$GIT_ID
-APP_DOCKER_BRANCH_TAG=$REGISTRY/$NAME:$GIT_BRANCH
+TAG=$REGISTRY/$NAME
+COMMIT_TAG=$TAG:$GIT_ID
+BRANCH_TAG=$TAG:$GIT_BRANCH
 
 docker build \
-       --tag $APP_DOCKER_COMMIT_TAG \
-       --tag $APP_DOCKER_BRANCH_TAG \
+       --tag $COMMIT_TAG \
+       --tag $BRANCH_TAG \
        .
-docker push $APP_DOCKER_BRANCH_TAG
-docker push $APP_DOCKER_COMMIT_TAG
+docker push $COMMIT_TAG
+docker push $BRANCH_TAG
+
+if [ "$GIT_BRANCH" == "master" ]; then
+    PUBLIC_REGISTRY=vimc
+    PUBLIC_TAG=$PUBLIC_REGISTRY/$NAME
+    PUBLIC_COMMIT_TAG=$PUBLIC_TAG:$GIT_ID
+    PUBLIC_BRANCH_TAG=$PUBLIC_TAG:$GIT_BRANCH
+    docker tag $BRANCH_TAG $PUBLIC_BRANCH_TAG
+    docker tag $BRANCH_TAG $PUBLIC_COMMIT_TAG
+    docker push $PUBLIC_BRANCH_TAG
+    docker push $PUBLIC_COMMIT_TAG
+fi
