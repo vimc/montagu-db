@@ -36,6 +36,7 @@ fi
 
 docker run -d \
        --restart=always \
+       --shm-size=512M \
        -p $ANNEX_PORT:5432 \
        -v $ANNEX_VOLUME_NAME:/pgdata \
        --name $ANNEX_CONTAINER_NAME \
