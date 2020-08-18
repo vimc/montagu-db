@@ -17,4 +17,4 @@ fi
 
 vault login -method=github
 vault read -field=password /secret/registry/vimc | \
-    docker login -u vimc --password-stdin docker.montagu.dide.ic.ac.uk:5000
+    docker login -u vimc --password-stdin

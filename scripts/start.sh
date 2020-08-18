@@ -29,10 +29,10 @@ if [[ ! -z $PG_TEST_MODE ]]; then
     PG_CONFIG=/etc/montagu/postgresql.test.conf
 fi
 
-REGISTRY=docker.montagu.dide.ic.ac.uk:5000
+ORG=vimc
 
-DB_IMAGE=$REGISTRY/montagu-db:$DB_VERSION
-MIGRATE_IMAGE=$REGISTRY/montagu-migrate:$DB_VERSION
+DB_IMAGE=$ORG/montagu-db:$DB_VERSION
+MIGRATE_IMAGE=$ORG/montagu-migrate:$DB_VERSION
 
 DB_CONTAINER=db
 DB_PORT=5432    # Exposed on host machine
@@ -48,7 +48,7 @@ trap cleanup EXIT
 docker network create $NETWORK
 
 # Pull fresh images, but if it fails continue so as to facilitate
-# situations with no registry access
+# situations with no ORG access
 docker pull $DB_IMAGE || true
 docker pull $MIGRATE_IMAGE || true
 
