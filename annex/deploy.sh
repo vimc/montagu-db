@@ -7,9 +7,9 @@ ANNEX_IMAGE_NAME=montagu-db
 ANNEX_IMAGE_VERSION=master
 ANNEX_PORT=15432
 
-MONTAGU_REGISTRY=docker.montagu.dide.ic.ac.uk:5000
+ORG=vimc
 
-ANNEX_IMAGE=${MONTAGU_REGISTRY}/${ANNEX_IMAGE_NAME}:${ANNEX_IMAGE_VERSION}
+ANNEX_IMAGE=${ORG}/${ANNEX_IMAGE_NAME}:${ANNEX_IMAGE_VERSION}
 
 if docker volume inspect $ANNEX_VOLUME_NAME > /dev/null 2>&1; then
     echo "montagu db annex volume already exists"

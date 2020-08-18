@@ -39,7 +39,7 @@ initial suite of migrations we can run:
 ```
 password=$(vault read -field=password secret/database/production/users/import)
 docker run --network=montagu_default \
-    docker.montagu.dide.ic.ac.uk:5000/montagu-migrate:master \   
+    vimc/montagu-migrate:master \   
     baseline -baselineVersion=2017.09.06.1055 \
     -user=import -password=$password
 ```

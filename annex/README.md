@@ -43,7 +43,7 @@ The password for su is stored in the vault.
 git clone https://github.com/vimc/montagu-db ~/annex
 ~/annex/annex/vault-auth
 vault read -field=password /secret/registry/vimc | \
-    docker login -u vimc --password-stdin docker.montagu.dide.ic.ac.uk:5000
+    docker login -u vimc --password-stdin
 ```
 
 ## Deployment

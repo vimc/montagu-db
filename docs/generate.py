@@ -42,7 +42,7 @@ def git_commit(db_sha, local_docs_path):
 
 
 def generate(db_sha, local_docs_path):
-    registry = 'docker.montagu.dide.ic.ac.uk:5000'
+    registry = 'vimc'
     db_image_name = '{registry}/montagu-db:{db_sha}'.format(
         db_sha=db_sha, registry=registry)
     migrate_image_name = '{registry}/montagu-migrate:{db_sha}'.format(
