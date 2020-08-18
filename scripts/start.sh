@@ -47,10 +47,8 @@ trap cleanup EXIT
 
 docker network create $NETWORK
 
-# Pull fresh images, but if it fails continue so as to facilitate
-# situations with no ORG access
-docker pull $DB_IMAGE || true
-docker pull $MIGRATE_IMAGE || true
+docker pull $DB_IMAGE
+docker pull $MIGRATE_IMAGE
 
 # First the core database:
 docker run --rm --network=$NETWORK -d \
