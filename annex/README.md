@@ -74,5 +74,4 @@ To stop the container and remove the data volume run
 ```
 ## Testing
 
-There is a script for testing the idea in [`testing`](testing) - this can likely
-be removed as things get tested more formally on teamcity.
+There is a script for testing the idea in [`testing`](testing)
