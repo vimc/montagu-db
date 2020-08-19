@@ -13,4 +13,4 @@ steps:
   - wait
 
   - label: ":shipit: Generate docs"
-    command: scripts/update-docs.sh
+    command: scripts/update-docs
