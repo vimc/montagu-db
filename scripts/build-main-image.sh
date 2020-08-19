@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 set -e
+HERE=$(dirname $0)
+. $HERE/common
 
-GIT_ID=$(git rev-parse --short=7 HEAD)
-GIT_BRANCH=$(git symbolic-ref --short HEAD)
-ORG=vimc
 NAME=montagu-db
 
 TAG=$ORG/$NAME

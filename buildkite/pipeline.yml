@@ -1,0 +1,11 @@
+steps:
+  - label: ":shipit: Build and push migrations image"
+    command: scripts/build-migrations-image.sh
+
+  - label: ":shipit: Build and push main image"
+    command: scripts/build-main-image.sh
+
+  - wait
+
+  - label: ":shipit: Generate docs"
+    command: scripts/update-docs.sh

@@ -1,19 +1,17 @@
 #!/usr/bin/env bash
 set -e
+HERE=$(dirname $0)
+. $HERE/common
 
 ROOT=$(dirname $(dirname $(realpath $0)))
-
-DB_SHA=$(git -C $ROOT rev-parse --short=7 HEAD)
-DB_BRANCH=$(git -C $ROOT symbolic-ref --short HEAD)
 
 DB_DOCS_PATH=$ROOT/docs/www
 DB_DOCS_REPO=`cat $ROOT/docs/destination_repo`
 
-if [ $DB_BRANCH != "master" ]; then
-    echo "Not generating docs for branch $DB_BRANCH"
+if [ $GIT_BRANCH != "master" ]; then
+    echo "Not generating docs for branch $GIT_BRANCH"
     exit 0
 fi
-
 
 if [ -d $DB_DOCS_PATH ]; then
     echo "Updating sources"
@@ -28,7 +26,7 @@ echo "Installing dependencies"
 pip3 install --user -r $ROOT/docs/requirements.txt
 
 echo "Generating documentation"
-$ROOT/docs/generate.py $DB_SHA $DB_DOCS_PATH
+$ROOT/docs/generate.py $GIT_ID $DB_DOCS_PATH
 
 echo "Pushing to github"
 git -C $DB_DOCS_PATH push
