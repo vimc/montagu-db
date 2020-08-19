@@ -9,7 +9,7 @@ Vyear.month.day.hour.minute__Description.sql
 ```
 
 These migrations can be applied by running the `montagu-migrate` image that gets
-built from this repository by TeamCity. They will automatically be applied to
+built from this repository by Buildkite. They will automatically be applied to
 real systems as part of the deploy process.
 
 The `montagu-migrate` image expects the database to be running and accessible 
@@ -24,7 +24,7 @@ You can override these by passing in command line options. Please see the Flyway
 docs for more details.
 
 ## Generate documentation
-Once TeamCity has build and the db Docker image has been pushed, run [the tool](https://github.com/vimc/montagu-db-docs) against the short commit hash.
+Once Buildkite has built and the db Docker image has been pushed, run [the tool](https://github.com/vimc/montagu-db-docs) against the short commit hash.
 
 ## Baselining
 Because we started without migrations, I have created a number of 

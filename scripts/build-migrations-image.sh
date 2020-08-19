@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
-set -ex
+set -e
+HERE=$(dirname $0)
+. $HERE/common
 
-GIT_ID=$(git rev-parse --short=7 HEAD)
-GIT_BRANCH=$(git symbolic-ref --short HEAD)
-ORG=vimc
 NAME=montagu-migrate
 
 TAG=$ORG/$NAME
@@ -22,7 +21,3 @@ docker build \
 # run this first to avoid a spurious pull error message
 docker push $COMMIT_TAG
 docker push $BRANCH_TAG
-
-export PG_TEST_MODE=1
-$DIR/start.sh $GIT_ID
-$DIR/stop.sh
