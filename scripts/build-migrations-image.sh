@@ -21,7 +21,3 @@ docker build \
 # run this first to avoid a spurious pull error message
 docker push $COMMIT_TAG
 docker push $BRANCH_TAG
-
-export PG_TEST_MODE=1
-$DIR/start.sh $GIT_ID
-$DIR/stop.sh

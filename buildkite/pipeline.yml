@@ -1,9 +1,14 @@
 steps:
-  - label: ":shipit: Build and push migrations image"
+  - label: ":construction_worker: Build and push migrations image"
     command: scripts/build-migrations-image.sh
 
-  - label: ":shipit: Build and push main image"
+  - label: ":construction_worker: Build and push main image"
     command: scripts/build-main-image.sh
+
+  - wait
+
+  - label: ":mag: Test"
+    command: scripts/test.sh
 
   - wait
 
