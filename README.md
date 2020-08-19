@@ -1,4 +1,6 @@
 # Montagu Database
+[![Build status](https://badge.buildkite.com/4d056eb9896833e8eec68d737724324f683077ce0d6286dcad.svg?branch=master)](https://buildkite.com/mrc-ide/montagu-db)
+
 ## View the documentation
 You can view the full documentation for the master branch
 [here](https://vimc.github.io/montagu-db-docs/latest) (see [here](https://vimc.github.io/montagu-db-docs) for previous versions).
