@@ -50,7 +50,7 @@ function cleanup {
 }
 trap cleanup EXIT
 
-docker network create $NETWORK
+docker network create $NETWORK || true
 
 docker pull $DB_IMAGE
 docker pull $MIGRATE_IMAGE

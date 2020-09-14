@@ -6,5 +6,5 @@ if [[ ! -z $DB_NETWORK ]]; then
     NETWORK=$DB_NETWORK
 fi
 
-docker stop db
-docker network rm $NETWORK
+docker stop db || true
+docker network rm $NETWORK || true
