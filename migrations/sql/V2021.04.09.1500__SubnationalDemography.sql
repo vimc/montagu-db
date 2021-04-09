@@ -6,14 +6,14 @@ PRIMARY KEY ("id") ,
 UNIQUE ("id", "name")
 );
 
-ALTER TABLE "subnational_region" ADD FOREIGN KEY ("country") REFERENCES "country" ("id");
+ALTER TABLE "subnational_region" ADD FOREIGN KEY ("country") REFERENCES "country" ("nid");
 
 CREATE TABLE "subnational_demographic_statistic" (
 "region" INTEGER NOT NULL ,
 "age_from" INTEGER NOT NULL ,
 "age_to" INTEGER NOT NULL ,
-"value" REAL NOT NULL ,
-"year" DECIMAL NOT NULL ,
+"value" DECIMAL NOT NULL ,
+"year" INTEGER NOT NULL ,
 "gender" INTEGER NOT NULL ,
 "demographic_dataset" INTEGER NOT NULL
 );
