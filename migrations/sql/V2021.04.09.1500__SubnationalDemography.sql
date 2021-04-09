@@ -9,7 +9,6 @@ UNIQUE ("id", "name")
 );
 
 ALTER TABLE "region_subnational" ADD FOREIGN KEY ("country") REFERENCES "country" ("nid");
-ALTER TABLE "parent_id" REFERENCES region_subnational ("id");
 
 CREATE TABLE "demographic_subnational_statistic" (
 "id" SERIAL NOT NULL ,
