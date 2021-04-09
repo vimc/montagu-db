@@ -2,6 +2,8 @@ CREATE TABLE "subnational_region" (
 "id" SERIAL NOT NULL ,
 "country" INTEGER NOT NULL ,
 "name" TEXT NOT NULL ,
+"admin_level" INTEGER NOT NULL ,
+"parent_id" INTEGER,
 PRIMARY KEY ("id") ,
 UNIQUE ("id", "name")
 );
@@ -9,6 +11,7 @@ UNIQUE ("id", "name")
 ALTER TABLE "subnational_region" ADD FOREIGN KEY ("country") REFERENCES "country" ("nid");
 
 CREATE TABLE "subnational_demographic_statistic" (
+"id" SERIAL NOT NULL ,
 "region" INTEGER NOT NULL ,
 "age_from" INTEGER NOT NULL ,
 "age_to" INTEGER NOT NULL ,
