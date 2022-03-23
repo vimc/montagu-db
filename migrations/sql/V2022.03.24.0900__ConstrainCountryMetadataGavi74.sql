@@ -1,0 +1,2 @@
+ALTER TABLE country_metadata
+  ALTER COLUMN gavi74 SET NOT NULL;
