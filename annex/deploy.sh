@@ -16,9 +16,9 @@ if docker volume inspect $ANNEX_VOLUME_NAME > /dev/null 2>&1; then
     INITIAL_DEPLOY=0
 else
     echo "Fetching annex password"
-    export VAULT_ADDR=https://support.montagu.dide.ic.ac.uk:8200
+    export VAULT_ADDR=https://vault.dide.ic.ac.uk:8200
     vault login -method=github
-    ANNEX_VIMC_PASSWORD=$(vault read -field=password /secret/annex/users/vimc)
+    ANNEX_VIMC_PASSWORD=$(vault read -field=password /secret/vimc/annex/users/vimc)
 
     echo "Creating montagu db annex volume"
     INITIAL_DEPLOY=1

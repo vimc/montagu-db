@@ -16,5 +16,5 @@ else
 fi
 
 vault login -method=github
-vault read -field=password /secret/registry/vimc | \
+vault read -field=password /secret/vimc/registry/vimc | \
     docker login -u vimc --password-stdin
