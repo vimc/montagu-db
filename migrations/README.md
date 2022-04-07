@@ -37,7 +37,7 @@ We can manage this with Flyway's baseline feature. Once I have written this
 initial suite of migrations we can run:
 
 ```
-password=$(vault read -field=password secret/database/production/users/import)
+password=$(vault read -field=password secret/vimc/database/production/users/import)
 docker run --network=montagu_default \
     vimc/montagu-migrate:master \   
     baseline -baselineVersion=2017.09.06.1055 \

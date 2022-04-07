@@ -11,7 +11,7 @@ cd montagu-backup
 # Read data from the local database (just restored) and the real annex
 vault login -method=github
 set +x
-export PGPASSWORD=$(vault read -field=value secret/annex/password)
+export PGPASSWORD=$(vault read -field=value secret/vimc/annex/password)
 
 set -x
 test_query="SELECT * FROM burden_estimate_stochastic 
