@@ -1,4 +1,4 @@
-FROM postgres:10.3
+FROM postgres:14.2
 COPY bin /montagu-bin
 ENV PATH="/montagu-bin:$PATH"
 ENV POSTGRES_DB montagu
@@ -14,7 +14,7 @@ RUN cat /etc/montagu/postgresql.conf /etc/montagu/postgresql.test.conf.in > \
 RUN cat /etc/montagu/postgresql.conf /etc/montagu/postgresql.production.conf.in > \
         /etc/montagu/postgresql.production.conf
 RUN chown -R postgres:postgres /etc/montagu
-RUN ./docker-entrypoint.sh --version
+RUN docker-entrypoint.sh --version
 
 RUN cp /montagu-bin/create-users.sh /docker-entrypoint-initdb.d/
 
