@@ -59,8 +59,8 @@ docker pull $MIGRATE_IMAGE
 docker run --rm --network=$NETWORK -d \
     --name $DB_CONTAINER $PORT_MAPPING $DB_IMAGE $PG_CONFIG
 
-# Wait for things to become responsive
-docker exec $DB_CONTAINER montagu-wait.sh
+# Wait for things to become responsive - allow two minutes
+docker exec $DB_CONTAINER montagu-wait.sh 120
 
 # Do the migrations
 docker run --rm --network=$NETWORK $MIGRATE_IMAGE
