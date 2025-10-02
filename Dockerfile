@@ -1,4 +1,4 @@
-FROM postgres:14.2
+FROM postgres:17
 COPY bin /montagu-bin
 ENV PATH="/montagu-bin:$PATH"
 ENV POSTGRES_DB montagu
