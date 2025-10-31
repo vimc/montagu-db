@@ -1,4 +1,7 @@
 # Montagu Database
+
+**THIS REPO HAS BEEN ARCHIVED. MONTAGU DB HAS BEEN MOVED TO [MONTAGU SYSTEM](https://github.com/vimc/montagu-system)**
+
 [![Build status](https://badge.buildkite.com/4d056eb9896833e8eec68d737724324f683077ce0d6286dcad.svg?branch=master)](https://buildkite.com/mrc-ide/montagu-db)
 
 ## View the documentation
